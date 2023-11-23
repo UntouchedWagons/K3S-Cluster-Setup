@@ -1,0 +1,16 @@
+# https://artifacthub.io/packages/helm/damoun/proxmox-exporter
+# https://grafana.com/grafana/dashboards/10347-proxmox-via-prometheus/
+# helm install proxmox-exporter --values ./production/monitoring-proxmox/01-proxmox-exporter.yaml --create-namespace --namespace monitoring-proxmox damoun/proxmox-exporter --version 1.5.0
+
+config: |
+    default:
+      user: root@pam
+      password: SocialExtraordinaryStreet
+      # Optional: set to false to skip SSL/TLS verification
+      verify_ssl: false
+
+livenessProbe:
+  initialDelaySeconds: 15
+
+readinessProbe:
+  initialDelaySeconds: 15

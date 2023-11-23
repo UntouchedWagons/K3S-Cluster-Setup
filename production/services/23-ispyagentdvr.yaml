@@ -1,0 +1,143 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ispyagentdvr
+  namespace: default
+  labels:
+    app: ispyagentdvr
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: ispyagentdvr
+  template:
+    metadata:
+      labels:
+        app: ispyagentdvr
+    spec:
+      securityContext:
+        fsGroup: 30000
+      containers:
+        - name: ispyagentdvr
+          image: doitandbedone/ispyagentdvr:5.0.2.0
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: "2"
+            limits:
+              memory: 512Mi
+              cpu: "4"
+          volumeMounts:
+            - mountPath: /agent/Media/XML/
+              name: ispyagentdvr-config
+            - mountPath: /agent/Media/WebServerRoot/Media/
+              name: ispyagentdvr-media
+          env:
+            - name: TZ
+              value: "America/Toronto"
+        - name: backup
+          image: untouchedwagons/simple-backup:1.0.4
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /data
+              name: ispyagentdvr-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/ispyagentdvr"
+            - name: BACKUP_BASE_NAME
+              value: "ispyagentdvr"
+            - name: BACKUP_RETENTION
+              value: "24"
+            - name: BACKUP_FREQUENCY
+              value: "0 */8 * * *"
+      volumes:
+        - name: ispyagentdvr-config
+          persistentVolumeClaim:
+            claimName: ispyagentdvr-config
+        - name: backups
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Backups
+        - name: ispyagentdvr-media
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/ISpyAgentDVR
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ispyagentdvr
+  namespace: default
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 192.168.0.218
+  selector:
+    app: ispyagentdvr
+  ports:
+    - name: http
+      targetPort: 8090
+      port: 80
+    - name: turn
+      protocol: UDP
+      targetPort: 3478
+      port: 3478
+    - name: webrtc-00
+      protocol: UDP
+      targetPort: 50000
+      port: 50000
+    - name: webrtc-01
+      protocol: UDP
+      targetPort: 50001
+      port: 50001
+    - name: webrtc-02
+      protocol: UDP
+      targetPort: 50002
+      port: 50002
+    - name: webrtc-03
+      protocol: UDP
+      targetPort: 50003
+      port: 50003
+    - name: webrtc-04
+      protocol: UDP
+      targetPort: 50004
+      port: 50004
+    - name: webrtc-05
+      protocol: UDP
+      targetPort: 50005
+      port: 50005
+    - name: webrtc-06
+      protocol: UDP
+      targetPort: 50006
+      port: 50006
+    - name: webrtc-07
+      protocol: UDP
+      targetPort: 50007
+      port: 50007
+    - name: webrtc-08
+      protocol: UDP
+      targetPort: 50008
+      port: 50008
+    - name: webrtc-09
+      protocol: UDP
+      targetPort: 50009
+      port: 50009
+    - name: webrtc-10
+      protocol: UDP
+      targetPort: 50010
+      port: 50010
+
+# http://192.168.0.218/video.mjpg?group=doors&size=640x480&cycle=5&backColor=0,0,0

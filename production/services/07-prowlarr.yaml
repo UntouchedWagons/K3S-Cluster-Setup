@@ -1,0 +1,120 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: prowlarr
+  namespace: default
+  labels:
+    app: prowlarr
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: prowlarr
+  template:
+    metadata:
+      labels:
+        app: prowlarr
+    spec:
+      securityContext:
+        fsGroup: 30000
+      containers:
+        - name: prowlarr
+          image: lscr.io/linuxserver/prowlarr:version-1.9.4.4039
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - all
+              add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          volumeMounts:
+          - mountPath: /config
+            name: prowlarr-config
+          env:
+            - name: PUID
+              value: "30000"
+            - name: PGID
+              value: "30000"
+            - name: TZ
+              value: "America/Toronto"
+        - name: backup
+          image: untouchedwagons/simple-backup:1.0.4
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /data
+              name: prowlarr-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/prowlarr"
+            - name: BACKUP_BASE_NAME
+              value: "prowlarr"
+            - name: BACKUP_RETENTION
+              value: "24"
+            - name: BACKUP_FREQUENCY
+              value: "0 0 * * *"
+      volumes:
+        - name: prowlarr-config
+          persistentVolumeClaim:
+            claimName: prowlarr-config
+        - name: backups
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Backups
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prowlarr
+  namespace: default
+spec:
+  selector:
+    app: prowlarr
+  ports:
+    - name: http
+      targetPort: 9696
+      port: 9696
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: prowlarr
+  namespace: default
+  annotations:
+    traefik.ingress.kubernetes.io/frontend-entry-points: http,https
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: prowlarr.internal.untouchedwagons.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: prowlarr
+            port:
+              number: 9696
+        path: /
+        pathType: Prefix
+  tls:
+    - hosts: 
+      - untouchedwagons.com
+      secretName: com-untouchedwagons-internal

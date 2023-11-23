@@ -1,0 +1,186 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: qbittorrent
+  namespace: default
+  labels:
+    app: qbittorrent
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: qbittorrent
+  template:
+    metadata:
+      labels:
+        app: qbittorrent
+    spec:
+      securityContext:
+        fsGroup: 30000
+      containers:
+        - name: gluetun
+          image: qmcgaw/gluetun:v3.35
+          resources:
+            limits:
+              memory: 768Mi
+              cpu: "1"
+            requests:
+              memory: 512Mi
+              cpu: "0.5"
+          env:
+            - name: VPN_SERVICE_PROVIDER
+              valueFrom:
+                secretKeyRef:
+                  name: qbittorrent-secrets
+                  key: VPN_SERVICE_PROVIDER
+            - name: VPN_TYPE
+              valueFrom:
+                secretKeyRef:
+                  name: qbittorrent-secrets
+                  key: VPN_TYPE
+            - name: WIREGUARD_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: qbittorrent-secrets
+                  key: WIREGUARD_PRIVATE_KEY
+            - name: WIREGUARD_PRESHARED_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: qbittorrent-secrets
+                  key: WIREGUARD_PRESHARED_KEY
+            - name: WIREGUARD_ADDRESSES
+              valueFrom:
+                secretKeyRef:
+                  name: qbittorrent-secrets
+                  key: WIREGUARD_ADDRESSES
+            - name: SERVER_COUNTRIES
+              valueFrom:
+                secretKeyRef:
+                  name: qbittorrent-secrets
+                  key: SERVER_COUNTRIES
+            - name: WIREGUARD_MTU
+              value: "1320"
+            - name: FIREWALL_VPN_INPUT_PORTS
+              value: "41183"
+            - name: FIREWALL_INPUT_PORTS
+              value: "8080"
+            - name: FIREWALL_OUTBOUND_SUBNETS
+              value: 192.168.0.0/16
+          securityContext:
+            privileged: true
+            capabilities:
+              add:
+                - NET_ADMIN
+        - name: qbittorrent
+          image: lscr.io/linuxserver/qbittorrent:4.6.0
+          resources:
+            limits:
+              memory: 2048Mi
+              cpu: "2"
+            requests:
+              memory: 1024Mi
+              cpu: "1"
+          # securityContext:
+          #   runAsUser: 30000
+          #   runAsGroup: 30000
+          #   allowPrivilegeEscalation: false
+          #   runAsNonRoot: true
+          #   readOnlyRootFilesystem: true
+          #   capabilities:
+          #     drop:
+          #       - ALL
+          env:
+            - name: TZ
+              value: "America/Toronto"
+            - name: WEBUI_PORT
+              value: "8080"
+            - name: QBITTORRENT__BT_PORT
+              value: "41183"
+            - name: PUID
+              value: "30000"
+            - name: PGID
+              value: "30000"
+          volumeMounts:
+            - mountPath: /config/
+              name: qbittorrent-config
+            - mountPath: /mnt/data/Torrents
+              name: torrents
+        - name: backup
+          image: untouchedwagons/simple-backup:1.0.4
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /data
+              name: qbittorrent-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/qbittorrent"
+            - name: BACKUP_BASE_NAME
+              value: "qbittorrent"
+            - name: BACKUP_RETENTION
+              value: "24"
+            - name: BACKUP_FREQUENCY
+              value: 0 */4 * * *
+      volumes:
+        - name: qbittorrent-config
+          persistentVolumeClaim:
+            claimName: qbittorrent-config
+        - name: backups
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Backups
+        - name: torrents
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Torrents
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qbittorrent
+  namespace: default
+spec:
+  selector:
+    app: qbittorrent
+  ports:
+    - name: http
+      targetPort: 8080
+      port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: qbittorrent
+  namespace: default
+  annotations:
+    traefik.ingress.kubernetes.io/frontend-entry-points: http,https
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: qbittorrent.internal.untouchedwagons.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: qbittorrent
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+  tls:
+    - hosts: 
+      - untouchedwagons.com
+      secretName: com-untouchedwagons-internal

@@ -1,0 +1,68 @@
+# https://github.com/onedr0p/exportarr/
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: sonarr-exporter
+  namespace: monitoring-exportarr
+  labels:
+    app: sonarr-exportarr
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: sonarr-exportarr
+  template:
+    metadata:
+      labels:
+        app: sonarr-exportarr
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9707"
+    spec:
+      containers:
+        - name: sonarr-exporter
+          image: ghcr.io/onedr0p/exportarr:v1.5.3
+          args:
+            - sonarr
+          env:
+            - name: PORT
+              value: "9707"
+            - name: URL
+              value: "http://sonarr.default.svc.cluster.local:8989"
+            - name: APIKEY
+              value: "0fe183143c5745269ae3b9ea163c8f85"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonarr-exportarr
+  namespace: monitoring-exportarr
+  labels:
+    app: sonarr-exportarr
+spec:
+  selector:
+    app: sonarr-exportarr
+  ports:
+    - name: monitoring
+      port: 9707
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: sonarr
+  namespace: monitoring
+spec:
+  staticConfigs:
+    - targets:
+        - sonarr-exportarr.monitoring-exportarr.svc.cluster.local:9707
+  metricsPath: /metrics

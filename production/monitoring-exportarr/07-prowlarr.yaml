@@ -1,0 +1,68 @@
+# https://github.com/onedr0p/exportarr/
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: prowlarr-exporter
+  namespace: monitoring-exportarr
+  labels:
+    app: prowlarr-exportarr
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: prowlarr-exportarr
+  template:
+    metadata:
+      labels:
+        app: prowlarr-exportarr
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9707"
+    spec:
+      containers:
+        - name: prowlarr-exporter
+          image: ghcr.io/onedr0p/exportarr:v1.5.3
+          args:
+            - prowlarr
+          env:
+            - name: PORT
+              value: "9707"
+            - name: URL
+              value: "http://prowlarr.default.svc.cluster.local:9696"
+            - name: APIKEY
+              value: "cfbe69f11b9e4ad8b2e04269bf83a297"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prowlarr-exportarr
+  namespace: monitoring-exportarr
+  labels:
+    app: prowlarr-exportarr
+spec:
+  selector:
+    app: prowlarr-exportarr
+  ports:
+    - name: monitoring
+      port: 9707
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: prowlarr
+  namespace: monitoring
+spec:
+  staticConfigs:
+    - targets:
+        - prowlarr-exportarr.monitoring-exportarr.svc.cluster.local:9707
+  metricsPath: /metrics

@@ -1,0 +1,115 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: vaultwarden
+  namespace: default
+  labels:
+    app: vaultwarden
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: vaultwarden
+  template:
+    metadata:
+      labels:
+        app: vaultwarden
+    spec:
+      securityContext:
+        fsGroup: 30000
+      containers:
+        - name: vaultwarden
+          image: vaultwarden/server:1.30.0-alpine
+          securityContext:
+            runAsUser: 30000
+            runAsGroup: 30000
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            limits:
+              memory: 64Mi
+              cpu: "1"
+            requests:
+              memory: 32Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /data
+              name: vaultwarden-config
+        - name: backup
+          image: untouchedwagons/simple-backup:1.0.4
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /data
+              name: vaultwarden-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/vaultwarden"
+            - name: BACKUP_BASE_NAME
+              value: "vaultwarden"
+            - name: BACKUP_RETENTION
+              value: "24"
+            - name: BACKUP_FREQUENCY
+              value: "0 */8 * * *"
+      volumes:
+        - name: vaultwarden-config
+          persistentVolumeClaim:
+            claimName: vaultwarden-config
+        - name: backups
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Backups
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vaultwarden
+  namespace: default
+spec:
+  selector:
+    app: vaultwarden
+  ports:
+    - name: http
+      targetPort: 80
+      port: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vaultwarden
+  namespace: default
+  annotations:
+    traefik.ingress.kubernetes.io/frontend-entry-points: http,https
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: vaultwarden.internal.untouchedwagons.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: vaultwarden
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+    - hosts: 
+      - untouchedwagons.com
+      secretName: com-untouchedwagons-internal

@@ -1,0 +1,68 @@
+# https://github.com/onedr0p/exportarr/
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: lidarr-exporter
+  namespace: monitoring-exportarr
+  labels:
+    app: lidarr-exportarr
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: lidarr-exportarr
+  template:
+    metadata:
+      labels:
+        app: lidarr-exportarr
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9707"
+    spec:
+      containers:
+        - name: lidarr-exporter
+          image: ghcr.io/onedr0p/exportarr:v1.5.3
+          args:
+            - lidarr
+          env:
+            - name: PORT
+              value: "9707"
+            - name: URL
+              value: "http://lidarr.default.svc.cluster.local:8686"
+            - name: APIKEY
+              value: "1555da6d78404bffb22c90ace2b31b31"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lidarr-exportarr
+  namespace: monitoring-exportarr
+  labels:
+    app: lidarr-exportarr
+spec:
+  selector:
+    app: lidarr-exportarr
+  ports:
+    - name: monitoring
+      port: 9707
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: lidarr
+  namespace: monitoring
+spec:
+  scrapeTimeout: "30s"
+  staticConfigs:
+    - targets:
+        - lidarr-exportarr.monitoring-exportarr.svc.cluster.local:9707
+  metricsPath: /metrics

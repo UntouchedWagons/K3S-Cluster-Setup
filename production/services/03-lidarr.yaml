@@ -1,0 +1,138 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: lidarr
+  namespace: default
+  labels:
+    app: lidarr
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: lidarr
+  template:
+    metadata:
+      labels:
+        app: lidarr
+    spec:
+      securityContext:
+        fsGroup: 30000
+      containers:
+        - name: lidarr
+          image: linuxserver/lidarr:amd64-nightly-version-2.0.0.3696
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - all
+              add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: "2"
+            requests:
+              memory: 512Mi
+              cpu: "1"
+          volumeMounts:
+            - mountPath: /config
+              name: lidarr-config
+            - mountPath: /mnt/data/Music
+              name: music
+            - mountPath: /mnt/data/Torrents
+              name: torrents
+            - mountPath: /mnt/data/Usenet
+              name: usenet
+          env:
+            - name: PUID
+              value: "30000"
+            - name: PGID
+              value: "30000"
+            - name: TZ
+              value: "America/Toronto"
+        - name: backup
+          image: untouchedwagons/simple-backup:1.0.4
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /data
+              name: lidarr-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/lidarr"
+            - name: BACKUP_BASE_NAME
+              value: "lidarr"
+            - name: BACKUP_RETENTION
+              value: "24"
+            - name: BACKUP_FREQUENCY
+              value: "0 0 * * *"
+      volumes:
+        - name: lidarr-config
+          persistentVolumeClaim:
+            claimName: lidarr-config
+        - name: backups
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Backups
+        - name: music
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Music
+        - name: torrents
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Torrents
+        - name: usenet
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Usenet
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lidarr
+  namespace: default
+spec:
+  selector:
+    app: lidarr
+  ports:
+    - name: http
+      targetPort: 8686
+      port: 8686
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lidarr
+  namespace: default
+  annotations:
+    traefik.ingress.kubernetes.io/frontend-entry-points: http,https
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: lidarr.internal.untouchedwagons.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: lidarr
+            port:
+              number: 8686
+        path: /
+        pathType: Prefix
+  tls:
+    - hosts: 
+      - untouchedwagons.com
+      secretName: com-untouchedwagons-internal

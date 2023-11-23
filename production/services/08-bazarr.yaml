@@ -1,0 +1,126 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: bazarr
+  namespace: default
+  labels:
+    app: bazarr
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: bazarr
+  template:
+    metadata:
+      labels:
+        app: bazarr
+    spec:
+      securityContext:
+        fsGroup: 30000
+      containers:
+        - name: bazarr
+          image: linuxserver/bazarr:version-v1.3.0
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - all
+              add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 256Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /config
+              name: bazarr-config
+            - mountPath: /mnt/data/Videos
+              name: videos
+          env:
+            - name: PUID
+              value: "30000"
+            - name: PGID
+              value: "30000"
+            - name: TZ
+              value: "America/Toronto"
+        - name: backup
+          image: untouchedwagons/simple-backup:1.0.4
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /data
+              name: bazarr-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/bazarr"
+            - name: BACKUP_BASE_NAME
+              value: "bazarr"
+            - name: BACKUP_RETENTION
+              value: "24"
+            - name: BACKUP_FREQUENCY
+              value: "0 0 * * *"
+      volumes:
+        - name: bazarr-config
+          persistentVolumeClaim:
+            claimName: bazarr-config
+        - name: backups
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Backups
+        - name: videos
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Videos
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bazarr
+  namespace: default
+spec:
+  selector:
+    app: bazarr
+  ports:
+    - name: http
+      targetPort: 6767
+      port: 6767
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bazarr
+  namespace: default
+  annotations:
+    traefik.ingress.kubernetes.io/frontend-entry-points: http,https
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: bazarr.internal.untouchedwagons.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: bazarr
+            port:
+              number: 6767
+        path: /
+        pathType: Prefix
+  tls:
+    - hosts: 
+      - untouchedwagons.com
+      secretName: com-untouchedwagons-internal

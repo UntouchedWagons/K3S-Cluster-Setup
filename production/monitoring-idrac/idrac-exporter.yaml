@@ -1,0 +1,133 @@
+# https://github.com/mrlhansen/idrac_exporter
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: idrac-config
+    namespace: monitoring
+data:
+    idrac.yml: |
+        address: 0.0.0.0 # Listen address
+        port: 9348         # Listen port
+        timeout: 10        # HTTP timeout (in seconds) for Redfish API calls
+        retries: 3         # Number of retries before a target is marked as unreachable
+        hosts:
+          default:
+            username: idrac-exporter
+            password: AblazeActAin
+        metrics:
+          system: true
+          sensors: true
+          power: true
+          sel: false       # iDRAC only
+          storage: false
+          memory: false
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+    name: idrac-exporter
+    namespace: monitoring
+    labels:
+        app: idrac-exporter
+spec:
+    replicas: 5
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 0
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: idrac-exporter
+    template:
+        metadata:
+            labels:
+                app: idrac-exporter
+        spec:
+            containers:
+                - name: idrac-exporter
+                  image: mrlhansen/idrac_exporter:1.0.0
+                  volumeMounts:
+                    - mountPath: /etc/prometheus/
+                      name: idrac-config
+            volumes:
+                - name: idrac-config
+                  configMap:
+                    name: idrac-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: idrac-exporter
+    namespace: monitoring
+spec:
+    type: LoadBalancer
+    selector:
+        app: idrac-exporter
+    ports:
+        - name: http
+          targetPort: 9348
+          port: 9348
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+    name: idrac-scrape-job-jnky182
+    namespace: monitoring
+spec:
+    scrapeTimeout: 1m
+    scrapeInterval: 2m
+    staticConfigs:
+        - targets:
+            - idrac-exporter.monitoring.svc.cluster.local:9348
+    metricsPath: /metrics
+    params:
+        target:
+            - idrac-jnky182.local.lan
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+    name: idrac-scrape-job-cjtyp22
+    namespace: monitoring
+spec:
+    scrapeTimeout: 1m
+    scrapeInterval: 2m
+    staticConfigs:
+        - targets:
+            - idrac-exporter.monitoring.svc.cluster.local:9348
+    metricsPath: /metrics
+    params:
+        target:
+            - idrac-cjtyp22.local.lan
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+    name: idrac-scrape-job-7p57cz1
+    namespace: monitoring
+spec:
+    scrapeTimeout: 1m
+    scrapeInterval: 2m
+    staticConfigs:
+        - targets:
+            - idrac-exporter.monitoring.svc.cluster.local:9348
+    metricsPath: /metrics
+    params:
+        target:
+            - idrac-7p57cz1.local.lan
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+    name: idrac-scrape-job-czblpd2
+    namespace: monitoring
+spec:
+    scrapeTimeout: 1m
+    scrapeInterval: 2m
+    staticConfigs:
+        - targets:
+            - idrac-exporter.monitoring.svc.cluster.local:9348
+    metricsPath: /metrics
+    params:
+        target:
+            - idrac-czblpd2.local.lan

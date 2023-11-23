@@ -1,0 +1,6 @@
+
+ingress:
+  enabled: true
+  host: "longhorn.internal.untouchedwagons.com"
+  tls: true
+  tlsSecret: "com-untouchedwagons-internal"

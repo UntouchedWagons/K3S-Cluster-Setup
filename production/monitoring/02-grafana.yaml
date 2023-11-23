@@ -1,0 +1,21 @@
+persistence:
+    enabled: true
+    storageClassName: longhorn
+ingress:
+    enabled: true
+    ingressClassName: traefik
+    hosts:
+        - grafana.internal.untouchedwagons.com
+    tls:
+        - secretName: com-untouchedwagons-internal
+          hosts:
+            - grafana.internal.untouchedwagons.com
+datasources:
+    datasources.yaml:
+        apiVersion: 1
+        datasources:
+            - name: Prometheus
+              type: prometheus
+              url: http://prometheus-operated:9090
+              access: proxy
+              isDefault: true

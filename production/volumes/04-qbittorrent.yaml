@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: qbittorrent-config
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: qbittorrent-vol-restore
+spec:
+  ttlSecondsAfterFinished: 10
+  template:
+    spec:
+      containers:
+      - name: restore
+        image: untouchedwagons/simple-restore:1.0.2
+        volumeMounts:
+          - mountPath: /data
+            name: qbittorrent-config
+          - mountPath: /backups
+            name: backups
+        env:
+          - name: BACKUP_APPEND_DIRECTORY
+            value: "/kubernetes/production/qbittorrent"
+          - name: BACKUP_BASE_NAME
+            value: "qbittorrent"
+      volumes:
+        - name: qbittorrent-config
+          persistentVolumeClaim:
+            claimName: qbittorrent-config
+        - name: backups
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Backups
+      restartPolicy: Never

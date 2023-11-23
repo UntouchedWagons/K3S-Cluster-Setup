@@ -1,0 +1,313 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: homepage
+  namespace: default
+  labels:
+    app: homepage
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: homepage
+  template:
+    metadata:
+      labels:
+        app: homepage
+    spec:
+      containers:
+        - name: homepage
+          image: ghcr.io/gethomepage/homepage:v0.8.0
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - all
+              add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /app/config
+              name: homepage-config
+            - mountPath: /app/config/logs
+              name: logs
+      
+      volumes:
+        - name: homepage-config
+          configMap:
+              name: homepage
+        - name: logs
+          emptyDir: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homepage
+  namespace: default
+spec:
+  selector:
+    app: homepage
+  ports:
+    - name: http
+      targetPort: 3000
+      port: 3000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: homepage
+  namespace: default
+  annotations:
+    traefik.ingress.kubernetes.io/frontend-entry-points: http,https
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: internal.untouchedwagons.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: homepage
+            port:
+              number: 3000
+        path: /
+        pathType: Prefix
+  tls:
+    - hosts: 
+      - untouchedwagons.com
+      secretName: com-untouchedwagons-internal
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: homepage
+    namespace: default
+    labels:
+        app.kubernetes.io/name: homepage
+data:
+    kubernetes.yaml: ""
+    settings.yaml: |
+        ---
+        # For configuration options and examples, please see:
+        # https://gethomepage.dev/en/configs/settings
+
+        layout:
+          Bookmarks:
+            style: row
+            columns: 3
+          Multimedia:
+            style: row
+            columns: 3
+          Download Clients:
+            style: row
+            columns: 2
+          Infrastructure:
+            style: row
+            columns: 3
+          Networking & Equipment:
+            style: row
+            columns: 3
+          Security:
+            style: row
+            columns: 3
+          Services:
+            style: row
+            columns: 3
+          Monitoring:
+            style: row
+            columns: 3
+    custom.css: ""
+    custom.js: ""
+    bookmarks.yaml: ""
+    services.yaml: |
+        - Bookmarks:
+            - Reddit:
+                icon: reddit.png
+                href: https://reddit.com
+            - YouTube:
+                icon: youtube.png
+                href: https://youtube.com
+            - Twitter:
+                icon: twitter.png
+                href: https://twitter.com
+            - Mastodon:
+                icon: mastodon.png
+                href: https://mstdn.ca
+            - Github:
+                icon: github.png
+                href: https://github.com
+        - Multimedia:
+            - Sonarr:
+                icon: sonarr.png
+                href: https://sonarr.internal.untouchedwagons.com
+                widget:
+                  type: sonarr
+                  url: https://sonarr.internal.untouchedwagons.com
+                  key: 0fe183143c5745269ae3b9ea163c8f85
+            - Radarr:
+                icon: radarr.png
+                href: https://radarr.internal.untouchedwagons.com
+                widget:
+                  type: radarr
+                  url: https://radarr.internal.untouchedwagons.com
+                  key: 96ce6b0dbd2f45159cde843c75930ace
+            - Prowlarr:
+                icon: prowlarr.png
+                href: https://prowlarr.internal.untouchedwagons.com
+                widget:
+                  type: prowlarr
+                  url: https://prowlarr.internal.untouchedwagons.com
+                  key: cfbe69f11b9e4ad8b2e04269bf83a297
+            - Bazarr:
+                icon: bazarr.png
+                href: https://bazarr.internal.untouchedwagons.com
+                widget:
+                  type: bazarr
+                  url: https://bazarr.internal.untouchedwagons.com
+                  key: ad7e2cf067762e0107f77b83b98f838f
+            - Lidarr:
+                icon: lidarr.png
+                href: https://lidarr.internal.untouchedwagons.com
+                widget:
+                  type: lidarr
+                  url: https://lidarr.internal.untouchedwagons.com
+                  key: 1555da6d78404bffb22c90ace2b31b31
+            - Jellyfin:
+                icon: jellyfin.png
+                href: https://jellyfin.internal.untouchedwagons.com
+                widget:
+                    type: jellyfin
+                    url: https://jellyfin.internal.untouchedwagons.com
+                    key: c8f345d99d1a47eba3eef1a75c946516
+
+        - Download Clients:
+            - qBitTorrent:
+                icon: qbittorrent.png
+                href: https://qbittorrent.internal.untouchedwagons.com
+                widget:
+                  type: qbittorrent
+                  url: https://qbittorrent.internal.untouchedwagons.com
+            - SABnzbd:
+                icon: sabnzbd.png
+                href: https://sabnzbd.internal.untouchedwagons.com
+                widget:
+                  type: sabnzbd
+                  url: https://sabnzbd.internal.untouchedwagons.com
+                  key: 441c51b1799e551d7b4757b179fe7e96
+
+        - Security:
+            - Front door camera:
+                icon: mdi-cctv
+                href: https://camera-01.local.lan
+            - Side door camera:
+                icon: mdi-cctv
+                href: https://camera-02.local.lan
+            - ISpyAgent DVR:
+                icon: ispy.png
+                href: http://192.168.0.218
+
+        - Networking & Equipment:
+            - Home Hub 3000:
+                icon: mdi-router-wireless
+                href: https://192.168.10.1
+            - pfSense:
+                icon: pfsense.png
+                href: http://pfsense.local.lan
+            - Unifi:
+                icon: unifi.png
+                href: https://unifi.local.lan:8443
+            - UPS Remote Management Card:
+                icon: mdi-car-battery
+                href: http://rmcard205.local.lan
+            - Dell R220 iDRAC:
+                icon: idrac.png
+                href: https://idrac-cjtyp22.local.lan
+            - Dell R420 iDRAC:
+                icon: idrac.png
+                href: https://idrac-7p57cz1.local.lan
+            - Dell R630 iDRAC:
+                icon: idrac.png
+                href: https://idrac-CZBLPD2.local.lan
+            - Dell R730XD iDRAC:
+                icon: idrac.png
+                href: https://idrac-jnky182.local.lan
+
+        - Infrastructure:
+            - Proxmox (PVE-Node-01):
+                icon: proxmox.png
+                href: https://pve-node-01.local.lan:8006
+                widget:
+                    type: proxmox
+                    url: https://pve-node-01.local.lan:8006
+                    username: api@pam!homepage
+                    password: 2041a948-ba79-44ed-b0ce-e9a5300cbc42
+            - Proxmox Backup Server:
+                icon: proxmox.png
+                href: https://vault.local.lan:8007
+                widget:
+                  type: proxmoxbackupserver
+                  url: https://vault.local.lan:8007
+                  username: root@pam!homepage
+                  password: a68b0d0f-a97b-4c57-9025-a54758686405
+            - Storage:
+                icon: truenas.png
+                href: http://storage.local.lan
+                widget:
+                    type: truenas
+                    url: http://storage.local.lan
+                    key: 5-HNWOUWMzFJTdpsoovUXgDSFkmSz1sndVnDqj35hgu12fIQbP0wbUBDNqQQWw4HAT
+            - Home Assistant:
+                icon: home-assistant.png
+                href: http://homeassistant.local.lan:8123
+            - Traefik:
+                icon: traefik.png
+                href: https://traefik.internal.untouchedwagons.com
+                widget:
+                  type: traefik
+                  url: https://traefik.internal.untouchedwagons.com
+            - Longhorn:
+                icon: longhorn.png
+                href: https://longhorn.internal.untouchedwagons.com
+            - Netboot.XYZ:
+                icon: netboot.png
+                href: http://netboot.local.lan
+
+        - Services:
+            - Vaultwarden:
+                icon: bitwarden.png
+                href: https://vaultwarden.internal.untouchedwagons.com
+            - IT Tools:
+                icon: it-tools.png
+                href: https://it-tools.internal.untouchedwagons.com
+
+        - Monitoring:
+            - LibreNMS:
+                icon: librenms.png
+                href: http://librenms.local.lan
+            - Grafana:
+                icon: grafana.png
+                href: https://grafana.internal.untouchedwagons.com
+            - Prometheus:
+                icon: prometheus.png
+                href: https://prometheus.internal.untouchedwagons.com
+            - Alert Manager:
+                icon: alertmanager.png
+                href: https://alertmanager.internal.untouchedwagons.com
+
+    widgets.yaml: |
+        - search:
+            provider: duckduckgo
+            target: _blank
+    docker.yaml: ""

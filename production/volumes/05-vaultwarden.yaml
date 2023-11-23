@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vaultwarden-config
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 256Mi
+# ---
+# apiVersion: batch/v1
+# kind: Job
+# metadata:
+#   name: vaultwarden-vol-restore
+# spec:
+#   ttlSecondsAfterFinished: 10
+#   template:
+#     spec:
+#       containers:
+#       - name: restore
+#         image: untouchedwagons/simple-restore:1.0.2
+#         volumeMounts:
+#           - mountPath: /data
+#             name: vaultwarden-config
+#           - mountPath: /backups
+#             name: backups
+#         env:
+#           - name: BACKUP_APPEND_DIRECTORY
+#             value: "/kubernetes/production/vaultwarden"
+#           - name: BACKUP_BASE_NAME
+#             value: "vaultwarden"
+#       volumes:
+#         - name: vaultwarden-config
+#           persistentVolumeClaim:
+#             claimName: vaultwarden-config
+#         - name: backups
+#           nfs:
+#             server: 192.168.0.30
+#             path: /mnt/tank/Media/Backups
+#       restartPolicy: Never

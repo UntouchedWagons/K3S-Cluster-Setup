@@ -1,0 +1,143 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: sonarr
+  namespace: default
+  labels:
+    app: sonarr
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: sonarr
+  template:
+    metadata:
+      labels:
+        app: sonarr
+    spec:
+      securityContext:
+        fsGroup: 30000
+      containers:
+        - name: sonarr
+          image: linuxserver/sonarr:version-3.0.10.1567
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - all
+              add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: "1"
+            requests:
+              memory: 512Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /config
+              name: sonarr-config
+            - mountPath: /mnt/data/Videos
+              name: videos
+            - mountPath: /mnt/data/Torrents
+              name: torrents
+            - mountPath: /mnt/data/Usenet
+              name: usenet
+            - mountPath: /tmp
+              name: tmp
+          env:
+            - name: PUID
+              value: "30000"
+            - name: PGID
+              value: "30000"
+            - name: TZ
+              value: "America/Toronto"
+        - name: backup
+          image: untouchedwagons/simple-backup:1.0.4
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /data
+              name: sonarr-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/sonarr"
+            - name: BACKUP_BASE_NAME
+              value: "sonarr"
+            - name: BACKUP_RETENTION
+              value: "24"
+            - name: BACKUP_FREQUENCY
+              value: "0 */4 * * *"
+      volumes:
+        - name: sonarr-config
+          persistentVolumeClaim:
+            claimName: sonarr-config
+        - name: backups
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Backups
+        - name: videos
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Videos
+        - name: torrents
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Torrents
+        - name: usenet
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Usenet
+        - name: tmp
+          emptyDir:
+            medium: Memory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonarr
+  namespace: default
+spec:
+  selector:
+    app: sonarr
+  ports:
+    - name: http
+      targetPort: 8989
+      port: 8989
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sonarr
+  namespace: default
+  annotations:
+    traefik.ingress.kubernetes.io/frontend-entry-points: http,https
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: sonarr.internal.untouchedwagons.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: sonarr
+            port:
+              number: 8989
+        path: /
+        pathType: Prefix
+  tls:
+    - hosts: 
+      - untouchedwagons.com
+      secretName: com-untouchedwagons-internal

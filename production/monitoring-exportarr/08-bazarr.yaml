@@ -1,0 +1,68 @@
+# https://github.com/onedr0p/exportarr/
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: bazarr-exporter
+  namespace: monitoring-exportarr
+  labels:
+    app: bazarr-exportarr
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: bazarr-exportarr
+  template:
+    metadata:
+      labels:
+        app: bazarr-exportarr
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9707"
+    spec:
+      containers:
+        - name: bazarr-exporter
+          image: ghcr.io/onedr0p/exportarr:v1.6.0
+          args:
+            - bazarr
+          env:
+            - name: PORT
+              value: "9707"
+            - name: URL
+              value: "http://bazarr.default.svc.cluster.local:6767"
+            - name: APIKEY
+              value: "ad7e2cf067762e0107f77b83b98f838f"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bazarr-exportarr
+  namespace: monitoring-exportarr
+  labels:
+    app: bazarr-exportarr
+spec:
+  selector:
+    app: bazarr-exportarr
+  ports:
+    - name: monitoring
+      port: 9707
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: bazarr
+  namespace: monitoring
+spec:
+  staticConfigs:
+    - targets:
+        - bazarr-exportarr.monitoring-exportarr.svc.cluster.local:9707
+  metricsPath: /metrics
