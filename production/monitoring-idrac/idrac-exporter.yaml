@@ -30,7 +30,7 @@ metadata:
     labels:
         app: idrac-exporter
 spec:
-    replicas: 5
+    replicas: 1
     progressDeadlineSeconds: 600
     revisionHistoryLimit: 0
     strategy:
@@ -82,7 +82,7 @@ spec:
     metricsPath: /metrics
     params:
         target:
-            - idrac-jnky182.local.lan
+            - idrac-jnky182.internal.untouchedwagons.com
 ---
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
@@ -98,7 +98,7 @@ spec:
     metricsPath: /metrics
     params:
         target:
-            - idrac-cjtyp22.local.lan
+            - idrac-cjtyp22.internal.untouchedwagons.com
 ---
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
@@ -114,7 +114,7 @@ spec:
     metricsPath: /metrics
     params:
         target:
-            - idrac-7p57cz1.local.lan
+            - idrac-7p57cz1.internal.untouchedwagons.com
 ---
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
@@ -130,4 +130,4 @@ spec:
     metricsPath: /metrics
     params:
         target:
-            - idrac-czblpd2.local.lan
+            - idrac-czblpd2.internal.untouchedwagons.com

@@ -10,4 +10,4 @@ spec:
     metricsPath: /pve
     params:
         target:
-            - pve-node-01.local.lan
+            - pve-node-01.internal.untouchedwagons.com

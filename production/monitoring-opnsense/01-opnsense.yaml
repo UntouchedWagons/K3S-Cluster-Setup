@@ -1,0 +1,9 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+    name: opnsense-exporter
+    namespace: monitoring
+spec:
+    staticConfigs:
+        - targets:
+            - opnsense.internal.untouchedwagons.com:9100

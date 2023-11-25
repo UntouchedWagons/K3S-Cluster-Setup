@@ -41,7 +41,7 @@ spec:
               name: homepage-config
             - mountPath: /app/config/logs
               name: logs
-      
+
       volumes:
         - name: homepage-config
           configMap:
@@ -210,10 +210,10 @@ data:
         - Security:
             - Front door camera:
                 icon: mdi-cctv
-                href: https://camera-01.local.lan
+                href: https://Camera-Front-Door.internal.untouchedwagons.com
             - Side door camera:
                 icon: mdi-cctv
-                href: https://camera-02.local.lan
+                href: https://Camera-Side-Door.internal.untouchedwagons.com
             - ISpyAgent DVR:
                 icon: ispy.png
                 href: http://192.168.0.218
@@ -222,55 +222,55 @@ data:
             - Home Hub 3000:
                 icon: mdi-router-wireless
                 href: https://192.168.10.1
-            - pfSense:
-                icon: pfsense.png
-                href: http://pfsense.local.lan
+            - OPNSense:
+                icon: opnsense.png
+                href: http://opnsense.internal.untouchedwagons.com
             - Unifi:
                 icon: unifi.png
-                href: https://unifi.local.lan:8443
+                href: https://unifi.internal.untouchedwagons.com:8443
             - UPS Remote Management Card:
                 icon: mdi-car-battery
-                href: http://rmcard205.local.lan
+                href: http://rmcard205.internal.untouchedwagons.com
             - Dell R220 iDRAC:
                 icon: idrac.png
-                href: https://idrac-cjtyp22.local.lan
+                href: https://idrac-cjtyp22.internal.untouchedwagons.com
             - Dell R420 iDRAC:
                 icon: idrac.png
-                href: https://idrac-7p57cz1.local.lan
+                href: https://idrac-7p57cz1.internal.untouchedwagons.com
             - Dell R630 iDRAC:
                 icon: idrac.png
-                href: https://idrac-CZBLPD2.local.lan
+                href: https://idrac-CZBLPD2.internal.untouchedwagons.com
             - Dell R730XD iDRAC:
                 icon: idrac.png
-                href: https://idrac-jnky182.local.lan
+                href: https://idrac-jnky182.internal.untouchedwagons.com
 
         - Infrastructure:
             - Proxmox (PVE-Node-01):
                 icon: proxmox.png
-                href: https://pve-node-01.local.lan:8006
+                href: https://pve-node-01.internal.untouchedwagons.com:8006
                 widget:
                     type: proxmox
-                    url: https://pve-node-01.local.lan:8006
+                    url: https://pve-node-01.internal.untouchedwagons.com:8006
                     username: api@pam!homepage
                     password: 2041a948-ba79-44ed-b0ce-e9a5300cbc42
             - Proxmox Backup Server:
                 icon: proxmox.png
-                href: https://vault.local.lan:8007
+                href: https://vault.internal.untouchedwagons.com:8007
                 widget:
                   type: proxmoxbackupserver
-                  url: https://vault.local.lan:8007
+                  url: https://vault.internal.untouchedwagons.com:8007
                   username: root@pam!homepage
                   password: a68b0d0f-a97b-4c57-9025-a54758686405
             - Storage:
                 icon: truenas.png
-                href: http://storage.local.lan
+                href: http://storage.internal.untouchedwagons.com
                 widget:
                     type: truenas
-                    url: http://storage.local.lan
+                    url: http://storage.internal.untouchedwagons.com
                     key: 5-HNWOUWMzFJTdpsoovUXgDSFkmSz1sndVnDqj35hgu12fIQbP0wbUBDNqQQWw4HAT
             - Home Assistant:
                 icon: home-assistant.png
-                href: http://homeassistant.local.lan:8123
+                href: http://homeassistant.internal.untouchedwagons.com:8123
             - Traefik:
                 icon: traefik.png
                 href: https://traefik.internal.untouchedwagons.com
@@ -282,7 +282,7 @@ data:
                 href: https://longhorn.internal.untouchedwagons.com
             - Netboot.XYZ:
                 icon: netboot.png
-                href: http://netboot.local.lan
+                href: http://netboot.internal.untouchedwagons.com
 
         - Services:
             - Vaultwarden:
@@ -295,7 +295,7 @@ data:
         - Monitoring:
             - LibreNMS:
                 icon: librenms.png
-                href: http://librenms.local.lan
+                href: http://librenms.internal.untouchedwagons.com
             - Grafana:
                 icon: grafana.png
                 href: https://grafana.internal.untouchedwagons.com
