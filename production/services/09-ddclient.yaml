@@ -1,0 +1,81 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ddclient
+  namespace: default
+  labels:
+    app: ddclient
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: ddclient
+  template:
+    metadata:
+      labels:
+        app: ddclient
+    spec:
+      securityContext:
+        fsGroup: 30000
+      containers:
+        - name: ddclient
+          image: linuxserver/ddclient:3.11.2
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - all
+              add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "1"
+            requests:
+              memory: 64Mi
+              cpu: "0.1"
+          env:
+            - name: PUID
+              value: "30000"
+            - name: PGID
+              value: "30000"
+            - name: TZ
+              value: "America/Toronto"
+          volumeMounts:
+            - mountPath: /config
+              name: ddclient-config
+        - name: backup
+          image: untouchedwagons/simple-backup:1.0.4
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /data
+              name: ddclient-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/ddclient"
+            - name: BACKUP_BASE_NAME
+              value: "ddclient"
+            - name: BACKUP_RETENTION
+              value: "24"
+            - name: BACKUP_FREQUENCY
+              value: "0 0 * * *"
+      volumes:
+        - name: ddclient-config
+          persistentVolumeClaim:
+            claimName: ddclient-config
+        - name: backups
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Backups
