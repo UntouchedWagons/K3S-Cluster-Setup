@@ -24,7 +24,7 @@ spec:
         fsGroup: 30000
       containers:
         - name: sonarr
-          image: linuxserver/sonarr:version-3.0.10.1567
+          image: ghcr.io/onedr0p/sonarr:3.0.10.1567
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -49,13 +49,6 @@ spec:
               name: usenet
             - mountPath: /tmp
               name: tmp
-          env:
-            - name: PUID
-              value: "30000"
-            - name: PGID
-              value: "30000"
-            - name: TZ
-              value: "America/Toronto"
         - name: backup
           image: untouchedwagons/simple-backup:1.0.4
           resources:

@@ -24,7 +24,7 @@ spec:
         fsGroup: 30000
       containers:
         - name: radarr
-          image: lscr.io/linuxserver/radarr:version-5.0.3.8127
+          image: ghcr.io/onedr0p/radarr:5.1.3.8246
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -34,7 +34,7 @@ spec:
           resources:
             limits:
               memory: 1Gi
-              cpu: "1"
+              cpu: "4"
             requests:
               memory: 512Mi
               cpu: "0.2"
@@ -47,13 +47,6 @@ spec:
               name: torrents
             - mountPath: /mnt/data/Usenet
               name: usenet
-          env:
-            - name: PUID
-              value: "30000"
-            - name: PGID
-              value: "30000"
-            - name: TZ
-              value: "America/Toronto"
         - name: backup
           image: untouchedwagons/simple-backup:1.0.4
           resources:

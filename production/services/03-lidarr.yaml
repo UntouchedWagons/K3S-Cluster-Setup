@@ -24,7 +24,7 @@ spec:
         fsGroup: 30000
       containers:
         - name: lidarr
-          image: linuxserver/lidarr:amd64-nightly-version-2.0.0.3696
+          image: ghcr.io/onedr0p/lidarr:1.4.5.3639
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -34,7 +34,7 @@ spec:
           resources:
             limits:
               memory: 1Gi
-              cpu: "2"
+              cpu: "4"
             requests:
               memory: 512Mi
               cpu: "1"
@@ -47,13 +47,6 @@ spec:
               name: torrents
             - mountPath: /mnt/data/Usenet
               name: usenet
-          env:
-            - name: PUID
-              value: "30000"
-            - name: PGID
-              value: "30000"
-            - name: TZ
-              value: "America/Toronto"
         - name: backup
           image: untouchedwagons/simple-backup:1.0.4
           resources:

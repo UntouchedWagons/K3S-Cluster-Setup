@@ -24,7 +24,7 @@ spec:
         fsGroup: 30000
       containers:
         - name: bazarr
-          image: linuxserver/bazarr:version-v1.3.0
+          image: ghcr.io/onedr0p/bazarr:1.4.0
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -34,7 +34,7 @@ spec:
           resources:
             limits:
               memory: 512Mi
-              cpu: "1"
+              cpu: "4"
             requests:
               memory: 256Mi
               cpu: "0.2"
@@ -43,13 +43,6 @@ spec:
               name: bazarr-config
             - mountPath: /mnt/data/Videos
               name: videos
-          env:
-            - name: PUID
-              value: "30000"
-            - name: PGID
-              value: "30000"
-            - name: TZ
-              value: "America/Toronto"
         - name: backup
           image: untouchedwagons/simple-backup:1.0.4
           resources:

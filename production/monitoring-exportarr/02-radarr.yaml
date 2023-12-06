@@ -32,7 +32,7 @@ spec:
             - name: URL
               value: "http://radarr.default.svc.cluster.local:7878"
             - name: APIKEY
-              value: "96ce6b0dbd2f45159cde843c75930ace"
+              value: "c2ea48b75fe042cf8082d2b33b879e08"
           resources:
             requests:
               cpu: 100m

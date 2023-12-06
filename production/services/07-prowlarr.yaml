@@ -24,7 +24,7 @@ spec:
         fsGroup: 30000
       containers:
         - name: prowlarr
-          image: lscr.io/linuxserver/prowlarr:version-1.9.4.4039
+          image: ghcr.io/onedr0p/prowlarr:1.10.5.4116
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -34,20 +34,13 @@ spec:
           resources:
             limits:
               memory: 256Mi
-              cpu: "1"
+              cpu: "4"
             requests:
               memory: 128Mi
               cpu: "0.2"
           volumeMounts:
           - mountPath: /config
             name: prowlarr-config
-          env:
-            - name: PUID
-              value: "30000"
-            - name: PGID
-              value: "30000"
-            - name: TZ
-              value: "America/Toronto"
         - name: backup
           image: untouchedwagons/simple-backup:1.0.4
           resources:

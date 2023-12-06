@@ -32,7 +32,7 @@ spec:
             - name: URL
               value: "http://prowlarr.default.svc.cluster.local:9696"
             - name: APIKEY
-              value: "cfbe69f11b9e4ad8b2e04269bf83a297"
+              value: "26fc38d7c0b54dc89d26d2c2e513d2b6"
           resources:
             requests:
               cpu: 100m

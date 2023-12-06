@@ -32,7 +32,7 @@ spec:
           resources:
             limits:
               memory: 256Mi
-              cpu: "1"
+              cpu: "2"
             requests:
               memory: 128Mi
               cpu: "0.2"
@@ -162,14 +162,14 @@ data:
                 widget:
                   type: radarr
                   url: https://radarr.internal.untouchedwagons.com
-                  key: 96ce6b0dbd2f45159cde843c75930ace
+                  key: c2ea48b75fe042cf8082d2b33b879e08
             - Prowlarr:
                 icon: prowlarr.png
                 href: https://prowlarr.internal.untouchedwagons.com
                 widget:
                   type: prowlarr
                   url: https://prowlarr.internal.untouchedwagons.com
-                  key: cfbe69f11b9e4ad8b2e04269bf83a297
+                  key: 26fc38d7c0b54dc89d26d2c2e513d2b6
             - Bazarr:
                 icon: bazarr.png
                 href: https://bazarr.internal.untouchedwagons.com
@@ -293,9 +293,6 @@ data:
                 href: https://it-tools.internal.untouchedwagons.com
 
         - Monitoring:
-            - LibreNMS:
-                icon: librenms.png
-                href: http://librenms.internal.untouchedwagons.com
             - Grafana:
                 icon: grafana.png
                 href: https://grafana.internal.untouchedwagons.com
