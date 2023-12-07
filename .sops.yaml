@@ -10,13 +10,18 @@ creation_rules:
     key_groups:
       - age:
           - age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
-  - path_regex: testing/cert-manager/02-cert-manager.yaml
-    encrypted_regex: "^(data|stringData|email|dnsZones|dnsNames|commonName)$"
+  - path_regex: production/monitoring/01-prometheus.yaml
+    encrypted_regex: "^(email_configs)$"
     key_groups:
       - age:
           - age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
-  - path_regex: production/monitoring/01-prometheus.yaml
-    encrypted_regex: "^(email_configs)$"
+  - path_regex: production/networking/ddcliient/service.yaml
+    encrypted_regex: "^(data)$"
+    key_groups:
+      - age:
+          - age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
+  - path_regex: testing/cert-manager/02-cert-manager.yaml
+    encrypted_regex: "^(data|stringData|email|dnsZones|dnsNames|commonName)$"
     key_groups:
       - age:
           - age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
