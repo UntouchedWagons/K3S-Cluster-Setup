@@ -1,0 +1,9 @@
+
+auth:
+  postgresPassword: TrembleBulwarkBeautifulGossip
+
+primary:
+  persistence:
+    size: "25Gi"
+  service:
+    type: "LoadBalancer"
