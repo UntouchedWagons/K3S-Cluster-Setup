@@ -136,14 +136,14 @@ prometheus:
         scrapeConfigSelectorNilUsesHelmValues: false
         enableAdminAPI: true
         walCompression: true
-        retentionSize: 8GB
+        retentionSize: 20GB
         storageSpec:
             volumeClaimTemplate:
                 spec:
                     storageClassName: longhorn
                     resources:
                         requests:
-                            storage: 10Gi
+                            storage: 25Gi
 defaultRules:
     rules:
         alertmanager: false
@@ -186,8 +186,8 @@ sops:
             TmVBRWxGQkpXbmFKYzRBNW1sV3NPZTAKCUDHL2gQPF9peI9SqVk5EYqG5FXKT/SP
             lqTSPm+vcMbeQzuC8INMGBHEtjkvO8iEq0YhDbx+QSydQERwqaa3oQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-11-19T02:38:44Z"
-    mac: ENC[AES256_GCM,data:3bjnu5N2UQplyo9zuUk9O4x0TvsCoc/fSQzeqa9nvvhqqdVcnelxrruPS80GLU5rmKJ/iby2yCWIDoF5Onn569Gpu9VHJlb8CO5bcIQwwwWAAgJ8Bj0vX8gUQoWjolqHdD7fIkVjwl+QKNSexYftc3R0sD64NyoymEscDW314pM=,iv:cpACEH6900SkVjxM+W/vBgT9Pkdnt5OPhsNOecDEvIw=,tag:AVoWmLmZIwzHrUj34BRcjA==,type:str]
+    lastmodified: "2023-12-03T19:23:23Z"
+    mac: ENC[AES256_GCM,data:TQqUVDiIe4MZF8xbV7K3i8FIN9vhcPyLz8F7Z9FpWiuHrUHkCzmCV3/P3cQJfdQd8PmHxMlYyMgpbCirbSmVSAk0QjkMzXY5jH/xx+hr14OapVlVqqHrLjqIpYNAW3G+EuWbu2xxBu+T0+seYgoZU6ah8ulVFhFBYp6kz1bua1E=,iv:FQ1kgIblNX4A+KQtvMPnjzSK/sUrlRAQn2WZXA5mEmg=,tag:Mo586AY5xVB2lLBI7ilLsA==,type:str]
     pgp: []
     encrypted_regex: ^(email_configs)$
     version: 3.8.0
