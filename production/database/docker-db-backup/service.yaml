@@ -1,0 +1,70 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: postgres-backup
+  namespace: database
+  labels:
+    app: postgres-backup
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: postgres-backup
+  template:
+    metadata:
+      labels:
+        app: postgres-backup
+    spec:
+      securityContext:
+        fsGroup: 1000
+      containers:
+        - name: backup
+          image: tiredofit/db-backup:4.0.29
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: TIMEZONE
+              value: "America/Toronto"
+            - name: DEFAULT_FILESYSTEM_PATH
+              value: "/backups/kubernetes/production/postgresql"
+            - name: USER_DBBACKUP
+              value: "1000"
+            - name: GROUP_DBBACKUP
+              value: "1000"
+            - name: CONTAINER_ENABLE_MONITORING
+              value: "FALSE"
+            - name: DEFAULT_CREATE_LATEST_SYMLINK
+              value: "FALSE"
+            - name: DB01_TYPE
+              value: "postgres"
+            - name: DB01_HOST
+              value: "postgresql.database.svc.cluster.local"
+            - name: DB01_NAME
+              value: "ALL"
+            - name: DB01_USER
+              value: "postgres"
+            - name: DB01_PASS
+              value: "TrembleBulwarkBeautifulGossip"
+            - name: DB01_DUMP_INTERVAL # Take a backup every two hours
+              value: "120"
+            - name: DB01_CLEANUP_TIME # Keep 3 days worth of backups
+              value: "4320"
+            - name: DB01_COMPRESSION
+              value: "gz"
+            - name: DB01_SPLIT_DB
+              value: "TRUE"
+      volumes:
+        - name: backups
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Backups
