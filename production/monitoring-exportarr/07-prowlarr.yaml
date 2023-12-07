@@ -30,9 +30,9 @@ spec:
             - name: PORT
               value: "9707"
             - name: URL
-              value: "http://prowlarr.default.svc.cluster.local:9696"
+              value: "http://prowlarr.servarr.svc.cluster.local:9696"
             - name: APIKEY
-              value: "26fc38d7c0b54dc89d26d2c2e513d2b6"
+              value: "fa88672ddbeb4b5683a009951076bf38"
           resources:
             requests:
               cpu: 100m

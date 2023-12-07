@@ -3,7 +3,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: bazarr
-  namespace: default
+  namespace: servarr
   labels:
     app: bazarr
 spec:
@@ -22,6 +22,20 @@ spec:
     spec:
       securityContext:
         fsGroup: 30000
+      initContainers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-init:15.5
+          env:
+            - name: INIT_POSTGRES_HOST
+              value: "postgresql.database.svc.cluster.local"
+            - name: INIT_POSTGRES_USER
+              value: "bazarr"
+            - name: INIT_POSTGRES_PASS
+              value: "GrouseStampAbnormalSpurious"
+            - name: INIT_POSTGRES_DBNAME
+              value: "bazarr-main bazarr-logs"
+            - name: INIT_POSTGRES_SUPER_PASS
+              value: "TrembleBulwarkBeautifulGossip"
       containers:
         - name: bazarr
           image: ghcr.io/onedr0p/bazarr:1.4.0
@@ -31,6 +45,23 @@ spec:
               drop:
               - all
               add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
+          env:
+            - name: BAZARR__API_KEY
+              value: "ad7e2cf067762e0107f77b83b98f838f"
+            - name: BAZARR__AUTHENTICATION_METHOD
+              value: "None"
+            - name: BAZARR__AUTHENTICATION_REQUIRED
+              value: "DisabledForLocalAddresses"
+            - name: BAZARR__POSTGRES_HOST
+              value: "postgresql.database.svc.cluster.local"
+            - name: BAZARR__POSTGRES_MAIN_DB
+              value: "bazarr-main"
+            - name: BAZARR__POSTGRES_LOG_DB
+              value: "bazarr-logs"
+            - name: BAZARR__POSTGRES_USER
+              value: "bazarr"
+            - name: BAZARR__POSTGRES_PASSWORD
+              value: "GrouseStampAbnormalSpurious"
           resources:
             limits:
               memory: 512Mi
@@ -43,29 +74,6 @@ spec:
               name: bazarr-config
             - mountPath: /mnt/data/Videos
               name: videos
-        - name: backup
-          image: untouchedwagons/simple-backup:1.0.4
-          resources:
-            limits:
-              memory: 256Mi
-              cpu: "1"
-            requests:
-              memory: 128Mi
-              cpu: "0.2"
-          volumeMounts:
-            - mountPath: /data
-              name: bazarr-config
-            - mountPath: /backups
-              name: backups
-          env:
-            - name: BACKUP_APPEND_DIRECTORY
-              value: "/kubernetes/production/bazarr"
-            - name: BACKUP_BASE_NAME
-              value: "bazarr"
-            - name: BACKUP_RETENTION
-              value: "24"
-            - name: BACKUP_FREQUENCY
-              value: "0 0 * * *"
       volumes:
         - name: bazarr-config
           persistentVolumeClaim:
@@ -83,7 +91,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: bazarr
-  namespace: default
+  namespace: servarr
 spec:
   selector:
     app: bazarr
@@ -96,7 +104,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: bazarr
-  namespace: default
+  namespace: servarr
   annotations:
     traefik.ingress.kubernetes.io/frontend-entry-points: http,https
     traefik.ingress.kubernetes.io/router.tls: "true"

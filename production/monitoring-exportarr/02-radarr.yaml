@@ -30,9 +30,9 @@ spec:
             - name: PORT
               value: "9707"
             - name: URL
-              value: "http://radarr.default.svc.cluster.local:7878"
+              value: "http://radarr.servarr.svc.cluster.local:7878"
             - name: APIKEY
-              value: "c2ea48b75fe042cf8082d2b33b879e08"
+              value: "0416a6d418be4cd7b9b64e3862aa436a"
           resources:
             requests:
               cpu: 100m

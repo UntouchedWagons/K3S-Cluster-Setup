@@ -30,9 +30,9 @@ spec:
             - name: PORT
               value: "9707"
             - name: URL
-              value: "http://bazarr.default.svc.cluster.local:6767"
+              value: "http://bazarr.servarr.svc.cluster.local:6767"
             - name: APIKEY
-              value: "ad7e2cf067762e0107f77b83b98f838f"
+              value: "46261886aba73a2aa94b1fafc218a1aa"
           resources:
             requests:
               cpu: 100m
@@ -62,6 +62,7 @@ metadata:
   name: bazarr
   namespace: monitoring
 spec:
+  scrapeTimeout: 20s
   staticConfigs:
     - targets:
         - bazarr-exportarr.monitoring-exportarr.svc.cluster.local:9707

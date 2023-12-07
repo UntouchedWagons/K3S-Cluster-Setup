@@ -3,7 +3,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: sonarr
-  namespace: default
+  namespace: servarr
   labels:
     app: sonarr
 spec:
@@ -22,15 +22,46 @@ spec:
     spec:
       securityContext:
         fsGroup: 30000
+      initContainers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-init:15.5
+          env:
+            - name: INIT_POSTGRES_HOST
+              value: "postgresql.database.svc.cluster.local"
+            - name: INIT_POSTGRES_USER
+              value: "sonarr"
+            - name: INIT_POSTGRES_PASS
+              value: "AuthorizeBrazenWakenVerify"
+            - name: INIT_POSTGRES_DBNAME
+              value: "sonarr-main sonarr-logs"
+            - name: INIT_POSTGRES_SUPER_PASS
+              value: "TrembleBulwarkBeautifulGossip"
       containers:
         - name: sonarr
-          image: ghcr.io/onedr0p/sonarr:3.0.10.1567
+          image: ghcr.io/onedr0p/sonarr-develop:4.0.0.733
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
               drop:
               - all
               add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
+          env:
+            - name: SONARR__API_KEY
+              value: "0fe183143c5745269ae3b9ea163c8f85"
+            - name: SONARR__AUTHENTICATION_METHOD
+              value: "Forms"
+            - name: SONARR__AUTHENTICATION_REQUIRED
+              value: "DisabledForLocalAddresses"
+            - name: SONARR__POSTGRES_HOST
+              value: "postgresql.database.svc.cluster.local"
+            - name: SONARR__POSTGRES_MAIN_DB
+              value: "sonarr-main"
+            - name: SONARR__POSTGRES_LOG_DB
+              value: "sonarr-logs"
+            - name: SONARR__POSTGRES_USER
+              value: "sonarr"
+            - name: SONARR__POSTGRES_PASSWORD
+              value: "AuthorizeBrazenWakenVerify"
           resources:
             limits:
               memory: 1Gi
@@ -49,37 +80,11 @@ spec:
               name: usenet
             - mountPath: /tmp
               name: tmp
-        - name: backup
-          image: untouchedwagons/simple-backup:1.0.4
-          resources:
-            limits:
-              memory: 256Mi
-              cpu: "1"
-            requests:
-              memory: 128Mi
-              cpu: "0.2"
-          volumeMounts:
-            - mountPath: /data
-              name: sonarr-config
-            - mountPath: /backups
-              name: backups
-          env:
-            - name: BACKUP_APPEND_DIRECTORY
-              value: "/kubernetes/production/sonarr"
-            - name: BACKUP_BASE_NAME
-              value: "sonarr"
-            - name: BACKUP_RETENTION
-              value: "24"
-            - name: BACKUP_FREQUENCY
-              value: "0 */4 * * *"
+
       volumes:
         - name: sonarr-config
           persistentVolumeClaim:
             claimName: sonarr-config
-        - name: backups
-          nfs:
-            server: 192.168.0.30
-            path: /mnt/tank/Media/Backups
         - name: videos
           nfs:
             server: 192.168.0.30
@@ -100,7 +105,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: sonarr
-  namespace: default
+  namespace: servarr
 spec:
   selector:
     app: sonarr
@@ -113,7 +118,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: sonarr
-  namespace: default
+  namespace: servarr
   annotations:
     traefik.ingress.kubernetes.io/frontend-entry-points: http,https
     traefik.ingress.kubernetes.io/router.tls: "true"

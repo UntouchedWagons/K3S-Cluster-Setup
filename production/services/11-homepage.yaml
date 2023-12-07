@@ -162,21 +162,21 @@ data:
                 widget:
                   type: radarr
                   url: https://radarr.internal.untouchedwagons.com
-                  key: c2ea48b75fe042cf8082d2b33b879e08
+                  key: 0416a6d418be4cd7b9b64e3862aa436a
             - Prowlarr:
                 icon: prowlarr.png
                 href: https://prowlarr.internal.untouchedwagons.com
                 widget:
                   type: prowlarr
                   url: https://prowlarr.internal.untouchedwagons.com
-                  key: 26fc38d7c0b54dc89d26d2c2e513d2b6
+                  key: fa88672ddbeb4b5683a009951076bf38
             - Bazarr:
                 icon: bazarr.png
                 href: https://bazarr.internal.untouchedwagons.com
                 widget:
                   type: bazarr
                   url: https://bazarr.internal.untouchedwagons.com
-                  key: ad7e2cf067762e0107f77b83b98f838f
+                  key: 46261886aba73a2aa94b1fafc218a1aa
             - Lidarr:
                 icon: lidarr.png
                 href: https://lidarr.internal.untouchedwagons.com
@@ -291,6 +291,9 @@ data:
             - IT Tools:
                 icon: it-tools.png
                 href: https://it-tools.internal.untouchedwagons.com
+            - pgAdmin 4:
+                icon: pgadmin.png
+                href: https://pgadmin4.internal.untouchedwagons.com
 
         - Monitoring:
             - Grafana:

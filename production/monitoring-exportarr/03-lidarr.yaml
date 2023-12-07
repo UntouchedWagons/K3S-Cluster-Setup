@@ -30,7 +30,7 @@ spec:
             - name: PORT
               value: "9707"
             - name: URL
-              value: "http://lidarr.default.svc.cluster.local:8686"
+              value: "http://lidarr.servarr.svc.cluster.local:8686"
             - name: APIKEY
               value: "1555da6d78404bffb22c90ace2b31b31"
           resources:

@@ -30,7 +30,7 @@ spec:
             - name: PORT
               value: "9707"
             - name: URL
-              value: "http://sonarr.default.svc.cluster.local:8989"
+              value: "http://sonarr.servarr.svc.cluster.local:8989"
             - name: APIKEY
               value: "0fe183143c5745269ae3b9ea163c8f85"
           resources:

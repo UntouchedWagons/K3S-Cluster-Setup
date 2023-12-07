@@ -3,7 +3,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: prowlarr
-  namespace: default
+  namespace: servarr
   labels:
     app: prowlarr
 spec:
@@ -22,6 +22,20 @@ spec:
     spec:
       securityContext:
         fsGroup: 30000
+      initContainers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-init:15.5
+          env:
+            - name: INIT_POSTGRES_HOST
+              value: "postgresql.database.svc.cluster.local"
+            - name: INIT_POSTGRES_USER
+              value: "prowlarr"
+            - name: INIT_POSTGRES_PASS
+              value: "CulpableRadianceCavityDespotic"
+            - name: INIT_POSTGRES_DBNAME
+              value: "prowlarr-main prowlarr-logs"
+            - name: INIT_POSTGRES_SUPER_PASS
+              value: "TrembleBulwarkBeautifulGossip"
       containers:
         - name: prowlarr
           image: ghcr.io/onedr0p/prowlarr:1.10.5.4116
@@ -31,6 +45,23 @@ spec:
               drop:
               - all
               add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
+          env:
+            - name: PROWLARR__API_KEY
+              value: "fa88672ddbeb4b5683a009951076bf38"
+            - name: PROWLARR__AUTHENTICATION_METHOD
+              value: "Forms"
+            - name: PROWLARR__AUTHENTICATION_REQUIRED
+              value: "DisabledForLocalAddresses"
+            - name: PROWLARR__POSTGRES_HOST
+              value: "postgresql.database.svc.cluster.local"
+            - name: PROWLARR__POSTGRES_MAIN_DB
+              value: "prowlarr-main"
+            - name: PROWLARR__POSTGRES_LOG_DB
+              value: "prowlarr-logs"
+            - name: PROWLARR__POSTGRES_USER
+              value: "prowlarr"
+            - name: PROWLARR__POSTGRES_PASSWORD
+              value: "CulpableRadianceCavityDespotic"
           resources:
             limits:
               memory: 256Mi
@@ -41,43 +72,16 @@ spec:
           volumeMounts:
           - mountPath: /config
             name: prowlarr-config
-        - name: backup
-          image: untouchedwagons/simple-backup:1.0.4
-          resources:
-            limits:
-              memory: 256Mi
-              cpu: "1"
-            requests:
-              memory: 128Mi
-              cpu: "0.2"
-          volumeMounts:
-            - mountPath: /data
-              name: prowlarr-config
-            - mountPath: /backups
-              name: backups
-          env:
-            - name: BACKUP_APPEND_DIRECTORY
-              value: "/kubernetes/production/prowlarr"
-            - name: BACKUP_BASE_NAME
-              value: "prowlarr"
-            - name: BACKUP_RETENTION
-              value: "24"
-            - name: BACKUP_FREQUENCY
-              value: "0 0 * * *"
       volumes:
         - name: prowlarr-config
           persistentVolumeClaim:
             claimName: prowlarr-config
-        - name: backups
-          nfs:
-            server: 192.168.0.30
-            path: /mnt/tank/Media/Backups
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: prowlarr
-  namespace: default
+  namespace: servarr
 spec:
   selector:
     app: prowlarr
@@ -90,7 +94,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: prowlarr
-  namespace: default
+  namespace: servarr
   annotations:
     traefik.ingress.kubernetes.io/frontend-entry-points: http,https
     traefik.ingress.kubernetes.io/router.tls: "true"

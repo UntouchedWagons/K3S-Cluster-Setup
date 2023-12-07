@@ -3,7 +3,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: lidarr
-  namespace: default
+  namespace: servarr
   labels:
     app: lidarr
 spec:
@@ -22,6 +22,20 @@ spec:
     spec:
       securityContext:
         fsGroup: 30000
+      initContainers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-init:15.5
+          env:
+            - name: INIT_POSTGRES_HOST
+              value: "postgresql.database.svc.cluster.local"
+            - name: INIT_POSTGRES_USER
+              value: "lidarr"
+            - name: INIT_POSTGRES_PASS
+              value: "DespoticPubProprietySavour"
+            - name: INIT_POSTGRES_DBNAME
+              value: "lidarr-main lidarr-logs"
+            - name: INIT_POSTGRES_SUPER_PASS
+              value: "TrembleBulwarkBeautifulGossip"
       containers:
         - name: lidarr
           image: ghcr.io/onedr0p/lidarr:1.4.5.3639
@@ -31,6 +45,23 @@ spec:
               drop:
               - all
               add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
+          env:
+            - name: LIDARR__API_KEY
+              value: "1555da6d78404bffb22c90ace2b31b31"
+            - name: LIDARR__AUTHENTICATION_METHOD
+              value: "None"
+            - name: LIDARR__AUTHENTICATION_REQUIRED
+              value: "DisabledForLocalAddresses"
+            - name: LIDARR__POSTGRES_HOST
+              value: "postgresql.database.svc.cluster.local"
+            - name: LIDARR__POSTGRES_MAIN_DB
+              value: "lidarr-main"
+            - name: LIDARR__POSTGRES_LOG_DB
+              value: "lidarr-logs"
+            - name: LIDARR__POSTGRES_USER
+              value: "lidarr"
+            - name: LIDARR__POSTGRES_PASSWORD
+              value: "DespoticPubProprietySavour"
           resources:
             limits:
               memory: 1Gi
@@ -47,37 +78,11 @@ spec:
               name: torrents
             - mountPath: /mnt/data/Usenet
               name: usenet
-        - name: backup
-          image: untouchedwagons/simple-backup:1.0.4
-          resources:
-            limits:
-              memory: 256Mi
-              cpu: "1"
-            requests:
-              memory: 128Mi
-              cpu: "0.2"
-          volumeMounts:
-            - mountPath: /data
-              name: lidarr-config
-            - mountPath: /backups
-              name: backups
-          env:
-            - name: BACKUP_APPEND_DIRECTORY
-              value: "/kubernetes/production/lidarr"
-            - name: BACKUP_BASE_NAME
-              value: "lidarr"
-            - name: BACKUP_RETENTION
-              value: "24"
-            - name: BACKUP_FREQUENCY
-              value: "0 0 * * *"
+
       volumes:
         - name: lidarr-config
           persistentVolumeClaim:
             claimName: lidarr-config
-        - name: backups
-          nfs:
-            server: 192.168.0.30
-            path: /mnt/tank/Media/Backups
         - name: music
           nfs:
             server: 192.168.0.30
@@ -95,7 +100,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: lidarr
-  namespace: default
+  namespace: servarr
 spec:
   selector:
     app: lidarr
@@ -108,7 +113,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: lidarr
-  namespace: default
+  namespace: servarr
   annotations:
     traefik.ingress.kubernetes.io/frontend-entry-points: http,https
     traefik.ingress.kubernetes.io/router.tls: "true"
