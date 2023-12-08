@@ -9,3 +9,8 @@ toolkit:
       value: "nvidia"
     - name: CONTAINERD_SET_AS_DEFAULT
       value: "true"
+
+devicePlugin:
+  config:
+    name: time-slicing-config-all
+    default: any
