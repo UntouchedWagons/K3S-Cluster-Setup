@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: opnsense-exporter
+  name: exporter-linux
   namespace: monitoring
 spec:
   relabelings:
@@ -12,4 +12,7 @@ spec:
       targetLabel: instance
   staticConfigs:
     - targets:
-        - opnsense.internal.untouchedwagons.com:9100
+      - nut.internal.untouchedwagons.com:9100
+      - netboot.internal.untouchedwagons.com:9100
+      - vault.internal.untouchedwagons.com:9100
+      - pve-node-01.internal.untouchedwagons.com:9100

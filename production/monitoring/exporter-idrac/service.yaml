@@ -71,7 +71,7 @@ spec:
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: idrac-scrape-job-jnky182
+  name: exporter-idrac-jnky182
   namespace: monitoring
 spec:
   scrapeTimeout: 1m
@@ -87,7 +87,7 @@ spec:
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: idrac-scrape-job-cjtyp22
+  name: exporter-idrac-cjtyp22
   namespace: monitoring
 spec:
   scrapeTimeout: 1m
@@ -103,7 +103,7 @@ spec:
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: idrac-scrape-job-7p57cz1
+  name: exporter-idrac-7p57cz1
   namespace: monitoring
 spec:
   scrapeTimeout: 1m
@@ -119,7 +119,7 @@ spec:
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: idrac-scrape-job-czblpd2
+  name: exporter-idrac-czblpd2
   namespace: monitoring
 spec:
   scrapeTimeout: 1m

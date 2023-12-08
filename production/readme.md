@@ -68,8 +68,10 @@ To be discovered
     helm repo add grafana https://grafana.github.io/helm-charts
     helm repo add damoun https://charts.damoun.dev
     helm repo update
-    sops -d ./production/monitoring/01-prometheus.yaml | helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack --create-namespace --namespace monitoring --version 52.1.0 --values -
-    helm upgrade --install grafana grafana/grafana --version 7.0.3 --namespace monitoring --values ./production/monitoring/02-grafana.yaml
-    sops -d ./production/monitoring-idrac/idrac-exporter.yaml | kubectl apply -f -
-    kubectl apply -f production/monitoring-exportarr
+    sops -d ./production/monitoring/prometheus/service.yaml | helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack --create-namespace --namespace monitoring --version 52.1.0 --values -
+    helm upgrade --install grafana grafana/grafana --version 7.0.3 --namespace monitoring --values ./production/monitoring/grafana/service.yaml
+    kubectl apply -f ./production/monitoring/exporter-idrac/service.yaml
+    kubectl apply -f ./production/monitoring/exporter-linux/service.yaml
+    kubectl apply -f ./production/monitoring/exporter-opnsense/service.yaml
+    kubectl apply -f ./production/monitoring-exportarr
     helm install proxmox-exporter --values ./production/monitoring-proxmox/01-proxmox-exporter.yaml --create-namespace --namespace monitoring-proxmox damoun/proxmox-exporter --version 1.5.0

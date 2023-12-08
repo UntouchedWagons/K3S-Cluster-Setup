@@ -1,0 +1,63 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: exporter-proxmox
+  namespace: monitoring
+  labels:
+    app: exporter-proxmox
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: exporter-proxmox
+  template:
+    metadata:
+      labels:
+        app: exporter-proxmox
+    spec:
+      containers:
+        - name: exporter-proxmox
+          image: prompve/prometheus-pve-exporter:3.0.2
+          env:
+            - name: PVE_USER
+              value: "root@pam"
+            - name: PVE_PASSWORD
+              value: "SocialExtraordinaryStreet"
+            - name: PVE_VERIFY_SSL
+              value: "false"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: exporter-proxmox
+  namespace: monitoring
+spec:
+  type: LoadBalancer
+  selector:
+    app: exporter-proxmox
+  ports:
+    - name: http
+      targetPort: 9221
+      port: 9221
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: exporter-proxmox
+  namespace: monitoring
+spec:
+  relabelings:
+    - action: replace
+      replacement: 'pve-node-01.internal.untouchedwagons.com'
+      targetLabel: instance
+  staticConfigs:
+    - targets:
+        - exporter-proxmox.monitoring.svc.cluster.local:9221
+  metricsPath: /pve
+  params:
+    target:
+      - pve-node-01.internal.untouchedwagons.com
