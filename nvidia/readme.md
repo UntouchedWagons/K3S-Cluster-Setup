@@ -140,6 +140,6 @@ You should see similar output to what you got earlier. Now you can go into the J
 
 ## Sources:
 
-    * https://github.com/NVIDIA/gpu-operator/issues/522#issuecomment-1545574686
-    * https://github.com/NVIDIA/nvidia-docker/issues/1616#issuecomment-1571404575
-    * https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/gpu-sharing.html
+  * https://github.com/NVIDIA/gpu-operator/issues/522#issuecomment-1545574686
+  * https://github.com/NVIDIA/nvidia-docker/issues/1616#issuecomment-1571404575
+  * https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/gpu-sharing.html
