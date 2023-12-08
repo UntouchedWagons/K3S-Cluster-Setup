@@ -22,6 +22,19 @@ spec:
     spec:
       securityContext:
         fsGroup: 568
+      initContainers:
+        - name: sabnzbd-restore
+          image: untouchedwagons/simple-restore:1.0.4
+          volumeMounts:
+            - mountPath: /data
+              name: sabnzbd-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/sabnzbd"
+            - name: BACKUP_BASE_NAME
+              value: "sabnzbd"
       containers:
         - name: sabnzbd
           image: ghcr.io/onedr0p/sabnzbd:4.1.0 
@@ -46,7 +59,7 @@ spec:
             - mountPath: /tmp
               name: tmp
         - name: backup
-          image: untouchedwagons/simple-backup:1.0.4
+          image: untouchedwagons/simple-backup:1.0.5
           resources:
             limits:
               memory: 256Mi

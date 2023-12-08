@@ -22,6 +22,19 @@ spec:
     spec:
       securityContext:
         fsGroup: 568
+      initContainers:
+        - name: vaultwarden-restore
+          image: untouchedwagons/simple-restore:1.0.4
+          volumeMounts:
+            - mountPath: /data
+              name: vaultwarden-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/vaultwarden"
+            - name: BACKUP_BASE_NAME
+              value: "vaultwarden"
       containers:
         - name: vaultwarden
           image: vaultwarden/server:1.30.0-alpine
@@ -44,7 +57,7 @@ spec:
             - mountPath: /data
               name: vaultwarden-config
         - name: backup
-          image: untouchedwagons/simple-backup:1.0.4
+          image: untouchedwagons/simple-backup:1.0.5
           resources:
             limits:
               memory: 256Mi

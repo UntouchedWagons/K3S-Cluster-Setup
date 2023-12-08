@@ -23,6 +23,19 @@ spec:
       runtimeClassName: nvidia
       nodeSelector:
         nvidia.com/gpu.present: "true"
+      initContainers:
+        - name: jellyfin-restore
+          image: untouchedwagons/simple-restore:1.0.4
+          volumeMounts:
+            - mountPath: /data
+              name: jellyfin-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/jellyfin"
+            - name: BACKUP_BASE_NAME
+              value: "jellyfin"
       containers:
         - name: jellyfin
           image: jellyfin/jellyfin:10.8.12
@@ -44,7 +57,7 @@ spec:
             - mountPath: /mnt/data/Music
               name: music
         - name: backup
-          image: untouchedwagons/simple-backup:1.0.4
+          image: untouchedwagons/simple-backup:1.0.5
           resources:
             limits:
               memory: 256Mi

@@ -20,6 +20,19 @@ spec:
       labels:
         app: ispyagentdvr
     spec:
+      initContainers:
+        - name: ispyagentdvr-restore
+          image: untouchedwagons/simple-restore:1.0.4
+          volumeMounts:
+            - mountPath: /data
+              name: ispyagentdvr-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/ispyagentdvr"
+            - name: BACKUP_BASE_NAME
+              value: "ispyagentdvr"
       containers:
         - name: ispyagentdvr
           image: doitandbedone/ispyagentdvr:5.1.4.0
@@ -39,7 +52,7 @@ spec:
             - name: TZ
               value: "America/Toronto"
         - name: backup
-          image: untouchedwagons/simple-backup:1.0.4
+          image: untouchedwagons/simple-backup:1.0.5
           resources:
             limits:
               memory: 256Mi

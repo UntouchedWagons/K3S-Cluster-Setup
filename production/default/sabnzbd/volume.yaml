@@ -11,36 +11,3 @@ spec:
   resources:
     requests:
       storage: 1Gi
----
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: sabnzbd-vol-restore
-spec:
-  ttlSecondsAfterFinished: 10
-  template:
-    spec:
-      securityContext:
-        fsGroup: 568
-      containers:
-      - name: restore
-        image: untouchedwagons/simple-restore:1.0.2
-        volumeMounts:
-          - mountPath: /data
-            name: sabnzbd-config
-          - mountPath: /backups
-            name: backups
-        env:
-          - name: BACKUP_APPEND_DIRECTORY
-            value: "/kubernetes/production/sabnzbd"
-          - name: BACKUP_BASE_NAME
-            value: "sabnzbd"
-      volumes:
-        - name: sabnzbd-config
-          persistentVolumeClaim:
-            claimName: sabnzbd-config
-        - name: backups
-          nfs:
-            server: 192.168.0.30
-            path: /mnt/tank/Media/Backups
-      restartPolicy: Never

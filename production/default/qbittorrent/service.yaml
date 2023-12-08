@@ -26,8 +26,8 @@ sops:
             b2wvalhuK3NLalZtbG9qTUR6REVXYk0KgB+K76Ks5kFRwMDG7kXfCiTQMgRSjtOV
             Q/0XlXsq366smiz4qz6qtJ9OzEo2YWFWmk8avKpKKvhDSYBLWdBPpQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-07T22:01:17Z"
-    mac: ENC[AES256_GCM,data:sXQXbVEk+7TqTzKpqCB3Trot07uF6RhwMBtP0fFfhfbNT81VmUMuTslnhJLXYfhob3cBLmHTdswcQ7s6Kb3ihCzgy5f3VpFTqqZ6gE1rM+Esm7irJGtsPtkTAzMtfbv/OnrE/rjf/J38vO9l5n+lfm7vzYNHQo0LzKqLuREncFY=,iv:6Du2p1hsiUOrAGIsYFzV4iCV905xIrsb/UmSr5UQJN0=,tag:izeKJYaN9yF4LCrAGuOskw==,type:str]
+    lastmodified: "2023-12-08T20:38:28Z"
+    mac: ENC[AES256_GCM,data:EmqeZksvzOKXPFfsXFIuj4ayeXdQNuN0HwDj3urGrI3y1Jq1Rp6TGf0i8x2BVlNNKCQ6l3S4Ve9nJGcTTLF8DdAUAQVGyUMBLvncEXo7QqDwAIcX3W+/sIa+124xrRWE1eD5NoE1DFTMKsXUOlxeNImwQbcCWV4tKIxW3hFooH0=,iv:1xqeUEQFr7YWMh/8jSTErJIii/bY2eXFcPV1gvJyGQY=,tag:ZvoIfjfjJweeBiPjvLBbyA==,type:str]
     pgp: []
     encrypted_regex: ^(stringData)$
     version: 3.8.0
@@ -55,6 +55,19 @@ spec:
         spec:
             securityContext:
                 fsGroup: 568
+            initContainers:
+                - name: qbittorrent-restore
+                  image: untouchedwagons/simple-restore:1.0.4
+                  volumeMounts:
+                    - mountPath: /data
+                      name: qbittorrent-config
+                    - mountPath: /backups
+                      name: backups
+                  env:
+                    - name: BACKUP_APPEND_DIRECTORY
+                      value: /kubernetes/production/qbittorrent
+                    - name: BACKUP_BASE_NAME
+                      value: qbittorrent
             containers:
                 - name: gluetun
                   image: qmcgaw/gluetun:v3.35
@@ -128,6 +141,29 @@ spec:
                       name: qbittorrent-config
                     - mountPath: /mnt/data/Torrents
                       name: torrents
+                - name: backup
+                  image: untouchedwagons/simple-backup:1.0.5
+                  resources:
+                    limits:
+                        memory: 256Mi
+                        cpu: "1"
+                    requests:
+                        memory: 128Mi
+                        cpu: "0.2"
+                  volumeMounts:
+                    - mountPath: /data
+                      name: qbittorrent-config
+                    - mountPath: /backups
+                      name: backups
+                  env:
+                    - name: BACKUP_APPEND_DIRECTORY
+                      value: /kubernetes/production/qbittorrent
+                    - name: BACKUP_BASE_NAME
+                      value: qbittorrent
+                    - name: BACKUP_RETENTION
+                      value: "24"
+                    - name: BACKUP_FREQUENCY
+                      value: 0 */8 * * *
             volumes:
                 - name: qbittorrent-config
                   persistentVolumeClaim:
@@ -136,6 +172,10 @@ spec:
                   nfs:
                     server: 192.168.0.30
                     path: /mnt/tank/Media/Torrents
+                - name: backups
+                  nfs:
+                    server: 192.168.0.30
+                    path: /mnt/tank/Media/Backups
 sops:
     kms: []
     gcp_kms: []
@@ -151,8 +191,8 @@ sops:
             b2wvalhuK3NLalZtbG9qTUR6REVXYk0KgB+K76Ks5kFRwMDG7kXfCiTQMgRSjtOV
             Q/0XlXsq366smiz4qz6qtJ9OzEo2YWFWmk8avKpKKvhDSYBLWdBPpQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-07T22:01:17Z"
-    mac: ENC[AES256_GCM,data:sXQXbVEk+7TqTzKpqCB3Trot07uF6RhwMBtP0fFfhfbNT81VmUMuTslnhJLXYfhob3cBLmHTdswcQ7s6Kb3ihCzgy5f3VpFTqqZ6gE1rM+Esm7irJGtsPtkTAzMtfbv/OnrE/rjf/J38vO9l5n+lfm7vzYNHQo0LzKqLuREncFY=,iv:6Du2p1hsiUOrAGIsYFzV4iCV905xIrsb/UmSr5UQJN0=,tag:izeKJYaN9yF4LCrAGuOskw==,type:str]
+    lastmodified: "2023-12-08T20:38:28Z"
+    mac: ENC[AES256_GCM,data:EmqeZksvzOKXPFfsXFIuj4ayeXdQNuN0HwDj3urGrI3y1Jq1Rp6TGf0i8x2BVlNNKCQ6l3S4Ve9nJGcTTLF8DdAUAQVGyUMBLvncEXo7QqDwAIcX3W+/sIa+124xrRWE1eD5NoE1DFTMKsXUOlxeNImwQbcCWV4tKIxW3hFooH0=,iv:1xqeUEQFr7YWMh/8jSTErJIii/bY2eXFcPV1gvJyGQY=,tag:ZvoIfjfjJweeBiPjvLBbyA==,type:str]
     pgp: []
     encrypted_regex: ^(stringData)$
     version: 3.8.0
@@ -184,8 +224,8 @@ sops:
             b2wvalhuK3NLalZtbG9qTUR6REVXYk0KgB+K76Ks5kFRwMDG7kXfCiTQMgRSjtOV
             Q/0XlXsq366smiz4qz6qtJ9OzEo2YWFWmk8avKpKKvhDSYBLWdBPpQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-07T22:01:17Z"
-    mac: ENC[AES256_GCM,data:sXQXbVEk+7TqTzKpqCB3Trot07uF6RhwMBtP0fFfhfbNT81VmUMuTslnhJLXYfhob3cBLmHTdswcQ7s6Kb3ihCzgy5f3VpFTqqZ6gE1rM+Esm7irJGtsPtkTAzMtfbv/OnrE/rjf/J38vO9l5n+lfm7vzYNHQo0LzKqLuREncFY=,iv:6Du2p1hsiUOrAGIsYFzV4iCV905xIrsb/UmSr5UQJN0=,tag:izeKJYaN9yF4LCrAGuOskw==,type:str]
+    lastmodified: "2023-12-08T20:38:28Z"
+    mac: ENC[AES256_GCM,data:EmqeZksvzOKXPFfsXFIuj4ayeXdQNuN0HwDj3urGrI3y1Jq1Rp6TGf0i8x2BVlNNKCQ6l3S4Ve9nJGcTTLF8DdAUAQVGyUMBLvncEXo7QqDwAIcX3W+/sIa+124xrRWE1eD5NoE1DFTMKsXUOlxeNImwQbcCWV4tKIxW3hFooH0=,iv:1xqeUEQFr7YWMh/8jSTErJIii/bY2eXFcPV1gvJyGQY=,tag:ZvoIfjfjJweeBiPjvLBbyA==,type:str]
     pgp: []
     encrypted_regex: ^(stringData)$
     version: 3.8.0
@@ -230,8 +270,8 @@ sops:
             b2wvalhuK3NLalZtbG9qTUR6REVXYk0KgB+K76Ks5kFRwMDG7kXfCiTQMgRSjtOV
             Q/0XlXsq366smiz4qz6qtJ9OzEo2YWFWmk8avKpKKvhDSYBLWdBPpQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-07T22:01:17Z"
-    mac: ENC[AES256_GCM,data:sXQXbVEk+7TqTzKpqCB3Trot07uF6RhwMBtP0fFfhfbNT81VmUMuTslnhJLXYfhob3cBLmHTdswcQ7s6Kb3ihCzgy5f3VpFTqqZ6gE1rM+Esm7irJGtsPtkTAzMtfbv/OnrE/rjf/J38vO9l5n+lfm7vzYNHQo0LzKqLuREncFY=,iv:6Du2p1hsiUOrAGIsYFzV4iCV905xIrsb/UmSr5UQJN0=,tag:izeKJYaN9yF4LCrAGuOskw==,type:str]
+    lastmodified: "2023-12-08T20:38:28Z"
+    mac: ENC[AES256_GCM,data:EmqeZksvzOKXPFfsXFIuj4ayeXdQNuN0HwDj3urGrI3y1Jq1Rp6TGf0i8x2BVlNNKCQ6l3S4Ve9nJGcTTLF8DdAUAQVGyUMBLvncEXo7QqDwAIcX3W+/sIa+124xrRWE1eD5NoE1DFTMKsXUOlxeNImwQbcCWV4tKIxW3hFooH0=,iv:1xqeUEQFr7YWMh/8jSTErJIii/bY2eXFcPV1gvJyGQY=,tag:ZvoIfjfjJweeBiPjvLBbyA==,type:str]
     pgp: []
     encrypted_regex: ^(stringData)$
     version: 3.8.0
