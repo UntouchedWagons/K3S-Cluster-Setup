@@ -3,36 +3,36 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: sonarr-exporter
-  namespace: monitoring-exportarr
+  name: exporter-prowlarr
+  namespace: monitoring
   labels:
-    app: sonarr-exportarr
+    app: exporter-prowlarr
 spec:
   replicas: 1
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: sonarr-exportarr
+      app: exporter-prowlarr
   template:
     metadata:
       labels:
-        app: sonarr-exportarr
+        app: exporter-prowlarr
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9707"
     spec:
       containers:
-        - name: sonarr-exporter
+        - name: exporter-prowlarr
           image: ghcr.io/onedr0p/exportarr:v1.5.3
           args:
-            - sonarr
+            - prowlarr
           env:
             - name: PORT
               value: "9707"
             - name: URL
-              value: "http://sonarr.servarr.svc.cluster.local:8989"
+              value: "http://prowlarr.servarr.svc.cluster.local:9696"
             - name: APIKEY
-              value: "0fe183143c5745269ae3b9ea163c8f85"
+              value: "fa88672ddbeb4b5683a009951076bf38"
           resources:
             requests:
               cpu: 100m
@@ -44,13 +44,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sonarr-exportarr
-  namespace: monitoring-exportarr
+  name: exporter-prowlarr
+  namespace: monitoring
   labels:
-    app: sonarr-exportarr
+    app: exporter-prowlarr
 spec:
   selector:
-    app: sonarr-exportarr
+    app: exporter-prowlarr
   ports:
     - name: monitoring
       port: 9707
@@ -59,10 +59,10 @@ spec:
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: sonarr
+  name: exporter-prowlarr
   namespace: monitoring
 spec:
   staticConfigs:
     - targets:
-        - sonarr-exportarr.monitoring-exportarr.svc.cluster.local:9707
+        - exporter-prowlarr.monitoring.svc.cluster.local:9707
   metricsPath: /metrics

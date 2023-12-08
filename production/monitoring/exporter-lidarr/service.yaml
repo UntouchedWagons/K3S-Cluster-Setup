@@ -3,36 +3,36 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: prowlarr-exporter
-  namespace: monitoring-exportarr
+  name: exporter-lidarr
+  namespace: monitoring
   labels:
-    app: prowlarr-exportarr
+    app: exporter-lidarr
 spec:
   replicas: 1
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: prowlarr-exportarr
+      app: exporter-lidarr
   template:
     metadata:
       labels:
-        app: prowlarr-exportarr
+        app: exporter-lidarr
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9707"
     spec:
       containers:
-        - name: prowlarr-exporter
+        - name: exporter-lidarr
           image: ghcr.io/onedr0p/exportarr:v1.5.3
           args:
-            - prowlarr
+            - lidarr
           env:
             - name: PORT
               value: "9707"
             - name: URL
-              value: "http://prowlarr.servarr.svc.cluster.local:9696"
+              value: "http://lidarr.servarr.svc.cluster.local:8686"
             - name: APIKEY
-              value: "fa88672ddbeb4b5683a009951076bf38"
+              value: "1555da6d78404bffb22c90ace2b31b31"
           resources:
             requests:
               cpu: 100m
@@ -44,25 +44,25 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: prowlarr-exportarr
-  namespace: monitoring-exportarr
+  name: exporter-lidarr
+  namespace: monitoring
   labels:
-    app: prowlarr-exportarr
+    app: exporter-lidarr
 spec:
   selector:
-    app: prowlarr-exportarr
+    app: exporter-lidarr
   ports:
     - name: monitoring
       port: 9707
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/monitoring.coreos.com/scrapeconfig_v1alpha1.json
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: prowlarr
+  name: exporter-lidarr
   namespace: monitoring
 spec:
+  scrapeTimeout: "30s"
   staticConfigs:
     - targets:
-        - prowlarr-exportarr.monitoring-exportarr.svc.cluster.local:9707
+        - exporter-lidarr.monitoring.svc.cluster.local:9707
   metricsPath: /metrics

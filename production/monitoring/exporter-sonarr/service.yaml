@@ -3,36 +3,36 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: sabnzbd-exporter
-  namespace: monitoring-exportarr
+  name: exporter-sonarr
+  namespace: monitoring
   labels:
-    app: sabnzbd-exportarr
+    app: exporter-sonarr
 spec:
   replicas: 1
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: sabnzbd-exportarr
+      app: exporter-sonarr
   template:
     metadata:
       labels:
-        app: sabnzbd-exportarr
+        app: exporter-sonarr
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9707"
     spec:
       containers:
-        - name: sabnzbd-exporter
+        - name: sonarr-exporter
           image: ghcr.io/onedr0p/exportarr:v1.5.3
           args:
-            - sabnzbd
+            - sonarr
           env:
             - name: PORT
               value: "9707"
             - name: URL
-              value: "http://sabnzbd.default.svc.cluster.local:8080"
+              value: "http://sonarr.servarr.svc.cluster.local:8989"
             - name: APIKEY
-              value: "441c51b1799e551d7b4757b179fe7e96"
+              value: "0fe183143c5745269ae3b9ea163c8f85"
           resources:
             requests:
               cpu: 100m
@@ -44,25 +44,24 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sabnzbd-exportarr
-  namespace: monitoring-exportarr
+  name: exporter-sonarr
+  namespace: monitoring
   labels:
-    app: sabnzbd-exportarr
+    app: exporter-sonarr
 spec:
   selector:
-    app: sabnzbd-exportarr
+    app: exporter-sonarr
   ports:
     - name: monitoring
       port: 9707
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/monitoring.coreos.com/scrapeconfig_v1alpha1.json
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: sabnzbd
+  name: exporter-sonarr
   namespace: monitoring
 spec:
   staticConfigs:
     - targets:
-        - sabnzbd-exportarr.monitoring-exportarr.svc.cluster.local:9707
+        - exporter-sonarr.monitoring.svc.cluster.local:9707
   metricsPath: /metrics

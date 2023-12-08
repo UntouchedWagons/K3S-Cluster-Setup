@@ -1,29 +1,29 @@
-# https://github.com/esanchezm/prometheus-qbittorrent-exporter
+# https://github.com/esanchezm/prometheus-exporter-qbittorrent
 ---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: qbittorrent-exporter
-  namespace: monitoring-exportarr
+  name: exporter-qbittorrent
+  namespace: monitoring
   labels:
-    app: qbittorrent-exportarr
+    app: exporter-qbittorrent
 spec:
   replicas: 1
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: qbittorrent-exportarr
+      app: exporter-qbittorrent
   template:
     metadata:
       labels:
-        app: qbittorrent-exportarr
+        app: exporter-qbittorrent
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9707"
     spec:
       containers:
-        - name: qbittorrent-exporter
-          image: ghcr.io/esanchezm/prometheus-qbittorrent-exporter
+        - name: exporter-qbittorrent
+          image: ghcr.io/esanchezm/prometheus-qbittorrent-exporter:v1.4.0
           env:
             - name: QBITTORRENT_HOST
               value: "qbittorrent.default.svc.cluster.local"
@@ -48,25 +48,24 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qbittorrent-exportarr
-  namespace: monitoring-exportarr
+  name: exporter-qbittorrent
+  namespace: monitoring
   labels:
-    app: qbittorrent-exportarr
+    app: exporter-qbittorrent
 spec:
   selector:
-    app: qbittorrent-exportarr
+    app: exporter-qbittorrent
   ports:
     - name: monitoring
       port: 9707
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/monitoring.coreos.com/scrapeconfig_v1alpha1.json
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: qbittorrent
+  name: exporter-qbittorrent
   namespace: monitoring
 spec:
   staticConfigs:
     - targets:
-        - qbittorrent-exportarr.monitoring-exportarr.svc.cluster.local:9707
+        - exporter-qbittorrent.monitoring.svc.cluster.local:9707
   metricsPath: /metrics

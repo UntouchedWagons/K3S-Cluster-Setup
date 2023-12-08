@@ -3,36 +3,36 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: radarr-exporter
-  namespace: monitoring-exportarr
+  name: exporter-bazarr
+  namespace: monitoring
   labels:
-    app: radarr-exportarr
+    app: exporter-bazarr
 spec:
   replicas: 1
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: radarr-exportarr
+      app: exporter-bazarr
   template:
     metadata:
       labels:
-        app: radarr-exportarr
+        app: exporter-bazarr
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9707"
     spec:
       containers:
-        - name: radarr-exporter
-          image: ghcr.io/onedr0p/exportarr:v1.5.3
+        - name: exporter-bazarr
+          image: ghcr.io/onedr0p/exportarr:v1.6.0
           args:
-            - radarr
+            - bazarr
           env:
             - name: PORT
               value: "9707"
             - name: URL
-              value: "http://radarr.servarr.svc.cluster.local:7878"
+              value: "http://bazarr.servarr.svc.cluster.local:6767"
             - name: APIKEY
-              value: "0416a6d418be4cd7b9b64e3862aa436a"
+              value: "46261886aba73a2aa94b1fafc218a1aa"
           resources:
             requests:
               cpu: 100m
@@ -44,13 +44,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: radarr-exportarr
-  namespace: monitoring-exportarr
+  name: exporter-bazarr
+  namespace: monitoring
   labels:
-    app: radarr-exportarr
+    app: exporter-bazarr
 spec:
   selector:
-    app: radarr-exportarr
+    app: exporter-bazarr
   ports:
     - name: monitoring
       port: 9707
@@ -59,10 +59,11 @@ spec:
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: radarr
+  name: exporter-bazarr
   namespace: monitoring
 spec:
+  scrapeTimeout: 20s
   staticConfigs:
     - targets:
-        - radarr-exportarr.monitoring-exportarr.svc.cluster.local:9707
+        - exporter-bazarr.monitoring.svc.cluster.local:9707
   metricsPath: /metrics
