@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: vaultwarden-config
-  namespace: default
+  name: ispyagentdvr-config
+  namespace: networking
 spec:
   accessModes:
-    - ReadWriteMany
-  storageClassName: longhorn
+    - ReadWriteOnce
+  storageClassName: freenas-iscsi-csi
   resources:
     requests:
       storage: 256Mi
@@ -15,7 +15,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: vaultwarden-vol-restore
+  name: ispyagentdvr-vol-restore
 spec:
   ttlSecondsAfterFinished: 10
   template:
@@ -25,18 +25,18 @@ spec:
         image: untouchedwagons/simple-restore:1.0.2
         volumeMounts:
           - mountPath: /data
-            name: vaultwarden-config
+            name: ispyagentdvr-config
           - mountPath: /backups
             name: backups
         env:
           - name: BACKUP_APPEND_DIRECTORY
-            value: "/kubernetes/production/vaultwarden"
+            value: "/kubernetes/production/ispyagentdvr"
           - name: BACKUP_BASE_NAME
-            value: "vaultwarden"
+            value: "ispyagentdvr"
       volumes:
-        - name: vaultwarden-config
+        - name: ispyagentdvr-config
           persistentVolumeClaim:
-            claimName: vaultwarden-config
+            claimName: ispyagentdvr-config
         - name: backups
           nfs:
             server: 192.168.0.30

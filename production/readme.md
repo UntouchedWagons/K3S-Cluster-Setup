@@ -19,19 +19,48 @@
     helm install cert-manager jetstack/cert-manager --namespace cert-manager --values=production/cert-manager/01-values.yaml --version v1.11.0
     sops -d ./production/cert-manager/02-cert-manager.yaml | kubectl apply -f -
 
-# Longhorn
+# Democratic-CSI installation
 
-    helm repo add longhorn https://charts.longhorn.io
+    helm repo add democratic-csi https://democratic-csi.github.io/charts/
     helm repo update
-    helm install longhorn longhorn/longhorn --create-namespace --namespace longhorn-system --values=production/longhorn/values.yaml
+    helm upgrade --install --values production/democratic-csi/values.yaml --create-namespace --namespace democratic-csi zfs-iscsi democratic-csi/democratic-csi
+
+# PostgreSQL
+
+    kubectl apply -f production/database/namespace.yaml
+    helm repo add bitnami https://charts.bitnami.com/bitnami
+    helm repo add runix https://helm.runix.net/
+    helm repo update
+    helm upgrade --install postgresql bitnami/postgresql --namespace database --version 13.2.24 --values ./production/database/postgresql/values.yaml
+    helm upgrade --install pgadmin4 runix/pgadmin4 --namespace database --version 1.18.5 --values ./production/database/pgadmin4/values.yaml
+    kubectl apply -f production/database/docker-db-backup/service.yaml
+
+# Restore PostgreSQL databases
+
+To be discovered
 
 # Volumes
 
     kubectl apply -f production/volumes/
 
 # Services
-    sops -d ./production/secrets/secrets.yaml | kubectl apply -f -
-    kubectl apply -f production/services/
+    kubectl apply -f production/default/homepage/
+    kubectl apply -f production/default/it-tools/
+    kubectl apply -f production/default/jellyfin/
+    kubectl apply -f production/default/qbittorrent/
+    kubectl apply -f production/default/sabnzbd/
+    kubectl apply -f production/default/vaultwarden/
+    kubectl apply -f production/servarr/
+    kubectl apply -f production/servarr/bazarr/
+    kubectl apply -f production/servarr/lidarr/
+    kubectl apply -f production/servarr/prowlarr/
+    kubectl apply -f production/servarr/radarr/
+    kubectl apply -f production/servarr/sonarr/
+    kubectl apply -f production/ai/
+    kubectl apply -f production/ai/deepstack/
+    kubectl apply -f production/network/
+    kubectl apply -f production/network/ispyagentdvr/
+    sops -d ./production/networking/ddclient/service.yaml | kubectl apply -f -
 
 # Monitoring
 

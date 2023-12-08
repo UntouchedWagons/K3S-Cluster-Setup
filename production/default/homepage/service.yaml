@@ -277,9 +277,6 @@ data:
                 widget:
                   type: traefik
                   url: https://traefik.internal.untouchedwagons.com
-            - Longhorn:
-                icon: longhorn.png
-                href: https://longhorn.internal.untouchedwagons.com
             - Netboot.XYZ:
                 icon: netboot.png
                 href: http://netboot.internal.untouchedwagons.com

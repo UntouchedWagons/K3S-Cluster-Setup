@@ -2,20 +2,20 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ddclient-config
+  name: jellyfin-config
   namespace: default
 spec:
   accessModes:
-    - ReadWriteMany
-  storageClassName: longhorn
+    - ReadWriteOnce
+  storageClassName: freenas-iscsi-csi
   resources:
     requests:
-      storage: 128Mi
+      storage: 10Gi
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: ddclient-vol-restore
+  name: jellyfin-vol-restore
 spec:
   ttlSecondsAfterFinished: 10
   template:
@@ -25,18 +25,18 @@ spec:
         image: untouchedwagons/simple-restore:1.0.2
         volumeMounts:
           - mountPath: /data
-            name: ddclient-config
+            name: jellyfin-config
           - mountPath: /backups
             name: backups
         env:
           - name: BACKUP_APPEND_DIRECTORY
-            value: "/kubernetes/production/ddclient"
+            value: "/kubernetes/production/jellyfin"
           - name: BACKUP_BASE_NAME
-            value: "ddclient"
+            value: "jellyfin"
       volumes:
-        - name: ddclient-config
+        - name: jellyfin-config
           persistentVolumeClaim:
-            claimName: ddclient-config
+            claimName: jellyfin-config
         - name: backups
           nfs:
             server: 192.168.0.30

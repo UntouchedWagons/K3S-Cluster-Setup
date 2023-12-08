@@ -2,10 +2,10 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: vaultwarden
+  name: sabnzbd
   namespace: default
   labels:
-    app: vaultwarden
+    app: sabnzbd
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -14,35 +14,37 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: vaultwarden
+      app: sabnzbd
   template:
     metadata:
       labels:
-        app: vaultwarden
+        app: sabnzbd
     spec:
       securityContext:
-        fsGroup: 30000
+        fsGroup: 568
       containers:
-        - name: vaultwarden
-          image: vaultwarden/server:1.30.0-alpine
+        - name: sabnzbd
+          image: ghcr.io/onedr0p/sabnzbd:4.1.0 
           securityContext:
-            runAsUser: 30000
-            runAsGroup: 30000
             allowPrivilegeEscalation: false
-            runAsNonRoot: true
-            readOnlyRootFilesystem: true
             capabilities:
-              drop: ["ALL"]
+              drop:
+              - all
+              add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
           resources:
             limits:
-              memory: 64Mi
-              cpu: "1"
+              memory: 1Gi
+              cpu: "2"
             requests:
-              memory: 32Mi
+              memory: 256Mi
               cpu: "0.2"
           volumeMounts:
-            - mountPath: /data
-              name: vaultwarden-config
+            - mountPath: /config
+              name: sabnzbd-config
+            - mountPath: /mnt/data/Usenet
+              name: usenet
+            - mountPath: /tmp
+              name: tmp
         - name: backup
           image: untouchedwagons/simple-backup:1.0.4
           resources:
@@ -54,44 +56,52 @@ spec:
               cpu: "0.2"
           volumeMounts:
             - mountPath: /data
-              name: vaultwarden-config
+              name: sabnzbd-config
             - mountPath: /backups
               name: backups
           env:
             - name: BACKUP_APPEND_DIRECTORY
-              value: "/kubernetes/production/vaultwarden"
+              value: "/kubernetes/production/sabnzbd"
             - name: BACKUP_BASE_NAME
-              value: "vaultwarden"
+              value: "sabnzbd"
             - name: BACKUP_RETENTION
               value: "24"
             - name: BACKUP_FREQUENCY
-              value: "0 */8 * * *"
+              value: "0 0 * * *"
       volumes:
-        - name: vaultwarden-config
+        - name: sabnzbd-config
           persistentVolumeClaim:
-            claimName: vaultwarden-config
+            claimName: sabnzbd-config
         - name: backups
           nfs:
             server: 192.168.0.30
             path: /mnt/tank/Media/Backups
+        - name: usenet
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Usenet
+        - name: tmp
+          emptyDir:
+            medium: Memory
+          
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: vaultwarden
+  name: sabnzbd
   namespace: default
 spec:
   selector:
-    app: vaultwarden
+    app: sabnzbd
   ports:
     - name: http
-      targetPort: 80
-      port: 80
+      targetPort: 8080
+      port: 8080
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: vaultwarden
+  name: sabnzbd
   namespace: default
   annotations:
     traefik.ingress.kubernetes.io/frontend-entry-points: http,https
@@ -99,14 +109,14 @@ metadata:
     traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   rules:
-  - host: vaultwarden.internal.untouchedwagons.com
+  - host: sabnzbd.internal.untouchedwagons.com
     http:
       paths:
       - backend:
           service:
-            name: vaultwarden
+            name: sabnzbd
             port:
-              number: 80
+              number: 8080
         path: /
         pathType: Prefix
   tls:

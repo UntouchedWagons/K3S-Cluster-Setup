@@ -43,8 +43,6 @@ spec:
               value: "1000"
             - name: CONTAINER_ENABLE_MONITORING
               value: "FALSE"
-            - name: DEFAULT_CREATE_LATEST_SYMLINK
-              value: "FALSE"
             - name: DB01_TYPE
               value: "postgres"
             - name: DB01_HOST

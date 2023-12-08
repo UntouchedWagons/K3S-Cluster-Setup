@@ -23,8 +23,6 @@ spec:
       runtimeClassName: nvidia
       nodeSelector:
         nvidia.com/gpu.present: "true"
-      securityContext:
-        fsGroup: 30000
       containers:
         - name: jellyfin
           image: jellyfin/jellyfin:10.8.12

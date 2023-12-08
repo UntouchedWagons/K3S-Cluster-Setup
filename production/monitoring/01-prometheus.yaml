@@ -140,7 +140,7 @@ prometheus:
         storageSpec:
             volumeClaimTemplate:
                 spec:
-                    storageClassName: longhorn
+                    storageClassName: freenas-iscsi-csi
                     resources:
                         requests:
                             storage: 25Gi
@@ -186,8 +186,8 @@ sops:
             TmVBRWxGQkpXbmFKYzRBNW1sV3NPZTAKCUDHL2gQPF9peI9SqVk5EYqG5FXKT/SP
             lqTSPm+vcMbeQzuC8INMGBHEtjkvO8iEq0YhDbx+QSydQERwqaa3oQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-03T19:23:23Z"
-    mac: ENC[AES256_GCM,data:TQqUVDiIe4MZF8xbV7K3i8FIN9vhcPyLz8F7Z9FpWiuHrUHkCzmCV3/P3cQJfdQd8PmHxMlYyMgpbCirbSmVSAk0QjkMzXY5jH/xx+hr14OapVlVqqHrLjqIpYNAW3G+EuWbu2xxBu+T0+seYgoZU6ah8ulVFhFBYp6kz1bua1E=,iv:FQ1kgIblNX4A+KQtvMPnjzSK/sUrlRAQn2WZXA5mEmg=,tag:Mo586AY5xVB2lLBI7ilLsA==,type:str]
+    lastmodified: "2023-12-07T23:36:48Z"
+    mac: ENC[AES256_GCM,data:xkWJrQ87Jq09ocfA3xOKB8Hw10CkwA1/UzY6Y27aGsf6k0W/BK9Hb20QjdKjQPEr+EsoqVi1h5zdE+100DBEpsAJqUFTKQD4nrbCWzDCM41zbk5g2iYstNAIeIrBGrBfwXi38aAwHlui87i7eDfXNov7dboztWbJvxxXd4has/o=,iv:jr0HyH5UCqv7kHZB4vMaNHTRzFTuAJZ75pqdvmPg2fg=,tag:2p/pY0G7VanJhR0jOg45Jg==,type:str]
     pgp: []
     encrypted_regex: ^(email_configs)$
     version: 3.8.0

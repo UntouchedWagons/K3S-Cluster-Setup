@@ -1,6 +1,6 @@
 persistence:
   enabled: true
-  storageClassName: longhorn
+  storageClassName: freenas-iscsi-csi
 ingress:
   enabled: true
   ingressClassName: traefik

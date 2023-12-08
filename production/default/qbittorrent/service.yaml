@@ -1,0 +1,237 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: qbittorrent-secrets
+    namespace: default
+type: Opaque
+stringData:
+    VPN_SERVICE_PROVIDER: ENC[AES256_GCM,data:ONCbFfWD,iv:ytiNz2cwZL+imSdCmWl7CZaECgVxrXZ139t4WKwLHGg=,tag:8C66EnPg7QzEOf5fg7UdhA==,type:str]
+    VPN_TYPE: ENC[AES256_GCM,data:m8fU+8/4vc/5,iv:grkz9x9IsbgqmFnbdTXzqWF8ZrdQU2H7z5nQCCsmD8A=,tag:csbjO5pPzOm7hdGIZlx5ZA==,type:str]
+    WIREGUARD_PRIVATE_KEY: ENC[AES256_GCM,data:H143v1krHDLoJvRUiLreldBt2AEld7SEjnBQs1+Z1B450TaTN/Om3DiRVkk=,iv:WXkVeG65BkXdjAaVx7G8yFsAxKnnhQpBpY80KfiCSus=,tag:/6P7zwVX9rk1orTG7nrx9Q==,type:str]
+    WIREGUARD_PRESHARED_KEY: ENC[AES256_GCM,data:P9RXFqzUWBrPvzryVsKwAW5gNFksbIjd9FJseJajhRDPyxU2g+bO39K1/XI=,iv:pRyXn3/alcdrAhj2cIYRjFPGz/61yGE3ZIDIIC3GkjQ=,tag:BCVqoymGteQdAdDpK4+Mjw==,type:str]
+    WIREGUARD_ADDRESSES: ENC[AES256_GCM,data:A5WRMdF1vIF6Dfe87SDgeQ==,iv:/ibTPmCLFiTbQKMsF9Zcf7dRCdsmtMuJE9F+SwyVK8E=,tag:fbagCCf7J9zIYKRNRaZmyA==,type:str]
+    SERVER_COUNTRIES: ENC[AES256_GCM,data:nnGHvxIu,iv:/twu95udZF4HS/6c4Kjn+uHPT5h8CEFSUBOU0jfZ7NI=,tag:J1WPjIJsfyBh1pUjDsDjjg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBoaUhwMDh3VG5kakdqL0hZ
+            QkdqMDVHbDhFK3pFenBRSHQ0Q095OXZqY2k0CllyWUlMSXYrd3dGSC9qODRXWGxw
+            alBmak1DWkFBN0FDQis2Mnh2TGxzU1kKLS0tIDNsaWJXNU9VVHNMTCttOElOS04v
+            b2wvalhuK3NLalZtbG9qTUR6REVXYk0KgB+K76Ks5kFRwMDG7kXfCiTQMgRSjtOV
+            Q/0XlXsq366smiz4qz6qtJ9OzEo2YWFWmk8avKpKKvhDSYBLWdBPpQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-12-07T22:01:17Z"
+    mac: ENC[AES256_GCM,data:sXQXbVEk+7TqTzKpqCB3Trot07uF6RhwMBtP0fFfhfbNT81VmUMuTslnhJLXYfhob3cBLmHTdswcQ7s6Kb3ihCzgy5f3VpFTqqZ6gE1rM+Esm7irJGtsPtkTAzMtfbv/OnrE/rjf/J38vO9l5n+lfm7vzYNHQo0LzKqLuREncFY=,iv:6Du2p1hsiUOrAGIsYFzV4iCV905xIrsb/UmSr5UQJN0=,tag:izeKJYaN9yF4LCrAGuOskw==,type:str]
+    pgp: []
+    encrypted_regex: ^(stringData)$
+    version: 3.8.0
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+    name: qbittorrent
+    namespace: default
+    labels:
+        app: qbittorrent
+spec:
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 0
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: qbittorrent
+    template:
+        metadata:
+            labels:
+                app: qbittorrent
+        spec:
+            securityContext:
+                fsGroup: 568
+            containers:
+                - name: gluetun
+                  image: qmcgaw/gluetun:v3.35
+                  resources:
+                    limits:
+                        memory: 768Mi
+                        cpu: "1"
+                    requests:
+                        memory: 512Mi
+                        cpu: "0.5"
+                  env:
+                    - name: VPN_SERVICE_PROVIDER
+                      valueFrom:
+                        secretKeyRef:
+                            name: qbittorrent-secrets
+                            key: VPN_SERVICE_PROVIDER
+                    - name: VPN_TYPE
+                      valueFrom:
+                        secretKeyRef:
+                            name: qbittorrent-secrets
+                            key: VPN_TYPE
+                    - name: WIREGUARD_PRIVATE_KEY
+                      valueFrom:
+                        secretKeyRef:
+                            name: qbittorrent-secrets
+                            key: WIREGUARD_PRIVATE_KEY
+                    - name: WIREGUARD_PRESHARED_KEY
+                      valueFrom:
+                        secretKeyRef:
+                            name: qbittorrent-secrets
+                            key: WIREGUARD_PRESHARED_KEY
+                    - name: WIREGUARD_ADDRESSES
+                      valueFrom:
+                        secretKeyRef:
+                            name: qbittorrent-secrets
+                            key: WIREGUARD_ADDRESSES
+                    - name: SERVER_COUNTRIES
+                      valueFrom:
+                        secretKeyRef:
+                            name: qbittorrent-secrets
+                            key: SERVER_COUNTRIES
+                    - name: WIREGUARD_MTU
+                      value: "1320"
+                    - name: FIREWALL_VPN_INPUT_PORTS
+                      value: "41183"
+                    - name: FIREWALL_INPUT_PORTS
+                      value: "8080"
+                    - name: FIREWALL_OUTBOUND_SUBNETS
+                      value: 192.168.0.0/16
+                  securityContext:
+                    privileged: true
+                    capabilities:
+                        add:
+                            - NET_ADMIN
+                - name: qbittorrent
+                  image: ghcr.io/onedr0p/qbittorrent:4.6.2
+                  resources:
+                    limits:
+                        memory: 2048Mi
+                        cpu: "2"
+                    requests:
+                        memory: 1024Mi
+                        cpu: "1"
+                  env:
+                    - name: QBITTORRENT__PORT
+                      value: "8080"
+                    - name: QBITTORRENT__BT_PORT
+                      value: "41183"
+                  volumeMounts:
+                    - mountPath: /config/
+                      name: qbittorrent-config
+                    - mountPath: /mnt/data/Torrents
+                      name: torrents
+            volumes:
+                - name: qbittorrent-config
+                  persistentVolumeClaim:
+                    claimName: qbittorrent-config
+                - name: torrents
+                  nfs:
+                    server: 192.168.0.30
+                    path: /mnt/tank/Media/Torrents
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBoaUhwMDh3VG5kakdqL0hZ
+            QkdqMDVHbDhFK3pFenBRSHQ0Q095OXZqY2k0CllyWUlMSXYrd3dGSC9qODRXWGxw
+            alBmak1DWkFBN0FDQis2Mnh2TGxzU1kKLS0tIDNsaWJXNU9VVHNMTCttOElOS04v
+            b2wvalhuK3NLalZtbG9qTUR6REVXYk0KgB+K76Ks5kFRwMDG7kXfCiTQMgRSjtOV
+            Q/0XlXsq366smiz4qz6qtJ9OzEo2YWFWmk8avKpKKvhDSYBLWdBPpQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-12-07T22:01:17Z"
+    mac: ENC[AES256_GCM,data:sXQXbVEk+7TqTzKpqCB3Trot07uF6RhwMBtP0fFfhfbNT81VmUMuTslnhJLXYfhob3cBLmHTdswcQ7s6Kb3ihCzgy5f3VpFTqqZ6gE1rM+Esm7irJGtsPtkTAzMtfbv/OnrE/rjf/J38vO9l5n+lfm7vzYNHQo0LzKqLuREncFY=,iv:6Du2p1hsiUOrAGIsYFzV4iCV905xIrsb/UmSr5UQJN0=,tag:izeKJYaN9yF4LCrAGuOskw==,type:str]
+    pgp: []
+    encrypted_regex: ^(stringData)$
+    version: 3.8.0
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: qbittorrent
+    namespace: default
+spec:
+    selector:
+        app: qbittorrent
+    ports:
+        - name: http
+          targetPort: 8080
+          port: 8080
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBoaUhwMDh3VG5kakdqL0hZ
+            QkdqMDVHbDhFK3pFenBRSHQ0Q095OXZqY2k0CllyWUlMSXYrd3dGSC9qODRXWGxw
+            alBmak1DWkFBN0FDQis2Mnh2TGxzU1kKLS0tIDNsaWJXNU9VVHNMTCttOElOS04v
+            b2wvalhuK3NLalZtbG9qTUR6REVXYk0KgB+K76Ks5kFRwMDG7kXfCiTQMgRSjtOV
+            Q/0XlXsq366smiz4qz6qtJ9OzEo2YWFWmk8avKpKKvhDSYBLWdBPpQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-12-07T22:01:17Z"
+    mac: ENC[AES256_GCM,data:sXQXbVEk+7TqTzKpqCB3Trot07uF6RhwMBtP0fFfhfbNT81VmUMuTslnhJLXYfhob3cBLmHTdswcQ7s6Kb3ihCzgy5f3VpFTqqZ6gE1rM+Esm7irJGtsPtkTAzMtfbv/OnrE/rjf/J38vO9l5n+lfm7vzYNHQo0LzKqLuREncFY=,iv:6Du2p1hsiUOrAGIsYFzV4iCV905xIrsb/UmSr5UQJN0=,tag:izeKJYaN9yF4LCrAGuOskw==,type:str]
+    pgp: []
+    encrypted_regex: ^(stringData)$
+    version: 3.8.0
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: qbittorrent
+    namespace: default
+    annotations:
+        traefik.ingress.kubernetes.io/frontend-entry-points: http,https
+        traefik.ingress.kubernetes.io/router.tls: "true"
+        traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+    rules:
+        - host: qbittorrent.internal.untouchedwagons.com
+          http:
+            paths:
+                - backend:
+                    service:
+                        name: qbittorrent
+                        port:
+                            number: 8080
+                  path: /
+                  pathType: Prefix
+    tls:
+        - hosts:
+            - untouchedwagons.com
+          secretName: com-untouchedwagons-internal
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBoaUhwMDh3VG5kakdqL0hZ
+            QkdqMDVHbDhFK3pFenBRSHQ0Q095OXZqY2k0CllyWUlMSXYrd3dGSC9qODRXWGxw
+            alBmak1DWkFBN0FDQis2Mnh2TGxzU1kKLS0tIDNsaWJXNU9VVHNMTCttOElOS04v
+            b2wvalhuK3NLalZtbG9qTUR6REVXYk0KgB+K76Ks5kFRwMDG7kXfCiTQMgRSjtOV
+            Q/0XlXsq366smiz4qz6qtJ9OzEo2YWFWmk8avKpKKvhDSYBLWdBPpQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-12-07T22:01:17Z"
+    mac: ENC[AES256_GCM,data:sXQXbVEk+7TqTzKpqCB3Trot07uF6RhwMBtP0fFfhfbNT81VmUMuTslnhJLXYfhob3cBLmHTdswcQ7s6Kb3ihCzgy5f3VpFTqqZ6gE1rM+Esm7irJGtsPtkTAzMtfbv/OnrE/rjf/J38vO9l5n+lfm7vzYNHQo0LzKqLuREncFY=,iv:6Du2p1hsiUOrAGIsYFzV4iCV905xIrsb/UmSr5UQJN0=,tag:izeKJYaN9yF4LCrAGuOskw==,type:str]
+    pgp: []
+    encrypted_regex: ^(stringData)$
+    version: 3.8.0
