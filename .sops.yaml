@@ -15,6 +15,11 @@ creation_rules:
     key_groups:
       - age:
           - age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
+  - path_regex: production/networking/rclone/service.yaml
+    encrypted_regex: "^(data|volumeMounts|volumes)$"
+    key_groups:
+      - age:
+          - age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
   - path_regex: production/networking/ddclient/service.yaml
     encrypted_regex: "^(data)$"
     key_groups:
