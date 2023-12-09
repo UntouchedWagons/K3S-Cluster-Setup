@@ -11,14 +11,13 @@
     helm repo add grafana https://grafana.github.io/helm-charts
     helm repo update
 
-# Traefik
-    helm upgrade --install traefik traefik/traefik --create-namespace --namespace traefik --values production/traefik/01-values.yaml
-    kubectl apply -f production/traefik/02-traefik.yaml
-
 # Cert-manager
     kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.crds.yaml
     helm upgrade --install cert-manager jetstack/cert-manager --create-namespace --namespace cert-manager --version v1.11.0 --values production/cert-manager/01-values.yaml
     sops -d ./production/cert-manager/02-cert-manager.yaml | kubectl apply -f -
+
+# Traefik
+    helm upgrade --install traefik traefik/traefik --create-namespace --namespace traefik --values production/traefik/values.yaml
 
 # Democratic-CSI installation
 
