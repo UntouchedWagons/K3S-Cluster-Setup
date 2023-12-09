@@ -33,7 +33,7 @@ spec:
             - name: INIT_POSTGRES_PASS
               value: "GrouseStampAbnormalSpurious"
             - name: INIT_POSTGRES_DBNAME
-              value: "bazarr-main bazarr-logs"
+              value: "bazarr-main"
             - name: INIT_POSTGRES_SUPER_PASS
               value: "TrembleBulwarkBeautifulGossip"
       containers:
@@ -56,8 +56,6 @@ spec:
               value: "postgresql.database.svc.cluster.local"
             - name: BAZARR__POSTGRES_MAIN_DB
               value: "bazarr-main"
-            - name: BAZARR__POSTGRES_LOG_DB
-              value: "bazarr-logs"
             - name: BAZARR__POSTGRES_USER
               value: "bazarr"
             - name: BAZARR__POSTGRES_PASSWORD
