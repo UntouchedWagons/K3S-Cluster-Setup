@@ -25,10 +25,10 @@ data:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: idrac-exporter
+  name: exporter-idrac
   namespace: monitoring
   labels:
-    app: idrac-exporter
+    app: exporter-idrac
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -37,14 +37,14 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: idrac-exporter
+      app: exporter-idrac
   template:
     metadata:
       labels:
-        app: idrac-exporter
+        app: exporter-idrac
     spec:
       containers:
-        - name: idrac-exporter
+        - name: exporter-idrac
           image: mrlhansen/idrac_exporter:1.0.0
           volumeMounts:
             - mountPath: /etc/prometheus/
@@ -57,12 +57,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: idrac-exporter
+  name: exporter-idrac
   namespace: monitoring
 spec:
   type: LoadBalancer
   selector:
-    app: idrac-exporter
+    app: exporter-idrac
   ports:
     - name: http
       targetPort: 9348
@@ -78,7 +78,7 @@ spec:
   scrapeInterval: 2m
   staticConfigs:
     - targets:
-        - idrac-exporter.monitoring.svc.cluster.local:9348
+        - exporter-idrac.monitoring.svc.cluster.local:9348
   metricsPath: /metrics
   params:
     target:
@@ -94,7 +94,7 @@ spec:
   scrapeInterval: 2m
   staticConfigs:
     - targets:
-        - idrac-exporter.monitoring.svc.cluster.local:9348
+        - exporter-idrac.monitoring.svc.cluster.local:9348
   metricsPath: /metrics
   params:
     target:
@@ -110,7 +110,7 @@ spec:
   scrapeInterval: 2m
   staticConfigs:
     - targets:
-        - idrac-exporter.monitoring.svc.cluster.local:9348
+        - exporter-idrac.monitoring.svc.cluster.local:9348
   metricsPath: /metrics
   params:
     target:
@@ -126,7 +126,7 @@ spec:
   scrapeInterval: 2m
   staticConfigs:
     - targets:
-        - idrac-exporter.monitoring.svc.cluster.local:9348
+        - exporter-idrac.monitoring.svc.cluster.local:9348
   metricsPath: /metrics
   params:
     target:
