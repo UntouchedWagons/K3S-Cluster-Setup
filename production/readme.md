@@ -32,7 +32,7 @@
 
 # Restore PostgreSQL databases
 
-To be discovered
+    kubectl apply -f production/database/postgresql-restore/
 
 # Services
     kubectl apply -f production/default/homepage/

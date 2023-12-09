@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: postgresql-bazarr-restore
+  namespace: database
+spec:
+  ttlSecondsAfterFinished: 30
+  template:
+    spec:
+      initContainers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-init:15.5
+          env:
+            - name: INIT_POSTGRES_HOST
+              value: "postgresql.database.svc.cluster.local"
+            - name: INIT_POSTGRES_USER
+              value: "bazarr"
+            - name: INIT_POSTGRES_PASS
+              value: "GrouseStampAbnormalSpurious"
+            - name: INIT_POSTGRES_DBNAME
+              value: "bazarr-main bazarr-logs"
+            - name: INIT_POSTGRES_SUPER_PASS
+              value: "TrembleBulwarkBeautifulGossip"
+      containers:
+        - name: restore-main
+          image: bitnami/postgresql:16.1.0-debian-11-r15
+          command:
+            - /bin/sh
+            - -ec
+            - |
+              zcat /backups/kubernetes/production/postgresql/latest-pgsql_bazarr-main_postgresql.database.svc.cluster.local | /opt/bitnami/postgresql/bin/psql --host=$PGHOST --username=$PGUSER --dbname=$PGDATABASE
+          volumeMounts:
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: PGHOST
+              value: "postgresql.database.svc.cluster.local"
+            - name: PGUSER
+              value: "bazarr"
+            - name: PGPASSWORD
+              value: "GrouseStampAbnormalSpurious"
+            - name: PGDATABASE
+              value: "bazarr-main"
+      volumes:
+        - name: backups
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Backups
+      restartPolicy: Never
