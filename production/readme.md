@@ -69,3 +69,4 @@
     kubectl apply -f production/monitoring/exporter-sabnzbd/
     kubectl apply -f production/monitoring/exporter-qbittorrent/
     kubectl apply -f production/monitoring/exporter-nvidia-smi/
+    kubectl apply -f production/monitoring/exporter-nut/
