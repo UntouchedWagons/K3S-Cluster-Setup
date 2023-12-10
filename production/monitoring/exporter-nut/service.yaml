@@ -61,3 +61,31 @@ spec:
   params:
     target:
       - nut.internal.untouchedwagons.com
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: nut
+  namespace: monitoring
+spec:
+  groups:
+    - name: nut
+      rules:
+        - alert: upsOnBattery
+          annotations:
+            description: 'UPS "{{ $labels.ups }}" has switched to battery.'
+            summary: UPS has switched to battery.
+          expr: |-
+            nut_ups_status{status="OB"} > 0
+          for: 1m
+          labels:
+            severity: warning
+        - alert: upsLowBattery
+          annotations:
+            description: 'UPS "{{ $labels.ups }}" battery is low.'
+            summary: UPS battery is low.
+          expr: |-
+            nut_ups_status{status="LB"} > 0
+          for: 1m
+          labels:
+            severity: critical
