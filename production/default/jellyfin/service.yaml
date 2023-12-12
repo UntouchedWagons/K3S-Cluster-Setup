@@ -38,10 +38,10 @@ spec:
               value: "jellyfin"
       containers:
         - name: jellyfin
-          image: jellyfin/jellyfin:10.8.12
+          image: jellyfin/jellyfin:10.8.13-1
           resources:
             limits:
-              memory: 3072Mi
+              memory: 2048Mi
               cpu: "2"
               nvidia.com/gpu: "1"
             requests:
