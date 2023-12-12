@@ -43,6 +43,17 @@ kube-state-metrics:
                   regex: ^(.*)$
                   replacement: $1
                   targetLabel: kubernetes_node
+prometheus-node-exporter:
+    prometheus:
+        monitor:
+            enabled: true
+            relabelings:
+                - action: replace
+                  regex: ^(.*)$
+                  replacement: $1
+                  sourceLabels:
+                    - __meta_kubernetes_endpoint_node_name
+                  targetLabel: instance
 kubelet:
     enabled: true
     serviceMonitor:
@@ -136,6 +147,7 @@ prometheus:
         scrapeConfigSelectorNilUsesHelmValues: false
         enableAdminAPI: true
         walCompression: true
+        retention: 1d
         retentionSize: 20GB
         storageSpec:
             volumeClaimTemplate:
@@ -186,8 +198,8 @@ sops:
             TmVBRWxGQkpXbmFKYzRBNW1sV3NPZTAKCUDHL2gQPF9peI9SqVk5EYqG5FXKT/SP
             lqTSPm+vcMbeQzuC8INMGBHEtjkvO8iEq0YhDbx+QSydQERwqaa3oQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-07T23:36:48Z"
-    mac: ENC[AES256_GCM,data:xkWJrQ87Jq09ocfA3xOKB8Hw10CkwA1/UzY6Y27aGsf6k0W/BK9Hb20QjdKjQPEr+EsoqVi1h5zdE+100DBEpsAJqUFTKQD4nrbCWzDCM41zbk5g2iYstNAIeIrBGrBfwXi38aAwHlui87i7eDfXNov7dboztWbJvxxXd4has/o=,iv:jr0HyH5UCqv7kHZB4vMaNHTRzFTuAJZ75pqdvmPg2fg=,tag:2p/pY0G7VanJhR0jOg45Jg==,type:str]
+    lastmodified: "2023-12-11T21:48:42Z"
+    mac: ENC[AES256_GCM,data:9UiWaCdKOQ4QihDJAjFJjtCUCBdiFK3h0WnYDSmIrs6IytEFyQxUXuWGW1M/h/ciPVrnjPsEirXaTXLyESI+jgUwTMZGYsrmysVrNHDnEVR3ycoPxkZomee7jClugcCXo1rvxLP9nXBY2A7N0mqjsVex6y6OHp6ok4N328R/yPs=,iv:4+/c5/9Iozt8B4GE5WBtibXe3XDqy+1QPM0KhREnOw4=,tag:PZaEIPE5Ak9m4b8eJNY5gw==,type:str]
     pgp: []
     encrypted_regex: ^(email_configs)$
     version: 3.8.0
