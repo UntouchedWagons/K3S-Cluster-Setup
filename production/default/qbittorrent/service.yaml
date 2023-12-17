@@ -26,8 +26,8 @@ sops:
             b2wvalhuK3NLalZtbG9qTUR6REVXYk0KgB+K76Ks5kFRwMDG7kXfCiTQMgRSjtOV
             Q/0XlXsq366smiz4qz6qtJ9OzEo2YWFWmk8avKpKKvhDSYBLWdBPpQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-08T20:38:28Z"
-    mac: ENC[AES256_GCM,data:EmqeZksvzOKXPFfsXFIuj4ayeXdQNuN0HwDj3urGrI3y1Jq1Rp6TGf0i8x2BVlNNKCQ6l3S4Ve9nJGcTTLF8DdAUAQVGyUMBLvncEXo7QqDwAIcX3W+/sIa+124xrRWE1eD5NoE1DFTMKsXUOlxeNImwQbcCWV4tKIxW3hFooH0=,iv:1xqeUEQFr7YWMh/8jSTErJIii/bY2eXFcPV1gvJyGQY=,tag:ZvoIfjfjJweeBiPjvLBbyA==,type:str]
+    lastmodified: "2023-12-16T03:54:58Z"
+    mac: ENC[AES256_GCM,data:yIsF3JEjrgJqKfPkznUZ6u7r8NUspeSVocfQTv6ljCCJhAFsIqVcVtqmN9HC4z57D5YRxAQTvyX0ZCdIwwIABQmiEtObvKDirucHC94wBJdJSIorPCPoCGtItWiBxyxI4LWNOpvAZoNH7FLN1SUe0fuMsCF0pWNRpfbJxpzx8Vo=,iv:aE9WnzAUWKATB/a2jIRRc/IC6/NS42WKWguhin9A0TU=,tag:hsgcYS4DMJFWzqjwf8AJ1Q==,type:str]
     pgp: []
     encrypted_regex: ^(stringData)$
     version: 3.8.0
@@ -191,8 +191,8 @@ sops:
             b2wvalhuK3NLalZtbG9qTUR6REVXYk0KgB+K76Ks5kFRwMDG7kXfCiTQMgRSjtOV
             Q/0XlXsq366smiz4qz6qtJ9OzEo2YWFWmk8avKpKKvhDSYBLWdBPpQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-08T20:38:28Z"
-    mac: ENC[AES256_GCM,data:EmqeZksvzOKXPFfsXFIuj4ayeXdQNuN0HwDj3urGrI3y1Jq1Rp6TGf0i8x2BVlNNKCQ6l3S4Ve9nJGcTTLF8DdAUAQVGyUMBLvncEXo7QqDwAIcX3W+/sIa+124xrRWE1eD5NoE1DFTMKsXUOlxeNImwQbcCWV4tKIxW3hFooH0=,iv:1xqeUEQFr7YWMh/8jSTErJIii/bY2eXFcPV1gvJyGQY=,tag:ZvoIfjfjJweeBiPjvLBbyA==,type:str]
+    lastmodified: "2023-12-16T03:54:58Z"
+    mac: ENC[AES256_GCM,data:yIsF3JEjrgJqKfPkznUZ6u7r8NUspeSVocfQTv6ljCCJhAFsIqVcVtqmN9HC4z57D5YRxAQTvyX0ZCdIwwIABQmiEtObvKDirucHC94wBJdJSIorPCPoCGtItWiBxyxI4LWNOpvAZoNH7FLN1SUe0fuMsCF0pWNRpfbJxpzx8Vo=,iv:aE9WnzAUWKATB/a2jIRRc/IC6/NS42WKWguhin9A0TU=,tag:hsgcYS4DMJFWzqjwf8AJ1Q==,type:str]
     pgp: []
     encrypted_regex: ^(stringData)$
     version: 3.8.0
@@ -224,8 +224,8 @@ sops:
             b2wvalhuK3NLalZtbG9qTUR6REVXYk0KgB+K76Ks5kFRwMDG7kXfCiTQMgRSjtOV
             Q/0XlXsq366smiz4qz6qtJ9OzEo2YWFWmk8avKpKKvhDSYBLWdBPpQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-08T20:38:28Z"
-    mac: ENC[AES256_GCM,data:EmqeZksvzOKXPFfsXFIuj4ayeXdQNuN0HwDj3urGrI3y1Jq1Rp6TGf0i8x2BVlNNKCQ6l3S4Ve9nJGcTTLF8DdAUAQVGyUMBLvncEXo7QqDwAIcX3W+/sIa+124xrRWE1eD5NoE1DFTMKsXUOlxeNImwQbcCWV4tKIxW3hFooH0=,iv:1xqeUEQFr7YWMh/8jSTErJIii/bY2eXFcPV1gvJyGQY=,tag:ZvoIfjfjJweeBiPjvLBbyA==,type:str]
+    lastmodified: "2023-12-16T03:54:58Z"
+    mac: ENC[AES256_GCM,data:yIsF3JEjrgJqKfPkznUZ6u7r8NUspeSVocfQTv6ljCCJhAFsIqVcVtqmN9HC4z57D5YRxAQTvyX0ZCdIwwIABQmiEtObvKDirucHC94wBJdJSIorPCPoCGtItWiBxyxI4LWNOpvAZoNH7FLN1SUe0fuMsCF0pWNRpfbJxpzx8Vo=,iv:aE9WnzAUWKATB/a2jIRRc/IC6/NS42WKWguhin9A0TU=,tag:hsgcYS4DMJFWzqjwf8AJ1Q==,type:str]
     pgp: []
     encrypted_regex: ^(stringData)$
     version: 3.8.0
@@ -241,7 +241,7 @@ metadata:
         traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
     rules:
-        - host: qbittorrent.internal.untouchedwagons.com
+        - host: qbittorrent.services.internal.untouchedwagons.com
           http:
             paths:
                 - backend:
@@ -254,7 +254,7 @@ spec:
     tls:
         - hosts:
             - untouchedwagons.com
-          secretName: com-untouchedwagons-internal
+          secretName: com-untouchedwagons-internal-services
 sops:
     kms: []
     gcp_kms: []
@@ -270,8 +270,8 @@ sops:
             b2wvalhuK3NLalZtbG9qTUR6REVXYk0KgB+K76Ks5kFRwMDG7kXfCiTQMgRSjtOV
             Q/0XlXsq366smiz4qz6qtJ9OzEo2YWFWmk8avKpKKvhDSYBLWdBPpQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-08T20:38:28Z"
-    mac: ENC[AES256_GCM,data:EmqeZksvzOKXPFfsXFIuj4ayeXdQNuN0HwDj3urGrI3y1Jq1Rp6TGf0i8x2BVlNNKCQ6l3S4Ve9nJGcTTLF8DdAUAQVGyUMBLvncEXo7QqDwAIcX3W+/sIa+124xrRWE1eD5NoE1DFTMKsXUOlxeNImwQbcCWV4tKIxW3hFooH0=,iv:1xqeUEQFr7YWMh/8jSTErJIii/bY2eXFcPV1gvJyGQY=,tag:ZvoIfjfjJweeBiPjvLBbyA==,type:str]
+    lastmodified: "2023-12-16T03:54:58Z"
+    mac: ENC[AES256_GCM,data:yIsF3JEjrgJqKfPkznUZ6u7r8NUspeSVocfQTv6ljCCJhAFsIqVcVtqmN9HC4z57D5YRxAQTvyX0ZCdIwwIABQmiEtObvKDirucHC94wBJdJSIorPCPoCGtItWiBxyxI4LWNOpvAZoNH7FLN1SUe0fuMsCF0pWNRpfbJxpzx8Vo=,iv:aE9WnzAUWKATB/a2jIRRc/IC6/NS42WKWguhin9A0TU=,tag:hsgcYS4DMJFWzqjwf8AJ1Q==,type:str]
     pgp: []
     encrypted_regex: ^(stringData)$
     version: 3.8.0

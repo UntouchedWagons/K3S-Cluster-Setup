@@ -74,7 +74,7 @@ metadata:
     traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   rules:
-  - host: internal.untouchedwagons.com
+  - host: services.internal.untouchedwagons.com
     http:
       paths:
       - backend:
@@ -87,7 +87,7 @@ spec:
   tls:
     - hosts: 
       - untouchedwagons.com
-      secretName: com-untouchedwagons-internal
+      secretName: com-untouchedwagons-internal-services
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -151,60 +151,60 @@ data:
         - Multimedia:
             - Sonarr:
                 icon: sonarr.png
-                href: https://sonarr.internal.untouchedwagons.com
+                href: https://sonarr.services.internal.untouchedwagons.com
                 widget:
                   type: sonarr
-                  url: https://sonarr.internal.untouchedwagons.com
+                  url: https://sonarr.services.internal.untouchedwagons.com
                   key: 0fe183143c5745269ae3b9ea163c8f85
             - Radarr:
                 icon: radarr.png
-                href: https://radarr.internal.untouchedwagons.com
+                href: https://radarr.services.internal.untouchedwagons.com
                 widget:
                   type: radarr
-                  url: https://radarr.internal.untouchedwagons.com
+                  url: https://radarr.services.internal.untouchedwagons.com
                   key: 0416a6d418be4cd7b9b64e3862aa436a
             - Prowlarr:
                 icon: prowlarr.png
-                href: https://prowlarr.internal.untouchedwagons.com
+                href: https://prowlarr.services.internal.untouchedwagons.com
                 widget:
                   type: prowlarr
-                  url: https://prowlarr.internal.untouchedwagons.com
+                  url: https://prowlarr.services.internal.untouchedwagons.com
                   key: fa88672ddbeb4b5683a009951076bf38
             - Bazarr:
                 icon: bazarr.png
-                href: https://bazarr.internal.untouchedwagons.com
+                href: https://bazarr.services.internal.untouchedwagons.com
                 widget:
                   type: bazarr
-                  url: https://bazarr.internal.untouchedwagons.com
+                  url: https://bazarr.services.internal.untouchedwagons.com
                   key: 46261886aba73a2aa94b1fafc218a1aa
             - Lidarr:
                 icon: lidarr.png
-                href: https://lidarr.internal.untouchedwagons.com
+                href: https://lidarr.services.internal.untouchedwagons.com
                 widget:
                   type: lidarr
-                  url: https://lidarr.internal.untouchedwagons.com
+                  url: https://lidarr.services.internal.untouchedwagons.com
                   key: 1555da6d78404bffb22c90ace2b31b31
             - Jellyfin:
                 icon: jellyfin.png
-                href: https://jellyfin.internal.untouchedwagons.com
+                href: https://jellyfin.services.internal.untouchedwagons.com
                 widget:
                     type: jellyfin
-                    url: https://jellyfin.internal.untouchedwagons.com
+                    url: https://jellyfin.services.internal.untouchedwagons.com
                     key: c8f345d99d1a47eba3eef1a75c946516
 
         - Download Clients:
             - qBitTorrent:
                 icon: qbittorrent.png
-                href: https://qbittorrent.internal.untouchedwagons.com
+                href: https://qbittorrent.services.internal.untouchedwagons.com
                 widget:
                   type: qbittorrent
-                  url: https://qbittorrent.internal.untouchedwagons.com
+                  url: https://qbittorrent.services.internal.untouchedwagons.com
             - SABnzbd:
                 icon: sabnzbd.png
-                href: https://sabnzbd.internal.untouchedwagons.com
+                href: https://sabnzbd.services.internal.untouchedwagons.com
                 widget:
                   type: sabnzbd
-                  url: https://sabnzbd.internal.untouchedwagons.com
+                  url: https://sabnzbd.services.internal.untouchedwagons.com
                   key: 441c51b1799e551d7b4757b179fe7e96
 
         - Security:
@@ -273,10 +273,10 @@ data:
                 href: http://homeassistant.internal.untouchedwagons.com:8123
             - Traefik:
                 icon: traefik.png
-                href: https://traefik.internal.untouchedwagons.com
+                href: https://traefik.services.internal.untouchedwagons.com
                 widget:
                   type: traefik
-                  url: https://traefik.internal.untouchedwagons.com
+                  url: https://traefik.services.internal.untouchedwagons.com
             - Netboot.XYZ:
                 icon: netboot.png
                 href: http://netboot.internal.untouchedwagons.com
@@ -284,24 +284,24 @@ data:
         - Services:
             - Vaultwarden:
                 icon: bitwarden.png
-                href: https://vaultwarden.internal.untouchedwagons.com
+                href: https://vaultwarden.services.internal.untouchedwagons.com
             - IT Tools:
                 icon: it-tools.png
-                href: https://it-tools.internal.untouchedwagons.com
+                href: https://it-tools.services.internal.untouchedwagons.com
             - pgAdmin 4:
                 icon: pgadmin.png
-                href: https://pgadmin4.internal.untouchedwagons.com
+                href: https://pgadmin4.services.internal.untouchedwagons.com
 
         - Monitoring:
             - Grafana:
                 icon: grafana.png
-                href: https://grafana.internal.untouchedwagons.com
+                href: https://grafana.services.internal.untouchedwagons.com
             - Prometheus:
                 icon: prometheus.png
-                href: https://prometheus.internal.untouchedwagons.com
+                href: https://prometheus.services.internal.untouchedwagons.com
             - Alert Manager:
                 icon: alertmanager.png
-                href: https://alertmanager.internal.untouchedwagons.com
+                href: https://alertmanager.services.internal.untouchedwagons.com
 
     widgets.yaml: |
         - search:

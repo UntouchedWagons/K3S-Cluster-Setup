@@ -21,8 +21,8 @@ sops:
             N0ZrZ1VBSUEzN0lISjAxN09QMXNEZ0EKbCwqVxlf0GAbBESfhFXlRRby7ntKGRww
             tM+daGkTzJomDWj3jaci9sL4zJacXCxdHTPWPA1lf43gi1Ch2kZueg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-11-18T23:10:15Z"
-    mac: ENC[AES256_GCM,data:9eUjJzDu417UQH1bYyd+Xn4AAqTacegQfE7SD0QKypOGwDPKmmFPt6fZP/OcwMlh7Bmm/s2UK9/gr4akpn52thWHRnSOpqR9oYAm59Ce69D8lRLtmojC3wGO8zk795shqFbBVEGLJxGdQKgXLdY9FeBFZTzxmNkoEDkpupd1sp8=,iv:adn/VciqE50tOiL5h8q8Yt4s83DJ3BknBp2mVdT8UeQ=,tag:IBHEWUGpke+pBw01/xat6g==,type:str]
+    lastmodified: "2023-12-16T03:27:48Z"
+    mac: ENC[AES256_GCM,data:DtzTVnpYTkFr4jAAXp1pJl2nHK/KodbtuA0+b8VaYFKhBma4bw26kmh3tqMiX1JZHHOYeqU0YUanFlX4HlRzqsPwlG40TXrEvMUnpC6sMA5rAtdrVMvRbPu4+yRTWA9c7mUi6WZsUarr2Ed6FJhKPx4A+3BuSvBuDSjttCGNxQY=,iv:kIB350PfCNEa/nTEGjSl82Mlx1jiSOnIWaHc027Ib3w=,tag:CO3tp+vtBJf0GD41/7tBiQ==,type:str]
     pgp: []
     encrypted_regex: ^(cloudflare-token|email)$
     version: 3.8.0
@@ -30,13 +30,13 @@ sops:
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-    name: com-untouchedwagons-internal
+    name: com-untouchedwagons-internal-services
 spec:
     acme:
         server: https://acme-v02.api.letsencrypt.org/directory
         email: ENC[AES256_GCM,data:SIeBtEnwh/jruSN4/3u0d3GXODq1v+HbOg==,iv:LsAdQxc5C1ZwYPsig6WVDG0mphk8m68qJ2jWovvmh0U=,tag:E6g7A5+5/EyAr06zh/mVUw==,type:str]
         privateKeySecretRef:
-            name: com-untouchedwagons-internal
+            name: com-untouchedwagons-internal-services
         solvers:
             - dns01:
                 cloudflare:
@@ -62,8 +62,8 @@ sops:
             N0ZrZ1VBSUEzN0lISjAxN09QMXNEZ0EKbCwqVxlf0GAbBESfhFXlRRby7ntKGRww
             tM+daGkTzJomDWj3jaci9sL4zJacXCxdHTPWPA1lf43gi1Ch2kZueg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-11-18T23:10:15Z"
-    mac: ENC[AES256_GCM,data:9eUjJzDu417UQH1bYyd+Xn4AAqTacegQfE7SD0QKypOGwDPKmmFPt6fZP/OcwMlh7Bmm/s2UK9/gr4akpn52thWHRnSOpqR9oYAm59Ce69D8lRLtmojC3wGO8zk795shqFbBVEGLJxGdQKgXLdY9FeBFZTzxmNkoEDkpupd1sp8=,iv:adn/VciqE50tOiL5h8q8Yt4s83DJ3BknBp2mVdT8UeQ=,tag:IBHEWUGpke+pBw01/xat6g==,type:str]
+    lastmodified: "2023-12-16T03:27:48Z"
+    mac: ENC[AES256_GCM,data:DtzTVnpYTkFr4jAAXp1pJl2nHK/KodbtuA0+b8VaYFKhBma4bw26kmh3tqMiX1JZHHOYeqU0YUanFlX4HlRzqsPwlG40TXrEvMUnpC6sMA5rAtdrVMvRbPu4+yRTWA9c7mUi6WZsUarr2Ed6FJhKPx4A+3BuSvBuDSjttCGNxQY=,iv:kIB350PfCNEa/nTEGjSl82Mlx1jiSOnIWaHc027Ib3w=,tag:CO3tp+vtBJf0GD41/7tBiQ==,type:str]
     pgp: []
     encrypted_regex: ^(cloudflare-token|email)$
     version: 3.8.0
@@ -71,17 +71,17 @@ sops:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-    name: com-untouchedwagons-internal
+    name: com-untouchedwagons-internal-services
     namespace: default
 spec:
-    secretName: com-untouchedwagons-internal
+    secretName: com-untouchedwagons-internal-services
     issuerRef:
-        name: com-untouchedwagons-internal
+        name: com-untouchedwagons-internal-services
         kind: ClusterIssuer
-    commonName: '*.internal.untouchedwagons.com'
+    commonName: '*.services.internal.untouchedwagons.com'
     dnsNames:
-        - internal.untouchedwagons.com
-        - '*.internal.untouchedwagons.com'
+        - services.internal.untouchedwagons.com
+        - '*.services.internal.untouchedwagons.com'
 sops:
     kms: []
     gcp_kms: []
@@ -97,8 +97,8 @@ sops:
             N0ZrZ1VBSUEzN0lISjAxN09QMXNEZ0EKbCwqVxlf0GAbBESfhFXlRRby7ntKGRww
             tM+daGkTzJomDWj3jaci9sL4zJacXCxdHTPWPA1lf43gi1Ch2kZueg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-11-18T23:10:15Z"
-    mac: ENC[AES256_GCM,data:9eUjJzDu417UQH1bYyd+Xn4AAqTacegQfE7SD0QKypOGwDPKmmFPt6fZP/OcwMlh7Bmm/s2UK9/gr4akpn52thWHRnSOpqR9oYAm59Ce69D8lRLtmojC3wGO8zk795shqFbBVEGLJxGdQKgXLdY9FeBFZTzxmNkoEDkpupd1sp8=,iv:adn/VciqE50tOiL5h8q8Yt4s83DJ3BknBp2mVdT8UeQ=,tag:IBHEWUGpke+pBw01/xat6g==,type:str]
+    lastmodified: "2023-12-16T03:27:48Z"
+    mac: ENC[AES256_GCM,data:DtzTVnpYTkFr4jAAXp1pJl2nHK/KodbtuA0+b8VaYFKhBma4bw26kmh3tqMiX1JZHHOYeqU0YUanFlX4HlRzqsPwlG40TXrEvMUnpC6sMA5rAtdrVMvRbPu4+yRTWA9c7mUi6WZsUarr2Ed6FJhKPx4A+3BuSvBuDSjttCGNxQY=,iv:kIB350PfCNEa/nTEGjSl82Mlx1jiSOnIWaHc027Ib3w=,tag:CO3tp+vtBJf0GD41/7tBiQ==,type:str]
     pgp: []
     encrypted_regex: ^(cloudflare-token|email)$
     version: 3.8.0

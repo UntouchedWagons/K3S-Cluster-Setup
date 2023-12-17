@@ -2,14 +2,14 @@
 ingress:
   enabled: true
   hosts:
-    - host: pgadmin4.internal.untouchedwagons.com
+    - host: pgadmin4.services.internal.untouchedwagons.com
       paths:
         - path: /
           pathType: Prefix
   tls:
-    - secretName: com-untouchedwagons-internal
+    - secretName: com-untouchedwagons-internal-services
       hosts:
-        - pgadmin4.internal.untouchedwagons.com
+        - pgadmin4.services.internal.untouchedwagons.com
 
 env:
   email: UntouchedWagons@untouchedwagons.com

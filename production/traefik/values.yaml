@@ -26,12 +26,12 @@ ingressRoute:
   dashboard:
     annotations:
       kubernetes.io/ingress.class: traefik-external
-    matchRule: Host(`traefik.internal.untouchedwagons.com`)
+    matchRule: Host(`traefik.services.internal.untouchedwagons.com`)
     entryPoints: 
       - traefik
       - websecure
     tls:
-      secretName: com-untouchedwagons-internal
+      secretName: com-untouchedwagons-internal-services
 
 providers:
   kubernetesCRD:

@@ -23,11 +23,11 @@ alertmanager:
     ingress:
         enabled: true
         hosts:
-            - alertmanager.internal.untouchedwagons.com
+            - alertmanager.services.internal.untouchedwagons.com
         tls:
-            - secretName: com-untouchedwagons-internal
+            - secretName: com-untouchedwagons-internal-services
               hosts:
-                - alertmanager.internal.untouchedwagons.com
+                - alertmanager.services.internal.untouchedwagons.com
 kube-state-metrics:
     metricLabelsAllowlist:
         - deployments=[*]
@@ -135,10 +135,10 @@ prometheus:
         ingressClassName: traefik
         pathType: Prefix
         hosts:
-            - prometheus.internal.untouchedwagons.com
+            - prometheus.services.internal.untouchedwagons.com
         tls:
             - hosts:
-                - prometheus.internal.untouchedwagons.com
+                - prometheus.services.internal.untouchedwagons.com
     prometheusSpec:
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
@@ -198,8 +198,8 @@ sops:
             TmVBRWxGQkpXbmFKYzRBNW1sV3NPZTAKCUDHL2gQPF9peI9SqVk5EYqG5FXKT/SP
             lqTSPm+vcMbeQzuC8INMGBHEtjkvO8iEq0YhDbx+QSydQERwqaa3oQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-12T18:05:50Z"
-    mac: ENC[AES256_GCM,data:+3/yEnkBQByZhj16DPLP6OHgWQC+D5x3T6n3tnewHPeP0YJh5+LGUv97zoPJomWDQUcLL/U3hhhPkvP/Up91rutpK8waJcVyyLxkqlcWIhAW1U+yZi7LInpOm9Hsz0Zmk7yiHavluKiII5U02owpwYdHO3lJuZTiW/lOvNoKf+A=,iv:KW3PV9pUASFy9gnWUVXAP3bN8W+/iM+fjqvwo5pJzbM=,tag:GXdbZt+/ejti84nehJ9PQA==,type:str]
+    lastmodified: "2023-12-16T04:05:20Z"
+    mac: ENC[AES256_GCM,data:nyeTcwjMH5jCAO1ga+R1LYI5PKzsXwWXFMlGi3ihNt2xv/2wflj434fGF2DsCxEA/gEaUeYAFrdz7/5iXZUO4nHPGnrK9H3k/71qGXooigWb+0rt/UhMYGzQVz+YFKjGljCzYMCD2JMeKsQreerafjtwF2lp2g4vNGP3IJEoEJM=,iv:pcDceHpS45DMMo1Fo7WNGs2MeNnIKrQezAwbsbsY65Y=,tag:9BIeXK0zjubejpkZB47REQ==,type:str]
     pgp: []
     encrypted_regex: ^(email_configs)$
     version: 3.8.0
