@@ -65,4 +65,4 @@ spec:
         - name: backups
           nfs:
             server: 192.168.0.30
-            path: /mnt/tank/Media/Backups
+            path: /tank/Media/Backups

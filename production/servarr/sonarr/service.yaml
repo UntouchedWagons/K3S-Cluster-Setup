@@ -88,15 +88,15 @@ spec:
         - name: videos
           nfs:
             server: 192.168.0.30
-            path: /mnt/tank/Media/Videos
+            path: /tank/Media/Videos
         - name: torrents
           nfs:
             server: 192.168.0.30
-            path: /mnt/tank/Media/Torrents
+            path: /tank/Media/Torrents
         - name: usenet
           nfs:
             server: 192.168.0.30
-            path: /mnt/tank/Media/Usenet
+            path: /tank/Media/Usenet
         - name: tmp
           emptyDir:
             medium: Memory

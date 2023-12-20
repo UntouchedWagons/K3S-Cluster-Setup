@@ -1,6 +1,5 @@
 persistence:
   enabled: true
-  storageClassName: freenas-iscsi-csi
 ingress:
   enabled: true
   ingressClassName: traefik

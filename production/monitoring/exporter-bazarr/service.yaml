@@ -32,7 +32,7 @@ spec:
             - name: URL
               value: "http://bazarr.servarr.svc.cluster.local:6767"
             - name: APIKEY
-              value: "46261886aba73a2aa94b1fafc218a1aa"
+              value: "b9f8668f49e13b76f2c872e5bcaf2048"
           resources:
             requests:
               cpu: 100m

@@ -176,7 +176,7 @@ data:
                 widget:
                   type: bazarr
                   url: https://bazarr.services.internal.untouchedwagons.com
-                  key: 46261886aba73a2aa94b1fafc218a1aa
+                  key: b9f8668f49e13b76f2c872e5bcaf2048
             - Lidarr:
                 icon: lidarr.png
                 href: https://lidarr.services.internal.untouchedwagons.com
@@ -261,13 +261,6 @@ data:
                   url: https://vault.internal.untouchedwagons.com:8007
                   username: root@pam!homepage
                   password: a68b0d0f-a97b-4c57-9025-a54758686405
-            - Storage:
-                icon: truenas.png
-                href: http://storage.internal.untouchedwagons.com
-                widget:
-                    type: truenas
-                    url: http://storage.internal.untouchedwagons.com
-                    key: 5-HNWOUWMzFJTdpsoovUXgDSFkmSz1sndVnDqj35hgu12fIQbP0wbUBDNqQQWw4HAT
             - Home Assistant:
                 icon: home-assistant.png
                 href: http://homeassistant.internal.untouchedwagons.com:8123
@@ -277,6 +270,9 @@ data:
                 widget:
                   type: traefik
                   url: https://traefik.services.internal.untouchedwagons.com
+            - Longhorn:
+                icon: longhorn.png
+                href: https://longhorn.services.internal.untouchedwagons.com
             - Netboot.XYZ:
                 icon: netboot.png
                 href: http://netboot.internal.untouchedwagons.com

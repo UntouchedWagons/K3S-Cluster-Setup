@@ -86,15 +86,15 @@ spec:
         - name: music
           nfs:
             server: 192.168.0.30
-            path: /mnt/tank/Media/Music
+            path: /tank/Media/Music
         - name: torrents
           nfs:
             server: 192.168.0.30
-            path: /mnt/tank/Media/Torrents
+            path: /tank/Media/Torrents
         - name: usenet
           nfs:
             server: 192.168.0.30
-            path: /mnt/tank/Media/Usenet
+            path: /tank/Media/Usenet
 ---
 apiVersion: v1
 kind: Service

@@ -1,0 +1,5 @@
+
+defaultSettings:
+  defaultReplicaCount: 3
+  backupTarget: "cifs://192.168.0.30/Longhorn-Prod"
+  backupTargetCredentialSecret: "cifs-secret"
