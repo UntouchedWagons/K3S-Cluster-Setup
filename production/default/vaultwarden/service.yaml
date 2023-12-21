@@ -86,7 +86,7 @@ spec:
         - name: backups
           nfs:
             server: 192.168.0.30
-            path: /tank/Media/Backups
+            path: /mnt/tank/Media/Backups
 ---
 apiVersion: v1
 kind: Service

@@ -88,11 +88,11 @@ spec:
         - name: backups
           nfs:
             server: 192.168.0.30
-            path: /tank/Media/Backups
+            path: /mnt/tank/Media/Backups
         - name: usenet
           nfs:
             server: 192.168.0.30
-            path: /tank/Media/Usenet
+            path: /mnt/tank/Media/Usenet
         - name: tmp
           emptyDir:
             medium: Memory

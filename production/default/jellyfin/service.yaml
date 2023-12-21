@@ -85,15 +85,15 @@ spec:
         - name: backups
           nfs:
             server: 192.168.0.30
-            path: /tank/Media/Backups
+            path: /mnt/tank/Media/Backups
         - name: videos
           nfs:
             server: 192.168.0.30
-            path: /tank/Media/Videos
+            path: /mnt/tank/Media/Videos
         - name: music
           nfs:
             server: 192.168.0.30
-            path: /tank/Media/Music
+            path: /mnt/tank/Media/Music
 ---
 apiVersion: v1
 kind: Service

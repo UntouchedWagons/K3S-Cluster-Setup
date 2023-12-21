@@ -261,6 +261,13 @@ data:
                   url: https://vault.internal.untouchedwagons.com:8007
                   username: root@pam!homepage
                   password: a68b0d0f-a97b-4c57-9025-a54758686405
+            - Truenas:
+                icon: truenas.png
+                href: http://storage.internal.untouchedwagons.com
+                widget:
+                  type: truenas
+                  url: http://storage.internal.untouchedwagons.com
+                  key: 1-mcbaPOzyTI8kCpGOfwZ2Q93Kij88uN1akJhBxIzkHyXHIwCvDwCnThgsIHeDnSrd
             - Home Assistant:
                 icon: home-assistant.png
                 href: http://homeassistant.internal.untouchedwagons.com:8123
