@@ -38,7 +38,7 @@ spec:
               value: "TrembleBulwarkBeautifulGossip"
       containers:
         - name: lidarr
-          image: ghcr.io/onedr0p/lidarr:1.4.5.3639
+          image: ghcr.io/onedr0p/lidarr:2.0.7.3849
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
