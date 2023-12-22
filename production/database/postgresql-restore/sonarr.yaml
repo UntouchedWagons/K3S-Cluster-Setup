@@ -28,7 +28,7 @@ spec:
             - /bin/sh
             - -ec
             - |
-              zcat /backups/kubernetes/production/postgresql/latest-pgsql_sonarr-main_postgresql.database.svc.cluster.local | /opt/bitnami/postgresql/bin/psql --host=$PGHOST --username=$PGUSER --dbname=$PGDATABASE
+              zcat /backups/kubernetes/production/database/latest-pgsql_sonarr-main_postgresql.database.svc.cluster.local | /opt/bitnami/postgresql/bin/psql --host=$PGHOST --username=$PGUSER --dbname=$PGDATABASE
           volumeMounts:
             - mountPath: /backups
               name: backups

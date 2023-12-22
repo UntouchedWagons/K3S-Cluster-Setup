@@ -2,10 +2,10 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: postgres-backup
+  name: db-backup
   namespace: database
   labels:
-    app: postgres-backup
+    app: db-backup
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -14,11 +14,11 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: postgres-backup
+      app: db-backup
   template:
     metadata:
       labels:
-        app: postgres-backup
+        app: db-backup
     spec:
       securityContext:
         fsGroup: 1000
@@ -36,7 +36,7 @@ spec:
             - name: TIMEZONE
               value: "America/Toronto"
             - name: DEFAULT_FILESYSTEM_PATH
-              value: "/backups/kubernetes/production/postgresql"
+              value: "/backups/kubernetes/production/database"
             - name: USER_DBBACKUP
               value: "1000"
             - name: GROUP_DBBACKUP
@@ -53,13 +53,24 @@ spec:
               value: "postgres"
             - name: DB01_PASS
               value: "TrembleBulwarkBeautifulGossip"
-            - name: DB01_DUMP_INTERVAL # Take a backup every two hours
-              value: "120"
-            - name: DB01_CLEANUP_TIME # Keep 3 days worth of backups
-              value: "4320"
             - name: DB01_COMPRESSION
               value: "gz"
             - name: DB01_SPLIT_DB
+              value: "TRUE"
+
+            - name: DB02_TYPE
+              value: "mongo"
+            - name: DB02_HOST
+              value: "mongodb.database.svc.cluster.local"
+            - name: DB02_NAME
+              value: "unifi"
+            - name: DB02_USER
+              value: "unifi"
+            - name: DB02_PASS
+              value: "ElectronicOstensiblyHeartStride"
+            - name: DB02_COMPRESSION
+              value: "gz"
+            - name: DB02_SPLIT_DB
               value: "TRUE"
       volumes:
         - name: backups
