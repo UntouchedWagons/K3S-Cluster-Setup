@@ -31,7 +31,7 @@ creation_rules:
       - age:
           - age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
   - path_regex: testing/cert-manager/02-cert-manager.yaml
-    encrypted_regex: "^(data|stringData|email|dnsZones|dnsNames|commonName)$"
+    encrypted_regex: "^(stringData|email)$"
     key_groups:
       - age:
           - age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
