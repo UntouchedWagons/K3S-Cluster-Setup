@@ -1,0 +1,62 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: jellyfin
+  namespace: default
+  labels:
+    app: jellyfin
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: jellyfin
+  template:
+    metadata:
+      labels:
+        app: jellyfin
+    spec:
+      containers:
+        - name: jellyfin
+          image: jellyfin/jellyfin:10.8.12
+          resources: 
+            requests: 
+              gpu.intel.com/i915: "1" 
+            limits: 
+              gpu.intel.com/i915: "1" 
+          volumeMounts:
+            - mountPath: /config
+              name: jellyfin-config
+            - mountPath: /config/transcodes
+              name: jellyfin-transcode
+            - mountPath: /mnt/data/Videos
+              name: videos
+
+      volumes:
+        - name: jellyfin-config
+          emptyDir:
+            medium: Memory
+        - name: jellyfin-transcode
+          emptyDir:
+            medium: Memory
+        - name: videos
+          nfs:
+            server: 192.168.35.30
+            path: /tank/Media/Videos
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyfin
+  namespace: default
+spec:
+  selector:
+    app: jellyfin
+  ports:
+    - name: http
+      targetPort: 8096
+      port: 8096
