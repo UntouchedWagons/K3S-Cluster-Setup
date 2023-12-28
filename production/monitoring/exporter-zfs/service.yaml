@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: exporter-zfs
+  namespace: monitoring
+spec:
+  relabelings:
+    - action: replace
+      sourceLabels: [__address__]
+      regex: ([^:]+)(?::\d+)?   # The first group matches the host, the second matches the port.
+      replacement: '$1'
+      targetLabel: instance
+  staticConfigs:
+    - targets:
+      - pve-node-01.internal.untouchedwagons.com:9134
