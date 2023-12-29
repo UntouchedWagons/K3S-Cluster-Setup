@@ -21,7 +21,7 @@ spec:
         app: lidarr
     spec:
       securityContext:
-        fsGroup: 30000
+        fsGroup: 568
       initContainers:
         - name: init-db
           image: ghcr.io/onedr0p/postgres-init:15.5
