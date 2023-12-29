@@ -261,7 +261,7 @@ data:
                   url: https://vault.internal.untouchedwagons.com:8007
                   username: root@pam!homepage
                   password: a68b0d0f-a97b-4c57-9025-a54758686405
-            - Truenas:
+            - TrueNAS:
                 icon: truenas.png
                 href: http://storage.internal.untouchedwagons.com
                 widget:
