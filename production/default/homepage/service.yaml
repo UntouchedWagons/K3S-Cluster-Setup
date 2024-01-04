@@ -283,6 +283,9 @@ data:
             - Netboot.XYZ:
                 icon: netboot.png
                 href: http://netboot.internal.untouchedwagons.com
+            - Technitium:
+                icon: technitium.png
+                href: http://technitium.internal.untouchedwagons.com/
 
         - Services:
             - Vaultwarden:

@@ -1,0 +1,66 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: &app exporter-technitium
+  namespace: monitoring
+  labels:
+    app: *app
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: *app
+  template:
+    metadata:
+      labels:
+        app: *app
+    spec:
+      containers:
+        - name: *app
+          image: untouchedwagons/technitium_exporter:1.0.0
+          imagePullPolicy: Always
+          env:
+            - name: TECHNITIUM_ADDRESS
+              value: "http://technitium.internal.untouchedwagons.com"
+            - name: TECHNITIUM_PORT
+              value: "80"
+            - name: TECHNITIUM_USER
+              value: "admin"
+            - name: TECHNITIUM_PASSWORD
+              value: "DancerVisualProsperityCue"
+            - name: TECHNITIUM_TOKEN
+              value: "098af0b6c443f0ba8bf8722ccad7cd30a49ed2fecb4652f30e9b0e71fc5e9e60"
+            - name: TECHNITIUM_WEBPORT
+              value: "8080"
+          resources:
+            requests:
+              cpu: "1m"
+              memory: "8Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: &app exporter-technitium
+  namespace: monitoring
+spec:
+  selector:
+    app: *app
+  ports:
+    - name: http
+      targetPort: 8080
+      port: 8080
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: &app exporter-technitium
+  namespace: monitoring
+spec:
+  staticConfigs:
+    - targets:
+      - exporter-technitium.monitoring.svc.cluster.local:8080

@@ -13,6 +13,6 @@ spec:
   staticConfigs:
     - targets:
       - nut.internal.untouchedwagons.com:9100
-      - netboot.internal.untouchedwagons.com:9100
       - vault.internal.untouchedwagons.com:9100
       - pve-node-01.internal.untouchedwagons.com:9100
+      - technitium.internal.untouchedwagons.com:9100
