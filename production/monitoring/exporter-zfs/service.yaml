@@ -13,3 +13,61 @@ spec:
   staticConfigs:
     - targets:
       - pve-node-01.internal.untouchedwagons.com:9134
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: zfs
+  namespace: monitoring
+spec:
+  groups:
+    - name: zfs
+      rules:
+        - alert: ZFSPoolDegraded
+          annotations:
+            description: 'ZFS pool {{ $labels.pool }} on {{ $labels.instance }} has become degraded.'
+            summary: ZFS pool degraded.
+          expr: |-
+            zfs_pool_health == 1
+          labels:
+            severity: critical
+        - alert: ZFSPoolFaulted
+          annotations:
+            description: 'ZFS pool {{ $labels.pool }} on {{ $labels.instance }} has faulted.'
+            summary: ZFS pool faulted.
+          expr: |-
+            zfs_pool_health == 2
+          labels:
+            severity: critical
+        - alert: ZFSPoolOffline
+          annotations:
+            description: 'ZFS pool {{ $labels.pool }} on {{ $labels.instance }} has gone offline.'
+            summary: ZFS pool offline.
+          expr: |-
+            zfs_pool_health == 3
+          labels:
+            severity: critical
+        - alert: ZFSPoolUnavailable
+          annotations:
+            description: 'ZFS pool {{ $labels.pool }} on {{ $labels.instance }} is unavailable.'
+            summary: ZFS pool unavailable.
+          expr: |-
+            zfs_pool_health == 4
+          labels:
+            severity: critical
+        - alert: ZFSPoolRemoved
+          annotations:
+            description: 'ZFS pool {{ $labels.pool }} on {{ $labels.instance }} has been removed.'
+            summary: ZFS pool removed.
+          expr: |-
+            zfs_pool_health == 5
+          labels:
+            severity: critical
+        - alert: ZFSPoolSuspended
+          annotations:
+            description: 'ZFS pool {{ $labels.pool }} on {{ $labels.instance }} has been suspended.'
+            summary: ZFS pool suspended.
+          expr: |-
+            zfs_pool_health == 6
+          labels:
+            severity: critical
