@@ -1,0 +1,168 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: &app tdarr
+  namespace: servarr
+  labels:
+    app: *app
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: *app
+  template:
+    metadata:
+      labels:
+        app: *app
+    spec:
+      securityContext:
+        fsGroup: 1000
+      containers:
+        - name: tdarr
+          image: ghcr.io/haveagitgat/tdarr:2.17.01
+          env:
+            - name: serverIP
+              value: "0.0.0.0"
+            - name: serverPort
+              value: "8266"
+            - name: webUIPort
+              value: "8265"
+            - name: internalNode
+              value: "false"
+            - name: inContainer
+              value: "true"
+            - name: ffmpegVersion
+              value: "6"
+            - name: TZ
+              value: "America/Toronto"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+          volumeMounts:
+            - mountPath: /app/configs
+              name: tdarr-config
+              subPath: configs
+            - mountPath: /app/logs
+              name: tdarr-config
+              subPath: logs
+            - mountPath: /app/server
+              name: tdarr-config
+              subPath: server
+            - mountPath: /mnt/data/Videos
+              name: videos
+            - mountPath: /temp
+              name: tmp
+
+      volumes:
+        - name: tdarr-config
+          persistentVolumeClaim:
+            claimName: tdarr-config
+        - name: videos
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Videos
+        - name: tmp
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Scratch
+---
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: &app tdarr-node
+  namespace: servarr
+  labels:
+    app: *app
+spec:
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: *app
+  template:
+    metadata:
+      labels:
+        app: *app
+    spec:
+      securityContext:
+        fsGroup: 1000
+      containers:
+        - name: tdarr-node
+          image: ghcr.io/haveagitgat/tdarr_node:2.17.01
+          env:
+            - name: serverIP
+              value: "tdarr.servarr.svc.cluster.local"
+            - name: serverPort
+              value: "8266"
+            - name: inContainer
+              value: "true"
+            - name: ffmpegVersion
+              value: "6"
+            - name: TZ
+              value: "America/Toronto"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+          volumeMounts:
+            - mountPath: /mnt/data/Videos
+              name: videos
+            - mountPath: /temp
+              name: tmp
+
+      volumes:
+        - name: videos
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Videos
+        - name: tmp
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Scratch
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: &app tdarr
+  namespace: servarr
+spec:
+  selector:
+    app: tdarr
+  ports:
+    - name: http
+      targetPort: 8265
+      port: 8265
+    - name: comms
+      targetPort: 8266
+      port: 8266
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: &app tdarr
+  namespace: servarr
+  annotations:
+    traefik.ingress.kubernetes.io/frontend-entry-points: http,https
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: tdarr.services.internal.untouchedwagons.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: *app
+            port:
+              number: 8265
+        path: /
+        pathType: Prefix
+  tls:
+    - hosts: 
+      - untouchedwagons.com
+      secretName: com-untouchedwagons-internal-services

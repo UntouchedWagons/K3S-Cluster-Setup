@@ -297,6 +297,9 @@ data:
             - pgAdmin 4:
                 icon: pgadmin.png
                 href: https://pgadmin4.services.internal.untouchedwagons.com
+            - Tdarr:
+                icon: tdarr.png
+                href: https://tdarr.services.internal.untouchedwagons.com
 
         - Monitoring:
             - Grafana:
