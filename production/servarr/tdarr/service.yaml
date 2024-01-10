@@ -1,3 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tdarr-sample-config
+  namespace: servarr
+data:
+  Tdarr_Node_Config.json: |
+    {
+      "nodeName": "TEMPLATE_HOSTNAME",
+      "serverIP": "tdarr.servarr.svc.cluster.local",
+      "serverPort": "8266",
+      "handbrakePath": "",
+      "ffmpegPath": "",
+      "mkvpropeditPath": "",
+      "pathTranslators": [
+        {
+          "server": "",
+          "node": ""
+        }
+      ],
+      "logLevel": "INFO",
+      "priority": -1,
+      "cronPluginUpdate": ""
+    }
 ---
 kind: Deployment
 apiVersion: apps/v1
@@ -91,6 +115,22 @@ spec:
     spec:
       securityContext:
         fsGroup: 1000
+      initContainers: # There may be a better way to autogenerate a config
+        - name: init-config
+          image: k8s.gcr.io/busybox
+          command: [ "sh", "-c"]
+          args:
+            - cat /data/Tdarr_Node_Config.json | sed "s/TEMPLATE_HOSTNAME/$NODE_NAME/" > /app/configs/Tdarr_Node_Config.json
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          volumeMounts:
+            - mountPath: /data
+              name: tdarr-sample-config
+            - mountPath: /app/configs
+              name: tdarr-config
       containers:
         - name: tdarr-node
           image: ghcr.io/haveagitgat/tdarr_node:2.17.01
@@ -110,12 +150,20 @@ spec:
             - name: PGID
               value: "1000"
           volumeMounts:
+            - mountPath: /app/configs
+              name: tdarr-config
             - mountPath: /mnt/data/Videos
               name: videos
             - mountPath: /temp
               name: tmp
 
       volumes:
+        - name: tdarr-config
+          emptyDir:
+            medium: Memory
+        - name: tdarr-sample-config
+          configMap:
+            name: tdarr-sample-config
         - name: videos
           nfs:
             server: 192.168.0.30
