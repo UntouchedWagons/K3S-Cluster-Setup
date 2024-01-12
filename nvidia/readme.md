@@ -34,7 +34,7 @@ Now we'll install gpg and add the nvidia container toolkit repository:
     sudo apt-get install -y gpg curl
     curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
     curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
-    apt-get update
+    sudo apt-get update
 
 Now we'll install the driver, nvidia-smi and the container runtime:
 
