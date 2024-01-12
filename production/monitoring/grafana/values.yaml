@@ -4,11 +4,11 @@ ingress:
   enabled: true
   ingressClassName: traefik
   hosts:
-    - grafana.services.internal.untouchedwagons.com
+    - grafana.services.untouchedwagons.com
   tls:
-    - secretName: com-untouchedwagons-internal-services
+    - secretName: com-untouchedwagons-services
       hosts:
-        - grafana.services.internal.untouchedwagons.com
+        - grafana.services.untouchedwagons.com
 datasources:
   datasources.yaml:
     apiVersion: 1

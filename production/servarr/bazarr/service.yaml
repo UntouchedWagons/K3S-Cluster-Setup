@@ -109,7 +109,7 @@ metadata:
     traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   rules:
-  - host: bazarr.services.internal.untouchedwagons.com
+  - host: bazarr.services.untouchedwagons.com
     http:
       paths:
       - backend:
@@ -122,4 +122,4 @@ spec:
   tls:
     - hosts: 
       - untouchedwagons.com
-      secretName: com-untouchedwagons-internal-services
+      secretName: com-untouchedwagons-services

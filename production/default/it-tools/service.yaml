@@ -61,7 +61,7 @@ metadata:
     traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   rules:
-  - host: it-tools.services.internal.untouchedwagons.com
+  - host: it-tools.services.untouchedwagons.com
     http:
       paths:
       - backend:
@@ -74,4 +74,4 @@ spec:
   tls:
     - hosts: 
       - untouchedwagons.com
-      secretName: com-untouchedwagons-internal-services
+      secretName: com-untouchedwagons-services

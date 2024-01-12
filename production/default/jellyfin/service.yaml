@@ -20,6 +20,9 @@ spec:
       labels:
         app: jellyfin
     spec:
+      nodeSelector:
+        nvidia.com/gpu.present: "true"
+      runtimeClassName: nvidia
       initContainers:
         - name: jellyfin-restore
           image: untouchedwagons/simple-restore:1.0.4
@@ -40,6 +43,7 @@ spec:
             limits:
               memory: 2048Mi
               cpu: "2"
+              nvidia.com/gpu: "1"
             requests:
               memory: 1024Mi
               cpu: "1"
@@ -119,7 +123,7 @@ metadata:
     traefik.ingress.kubernetes.io/redirect-entry-point: https
 spec:
   rules:
-  - host: jellyfin.services.internal.untouchedwagons.com
+  - host: jellyfin.services.untouchedwagons.com
     http:
       paths:
       - backend:
@@ -132,4 +136,4 @@ spec:
   tls:
     - hosts: 
       - untouchedwagons.com
-      secretName: com-untouchedwagons-internal-services
+      secretName: com-untouchedwagons-services
