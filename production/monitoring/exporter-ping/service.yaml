@@ -115,5 +115,6 @@ spec:
             summary: High ping loss ratio.
           expr: |-
             ping_loss_ratio != 0
+          for: 1m
           labels:
             severity: critical
