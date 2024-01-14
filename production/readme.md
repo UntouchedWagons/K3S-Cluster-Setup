@@ -24,7 +24,6 @@
 
     helm upgrade --install longhorn --create-namespace --namespace longhorn-system longhorn/longhorn --version 1.5.3 --values production/longhorn-system/longhorn/values.yaml
     kubectl apply -f production/longhorn-system/longhorn/ingress.yaml
-    sops -d production/longhorn-system/longhorn/secrets.yaml | kubectl apply -f -
 
 # PostgreSQL
 
