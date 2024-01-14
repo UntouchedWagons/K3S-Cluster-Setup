@@ -8,10 +8,10 @@ systemd_dir: /etc/systemd/system
 system_timezone: "America/Toronto"
 
 # interface which will be used for flannel
-flannel_iface: "eno1"
+flannel_iface: "eth0"
 
 # apiserver_endpoint is virtual ip-address which will be configured on each master
-apiserver_endpoint: "192.168.35.100"
+apiserver_endpoint: "192.168.35.50"
 
 # k3s_token is required  masters can talk together securely
 # this token should be alpha numeric only
@@ -59,7 +59,7 @@ metal_lb_speaker_tag_version: "v0.13.12"
 metal_lb_controller_tag_version: "v0.13.12"
 
 # metallb ip range for load balancer
-metal_lb_ip_range: "192.168.35.101-192.168.35.120"
+metal_lb_ip_range: "192.168.35.51-192.168.35.59"
 
 # Only enable if your nodes are proxmox LXC nodes, make sure to configure your proxmox nodes
 # in your hosts.ini file.
