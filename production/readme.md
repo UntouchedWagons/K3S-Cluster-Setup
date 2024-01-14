@@ -25,6 +25,22 @@
     helm upgrade --install longhorn --create-namespace --namespace longhorn-system longhorn/longhorn --version 1.5.3 --values production/longhorn-system/longhorn/values.yaml
     kubectl apply -f production/longhorn-system/longhorn/ingress.yaml
 
+# Node Feature Discovery
+
+    helm repo add node-feature-discovery https://kubernetes-sigs.github.io/node-feature-discovery/charts
+    helm repo update
+
+    helm upgrade --install node-feature-discovery node-feature-discovery/node-feature-discovery --version 0.14.3
+    kubectl apply -f testing/node-feature-discovery/rules.yaml
+
+# Intel GPU Stuff
+
+    helm repo add intel https://intel.github.io/helm-charts/
+    helm repo update
+
+    helm upgrade --install device-plugin-operator intel/intel-device-plugins-operator
+    helm upgrade --install gpu-device-plugin intel/intel-device-plugins-gpu --values production/intel/values.yaml
+
 # PostgreSQL
 
     kubectl apply -f production/database/
