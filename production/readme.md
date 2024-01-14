@@ -93,3 +93,6 @@
     kubectl apply -f production/monitoring/exporter-sabnzbd/
     kubectl apply -f production/monitoring/exporter-qbittorrent/
     kubectl apply -f production/monitoring/exporter-nut/
+    kubectl apply -f production/monitoring/exporter-ping/
+    kubectl apply -f production/monitoring/exporter-zfs/
+    kubectl apply -f production/monitoring/exporter-technitium/
