@@ -57,21 +57,6 @@ spec:
               value: "gz"
             - name: DB01_SPLIT_DB
               value: "TRUE"
-
-            - name: DB02_TYPE
-              value: "mongo"
-            - name: DB02_HOST
-              value: "mongodb.database.svc.cluster.local"
-            - name: DB02_NAME
-              value: "unifi"
-            - name: DB02_USER
-              value: "unifi"
-            - name: DB02_PASS
-              value: "ElectronicOstensiblyHeartStride"
-            - name: DB02_COMPRESSION
-              value: "gz"
-            - name: DB02_SPLIT_DB
-              value: "TRUE"
       volumes:
         - name: backups
           nfs:

@@ -52,10 +52,6 @@
 
     kubectl apply -f production/database/postgresql-restore/
 
-# MongoDB
-
-    kubectl apply -f production/database/mongo
-
 # Services
     kubectl apply -f production/default/homepage/
     kubectl apply -f production/default/it-tools/
@@ -73,7 +69,6 @@
     kubectl apply -f production/ai/deepstack/
     kubectl apply -f production/networking/
     kubectl apply -f production/networking/ispyagentdvr/
-    kubectl apply -f production/networking/unifi/
     sops -d production/networking/ddclient/service.yaml | kubectl apply -f -
     sops -d production/networking/rclone/service.yaml | kubectl apply -f -
 
