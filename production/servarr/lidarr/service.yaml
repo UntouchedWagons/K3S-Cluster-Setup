@@ -78,11 +78,38 @@ spec:
               name: torrents
             - mountPath: /mnt/data/Usenet
               name: usenet
+        - name: backup
+          image: untouchedwagons/simple-backup:1.0.5
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /data
+              name: lidarr-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/lidarr"
+            - name: BACKUP_BASE_NAME
+              value: "lidarr"
+            - name: BACKUP_RETENTION
+              value: "24"
+            - name: BACKUP_FREQUENCY
+              value: "0 0 * * *"
 
       volumes:
         - name: lidarr-config
           persistentVolumeClaim:
             claimName: lidarr-config
+        - name: backups
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Backups
         - name: music
           nfs:
             server: 192.168.0.30

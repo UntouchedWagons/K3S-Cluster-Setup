@@ -82,6 +82,29 @@ spec:
               name: videos
             - mountPath: /temp
               name: tmp
+        - name: backup
+          image: untouchedwagons/simple-backup:1.0.5
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /data
+              name: tdarr-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/tdarr"
+            - name: BACKUP_BASE_NAME
+              value: "tdarr"
+            - name: BACKUP_RETENTION
+              value: "24"
+            - name: BACKUP_FREQUENCY
+              value: "0 0 * * *"
 
       volumes:
         - name: tdarr-config
@@ -95,6 +118,10 @@ spec:
           nfs:
             server: 192.168.0.30
             path: /mnt/tank/Scratch
+        - name: backups
+          nfs:
+            server: 192.168.0.30
+            path: /mnt/tank/Media/Backups
 ---
 kind: DaemonSet
 apiVersion: apps/v1
