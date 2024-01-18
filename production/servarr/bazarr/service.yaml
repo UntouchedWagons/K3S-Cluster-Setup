@@ -36,6 +36,18 @@ spec:
               value: "bazarr-main"
             - name: INIT_POSTGRES_SUPER_PASS
               value: "TrembleBulwarkBeautifulGossip"
+        - name: restore
+          image: untouchedwagons/simple-restore:1.0.4
+          volumeMounts:
+            - mountPath: /data
+              name: bazarr-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/bazarr"
+            - name: BACKUP_BASE_NAME
+              value: "bazarr"
       containers:
         - name: bazarr
           image: ghcr.io/onedr0p/bazarr:1.4.0
@@ -101,11 +113,11 @@ spec:
             claimName: bazarr-config
         - name: backups
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Backups
         - name: videos
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Videos
 ---
 apiVersion: v1

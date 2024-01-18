@@ -97,9 +97,9 @@ kubeApiServer:
 kubeControllerManager:
     enabled: true
     endpoints:
-        - 192.168.0.80
-        - 192.168.0.81
-        - 192.168.0.82
+        - 192.168.35.100
+        - 192.168.35.101
+        - 192.168.35.102
     serviceMonitor:
         metricRelabelings:
             # Remove duplicate labels provided by k3s
@@ -110,15 +110,15 @@ kubeControllerManager:
 kubeEtcd:
     enabled: true
     endpoints:
-        - 192.168.0.80
-        - 192.168.0.81
-        - 192.168.0.82
+        - 192.168.35.100
+        - 192.168.35.101
+        - 192.168.35.102
 kubeScheduler:
     enabled: true
     endpoints:
-        - 192.168.0.80
-        - 192.168.0.81
-        - 192.168.0.82
+        - 192.168.35.100
+        - 192.168.35.101
+        - 192.168.35.102
     serviceMonitor:
         metricRelabelings:
             # Remove duplicate labels provided by k3s
@@ -197,8 +197,8 @@ sops:
             TmVBRWxGQkpXbmFKYzRBNW1sV3NPZTAKCUDHL2gQPF9peI9SqVk5EYqG5FXKT/SP
             lqTSPm+vcMbeQzuC8INMGBHEtjkvO8iEq0YhDbx+QSydQERwqaa3oQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-01-12T16:48:11Z"
-    mac: ENC[AES256_GCM,data:8k8RGmfhYuL9QhH0g38x0M5ATGFc14Y8/Jl7XNghK0scPs8LNs9wTt1PuKhyCi3KOuMWlwpLnPzy51VyRldji+XUeH29nhB9aLAdOEH2Vbs+sJn7t50yGl5uLOUt4xKCCxnMmFnn6Ultgp1CArIlURW5T6pEHhcsg2hgIoV+7tI=,iv:YJ2U98NMTgTw06UFnk2+XHs2vF2Tvl8c5Kox/VlGS/A=,tag:DSVSSSCnwqOOnma5kq5gyw==,type:str]
+    lastmodified: "2024-01-18T20:47:37Z"
+    mac: ENC[AES256_GCM,data:0RYEQHjFLkdwgVrOHRFKTakiws1jwMsaI6h/Yvpy6w0MIdZSG0E8J4Q9Rv5KrAb1OGJUcjOlkQPFqxbuDUm8k28nR8xH/LEl1dXBMZAQORhTKe6Oxy4/pOTdCirmPORI1d0xrdytDwlp9ZDblXm//z8Nlmg8OpT7aaQS4F0gvhY=,iv:BKC56tUQnSExZ55ZpQi6L3bRQvcOHl0ES6zohCnAoMk=,tag:j/TdU2UJFmE2oo7Fq2MRng==,type:str]
     pgp: []
     encrypted_regex: ^(email_configs)$
     version: 3.8.0

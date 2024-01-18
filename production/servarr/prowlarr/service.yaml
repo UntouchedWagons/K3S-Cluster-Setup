@@ -36,6 +36,18 @@ spec:
               value: "prowlarr-main prowlarr-logs"
             - name: INIT_POSTGRES_SUPER_PASS
               value: "TrembleBulwarkBeautifulGossip"
+        - name: restore
+          image: untouchedwagons/simple-restore:1.0.4
+          volumeMounts:
+            - mountPath: /data
+              name: prowlarr-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/prowlarr"
+            - name: BACKUP_BASE_NAME
+              value: "prowlarr"
       containers:
         - name: prowlarr
           image: ghcr.io/onedr0p/prowlarr:1.11.4.4173
@@ -101,7 +113,7 @@ spec:
             claimName: prowlarr-config
         - name: backups
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Backups
 ---
 apiVersion: v1

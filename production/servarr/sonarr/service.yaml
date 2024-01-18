@@ -36,6 +36,18 @@ spec:
               value: "sonarr-main sonarr-logs"
             - name: INIT_POSTGRES_SUPER_PASS
               value: "TrembleBulwarkBeautifulGossip"
+        - name: restore
+          image: untouchedwagons/simple-restore:1.0.4
+          volumeMounts:
+            - mountPath: /data
+              name: sonarr-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/sonarr"
+            - name: BACKUP_BASE_NAME
+              value: "sonarr"
       containers:
         - name: sonarr
           image: ghcr.io/onedr0p/sonarr-develop:4.0.0.752
@@ -110,19 +122,19 @@ spec:
             claimName: sonarr-config
         - name: videos
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Videos
         - name: torrents
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Torrents
         - name: usenet
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Usenet
         - name: backups
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Backups
         - name: tmp
           emptyDir:

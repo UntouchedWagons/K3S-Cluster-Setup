@@ -65,6 +65,7 @@
     kubectl apply -f production/servarr/prowlarr/
     kubectl apply -f production/servarr/radarr/
     kubectl apply -f production/servarr/sonarr/
+    kubectl apply -f production/servarr/tdarr/
     kubectl apply -f production/ai/
     kubectl apply -f production/ai/deepstack/
     kubectl apply -f production/networking/
@@ -74,8 +75,8 @@
 
 # Monitoring
 
-    sops -d ./production/monitoring/prometheus/values.yaml | helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack --create-namespace --namespace monitoring --version 52.1.0 --values -
-    helm upgrade --install grafana grafana/grafana --namespace monitoring --version 7.0.3 --values ./production/monitoring/grafana/values.yaml
+    sops -d ./production/monitoring/prometheus/values.yaml | helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack --create-namespace --namespace monitoring --version 55.11.0 --values -
+    helm upgrade --install grafana grafana/grafana --namespace monitoring --version 7.2.1 --values ./production/monitoring/grafana/values.yaml
     kubectl apply -f production/monitoring/exporter-idrac/
     kubectl apply -f production/monitoring/exporter-linux/
     kubectl apply -f production/monitoring/exporter-opnsense/

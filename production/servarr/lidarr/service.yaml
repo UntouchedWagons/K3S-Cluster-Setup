@@ -36,6 +36,18 @@ spec:
               value: "lidarr-main lidarr-logs"
             - name: INIT_POSTGRES_SUPER_PASS
               value: "TrembleBulwarkBeautifulGossip"
+        - name: restore
+          image: untouchedwagons/simple-restore:1.0.4
+          volumeMounts:
+            - mountPath: /data
+              name: lidarr-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/lidarr"
+            - name: BACKUP_BASE_NAME
+              value: "lidarr"
       containers:
         - name: lidarr
           image: ghcr.io/onedr0p/lidarr:2.0.7.3849
@@ -108,19 +120,19 @@ spec:
             claimName: lidarr-config
         - name: backups
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Backups
         - name: music
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Music
         - name: torrents
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Torrents
         - name: usenet
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Usenet
 ---
 apiVersion: v1

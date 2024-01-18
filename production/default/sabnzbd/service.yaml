@@ -87,11 +87,11 @@ spec:
             claimName: sabnzbd-config
         - name: backups
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Backups
         - name: usenet
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Usenet
         - name: tmp
           emptyDir:

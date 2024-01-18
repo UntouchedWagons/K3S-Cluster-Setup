@@ -80,11 +80,11 @@ spec:
             claimName: ispyagentdvr-config
         - name: backups
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Backups
         - name: ispyagentdvr-media
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/ISpyAgentDVR
 
 ---
@@ -95,7 +95,6 @@ metadata:
   namespace: networking
 spec:
   type: LoadBalancer
-  loadBalancerIP: 192.168.0.218
   selector:
     app: ispyagentdvr
   ports:

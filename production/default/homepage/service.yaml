@@ -216,7 +216,7 @@ data:
                 href: https://Camera-Side-Door.internal.untouchedwagons.com
             - ISpyAgent DVR:
                 icon: ispy.png
-                href: http://192.168.0.218
+                href: http://192.168.35.53
 
         - Networking & Equipment:
             - Home Hub 3000:
@@ -248,26 +248,26 @@ data:
             - Proxmox (PVE-Node-01):
                 icon: proxmox.png
                 href: https://pve-node-01.internal.untouchedwagons.com:8006
-                widget:
-                    type: proxmox
-                    url: https://pve-node-01.internal.untouchedwagons.com:8006
-                    username: api@pam!homepage
-                    password: 2041a948-ba79-44ed-b0ce-e9a5300cbc42
+                # widget:
+                #     type: proxmox
+                #     url: https://pve-node-01.internal.untouchedwagons.com:8006
+                #     username: api@pam!homepage
+                #     password: 2041a948-ba79-44ed-b0ce-e9a5300cbc42
             - Proxmox Backup Server:
                 icon: proxmox.png
                 href: https://vault.internal.untouchedwagons.com:8007
-                widget:
-                  type: proxmoxbackupserver
-                  url: https://vault.internal.untouchedwagons.com:8007
-                  username: root@pam!homepage
-                  password: a68b0d0f-a97b-4c57-9025-a54758686405
+                # widget:
+                #   type: proxmoxbackupserver
+                #   url: https://vault.internal.untouchedwagons.com:8007
+                #   username: root@pam!homepage
+                #   password: a68b0d0f-a97b-4c57-9025-a54758686405
             - TrueNAS:
                 icon: truenas.png
                 href: http://storage.internal.untouchedwagons.com
-                widget:
-                  type: truenas
-                  url: http://storage.internal.untouchedwagons.com
-                  key: 1-mcbaPOzyTI8kCpGOfwZ2Q93Kij88uN1akJhBxIzkHyXHIwCvDwCnThgsIHeDnSrd
+                # widget:
+                #   type: truenas
+                #   url: http://storage.internal.untouchedwagons.com
+                #   key: 1-mcbaPOzyTI8kCpGOfwZ2Q93Kij88uN1akJhBxIzkHyXHIwCvDwCnThgsIHeDnSrd
             - Home Assistant:
                 icon: home-assistant.png
                 href: http://homeassistant.internal.untouchedwagons.com:8123

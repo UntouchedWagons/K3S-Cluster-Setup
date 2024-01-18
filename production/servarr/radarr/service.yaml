@@ -36,6 +36,18 @@ spec:
               value: "radarr-main radarr-logs"
             - name: INIT_POSTGRES_SUPER_PASS
               value: "TrembleBulwarkBeautifulGossip"
+        - name: restore
+          image: untouchedwagons/simple-restore:1.0.4
+          volumeMounts:
+            - mountPath: /data
+              name: radarr-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/radarr"
+            - name: BACKUP_BASE_NAME
+              value: "radarr"
       containers:
         - name: radarr
           image: ghcr.io/onedr0p/radarr:5.2.6.8376
@@ -107,19 +119,19 @@ spec:
             claimName: radarr-config
         - name: backups
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Backups
         - name: videos
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Videos
         - name: torrents
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Torrents
         - name: usenet
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Usenet
 ---
 apiVersion: v1

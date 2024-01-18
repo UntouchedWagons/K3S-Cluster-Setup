@@ -63,6 +63,6 @@ spec:
       volumes:
         - name: backups
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Backups
       restartPolicy: Never

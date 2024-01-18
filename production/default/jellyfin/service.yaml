@@ -20,9 +20,6 @@ spec:
       labels:
         app: jellyfin
     spec:
-      nodeSelector:
-        nvidia.com/gpu.present: "true"
-      runtimeClassName: nvidia
       initContainers:
         - name: jellyfin-restore
           image: untouchedwagons/simple-restore:1.0.4
@@ -43,7 +40,6 @@ spec:
             limits:
               memory: 2048Mi
               cpu: "2"
-              nvidia.com/gpu: "1"
             requests:
               memory: 1024Mi
               cpu: "1"
@@ -88,15 +84,15 @@ spec:
             medium: Memory
         - name: backups
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Backups
         - name: videos
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Videos
         - name: music
           nfs:
-            server: 192.168.0.30
+            server: 192.168.35.30
             path: /mnt/tank/Media/Music
 ---
 apiVersion: v1
