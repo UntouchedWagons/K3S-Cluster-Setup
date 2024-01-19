@@ -40,9 +40,11 @@ spec:
             limits:
               memory: 2048Mi
               cpu: "2"
+              gpu.intel.com/i915: "1"
             requests:
               memory: 1024Mi
               cpu: "1"
+              gpu.intel.com/i915: "1"
           volumeMounts:
             - mountPath: /config
               name: jellyfin-config
