@@ -96,10 +96,6 @@ kubeApiServer:
               regex: (apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket)
 kubeControllerManager:
     enabled: true
-    endpoints:
-        - 192.168.35.100
-        - 192.168.35.101
-        - 192.168.35.102
     serviceMonitor:
         metricRelabelings:
             # Remove duplicate labels provided by k3s
@@ -109,16 +105,8 @@ kubeControllerManager:
               regex: (apiserver_audit|apiserver_client|apiserver_delegated|apiserver_envelope|apiserver_storage|apiserver_webhooks|attachdetach_controller|authenticated_user|authentication|cronjob_controller|disabled_metric|endpoint_slice|ephemeral_volume|garbagecollector_controller|get_token|go|hidden_metric|job_controller|kubernetes_build|kubernetes_feature|leader_election|node_collector|node_ipam|process_cpu|process_max|process_open|process_resident|process_start|process_virtual|pv_collector|registered_metric|replicaset_controller|rest_client|retroactive_storageclass|root_ca|running_managed|scrape_duration|scrape_samples|scrape_series|service_controller|storage_count|storage_operation|ttl_after|volume_operation|workqueue)_(.+)
 kubeEtcd:
     enabled: true
-    endpoints:
-        - 192.168.35.100
-        - 192.168.35.101
-        - 192.168.35.102
 kubeScheduler:
     enabled: true
-    endpoints:
-        - 192.168.35.100
-        - 192.168.35.101
-        - 192.168.35.102
     serviceMonitor:
         metricRelabelings:
             # Remove duplicate labels provided by k3s
@@ -197,8 +185,8 @@ sops:
             TmVBRWxGQkpXbmFKYzRBNW1sV3NPZTAKCUDHL2gQPF9peI9SqVk5EYqG5FXKT/SP
             lqTSPm+vcMbeQzuC8INMGBHEtjkvO8iEq0YhDbx+QSydQERwqaa3oQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-01-18T20:47:37Z"
-    mac: ENC[AES256_GCM,data:0RYEQHjFLkdwgVrOHRFKTakiws1jwMsaI6h/Yvpy6w0MIdZSG0E8J4Q9Rv5KrAb1OGJUcjOlkQPFqxbuDUm8k28nR8xH/LEl1dXBMZAQORhTKe6Oxy4/pOTdCirmPORI1d0xrdytDwlp9ZDblXm//z8Nlmg8OpT7aaQS4F0gvhY=,iv:BKC56tUQnSExZ55ZpQi6L3bRQvcOHl0ES6zohCnAoMk=,tag:j/TdU2UJFmE2oo7Fq2MRng==,type:str]
+    lastmodified: "2024-01-18T21:20:50Z"
+    mac: ENC[AES256_GCM,data:T+puZwW19H3WcAPS0LvfJZKQnmbqM49z3jO+cbuPMl4J9ty1TDmB8mL3ICoRbm0z7UHgWSWDFFrs7ll7M4Dcyib+aSXylie8Ri5w/cUzrZ7oOTdo1/Nr8OqeozpSJ4bz6TxEuaLdrceGamTPy4nI4hPPTC6Bg5JYLLEyDU9hJiM=,iv:iEE1sbgaAkIslwQGKBAnBDtHeFP6dQLSWvZOgrhgNDw=,tag:DPsUq4qC4S6g0xuGTABIUw==,type:str]
     pgp: []
     encrypted_regex: ^(email_configs)$
     version: 3.8.0
