@@ -14,15 +14,16 @@ data:
       - idrac-cjtyp22.internal.untouchedwagons.com
       - idrac-czblpd2.internal.untouchedwagons.com
       - idrac-jnky182.internal.untouchedwagons.com
-      - k3s-prod-master-node-01.internal.untouchedwagons.com
-      - k3s-prod-master-node-02.internal.untouchedwagons.com
-      - k3s-prod-master-node-03.internal.untouchedwagons.com
+      - k3s-prod-node-01.internal.untouchedwagons.com
+      - k3s-prod-node-02.internal.untouchedwagons.com
+      - k3s-prod-node-03.internal.untouchedwagons.com
       - netboot.internal.untouchedwagons.com
-      - nut.internal.untouchedwagons.com
       - nut.internal.untouchedwagons.com
       - opnsense.internal.untouchedwagons.com
       - pivpn.internal.untouchedwagons.com
-      - pve-node-01.internal.untouchedwagons.com
+      - pve-cluster-node-01.internal.untouchedwagons.com
+      - pve-cluster-node-02.internal.untouchedwagons.com
+      - pve-cluster-node-03.internal.untouchedwagons.com
       - rmcard205.internal.untouchedwagons.com
       - storage.internal.untouchedwagons.com
       - u6-lite.internal.untouchedwagons.com
