@@ -245,9 +245,9 @@ data:
                 href: https://idrac-jnky182.internal.untouchedwagons.com
 
         - Infrastructure:
-            - Proxmox (PVE-Node-01):
+            - Proxmox:
                 icon: proxmox.png
-                href: https://pve-node-01.internal.untouchedwagons.com:8006
+                href: https://pve-cluster-node-01.internal.untouchedwagons.com:8006
                 # widget:
                 #     type: proxmox
                 #     url: https://pve-node-01.internal.untouchedwagons.com:8006
