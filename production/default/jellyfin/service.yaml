@@ -20,6 +20,8 @@ spec:
       labels:
         app: jellyfin
     spec:
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
       initContainers:
         - name: jellyfin-restore
           image: untouchedwagons/simple-restore:1.0.4
