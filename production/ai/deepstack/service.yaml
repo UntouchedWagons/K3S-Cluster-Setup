@@ -1,5 +1,5 @@
 ---
-kind: Deployment
+kind: DaemonSet
 apiVersion: apps/v1
 metadata:
   name: deepstack
@@ -7,11 +7,7 @@ metadata:
   labels:
     app: deepstack
 spec:
-  replicas: 3
-  progressDeadlineSeconds: 600
   revisionHistoryLimit: 0
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       app: deepstack
