@@ -31,7 +31,7 @@
     helm repo update
 
     helm upgrade --install node-feature-discovery node-feature-discovery/node-feature-discovery --version 0.14.3
-    kubectl apply -f testing/node-feature-discovery/rules.yaml
+    kubectl apply -f node-feature-discovery/rules.yaml
 
 # Intel GPU Stuff
 
@@ -39,7 +39,7 @@
     helm repo update
 
     helm upgrade --install device-plugin-operator intel/intel-device-plugins-operator
-    helm upgrade --install gpu-device-plugin intel/intel-device-plugins-gpu --values production/intel/values.yaml
+    helm upgrade --install gpu-device-plugin intel/intel-device-plugins-gpu --values intel/values.yaml
 
 # PostgreSQL
 
