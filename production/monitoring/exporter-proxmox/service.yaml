@@ -25,10 +25,10 @@ spec:
           env:
             - name: PVE_USER
               value: "root@pam"
-            - name: PVE_PASSWORD
-              value: "SocialExtraordinaryStreet"
-            - name: PVE_VERIFY_SSL
-              value: "false"
+            - name: PVE_TOKEN_NAME
+              value: "pve-exporter"
+            - name: PVE_TOKEN_VALUE
+              value: "c37b8110-b20e-44d8-a882-c9d10ca976c3"
 ---
 apiVersion: v1
 kind: Service
@@ -44,20 +44,18 @@ spec:
       targetPort: 9221
       port: 9221
 ---
+# If you're running a proxmox cluster this is all you need to do
+# There's no need to scrape each node in the cluster
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
   name: exporter-proxmox
   namespace: monitoring
 spec:
-  relabelings:
-    - action: replace
-      replacement: 'pve-node-01.internal.untouchedwagons.com'
-      targetLabel: instance
   staticConfigs:
     - targets:
         - exporter-proxmox.monitoring.svc.cluster.local:9221
   metricsPath: /pve
   params:
     target:
-      - pve-node-01.internal.untouchedwagons.com
+      - pve-cluster-node-01.internal.untouchedwagons.com
