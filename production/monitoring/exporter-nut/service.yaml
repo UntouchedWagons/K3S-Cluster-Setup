@@ -60,7 +60,7 @@ spec:
         - exporter-nut.monitoring.svc.cluster.local:9995
   params:
     target:
-      - nut.internal.untouchedwagons.com
+      - ups.internal.untouchedwagons.com
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule

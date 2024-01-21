@@ -18,7 +18,6 @@ data:
       - k3s-prod-node-02.internal.untouchedwagons.com
       - k3s-prod-node-03.internal.untouchedwagons.com
       - netboot.internal.untouchedwagons.com
-      - nut.internal.untouchedwagons.com
       - opnsense.internal.untouchedwagons.com
       - pivpn.internal.untouchedwagons.com
       - pve-cluster-node-01.internal.untouchedwagons.com
@@ -27,6 +26,7 @@ data:
       - rmcard205.internal.untouchedwagons.com
       - storage.internal.untouchedwagons.com
       - u6-lite.internal.untouchedwagons.com
+      - ups.internal.untouchedwagons.com
       - usw-pro-48-poe.internal.untouchedwagons.com
       - vault.internal.untouchedwagons.com
 

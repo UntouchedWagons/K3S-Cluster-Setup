@@ -13,7 +13,6 @@ spec:
       targetLabel: instance
   staticConfigs:
     - targets:
-      - nut.internal.untouchedwagons.com:9100
       - vault.internal.untouchedwagons.com:9100
       - pve-cluster-node-01.internal.untouchedwagons.com:9100
       - pve-cluster-node-02.internal.untouchedwagons.com:9100
