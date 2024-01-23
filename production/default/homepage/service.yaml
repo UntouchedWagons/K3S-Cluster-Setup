@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: homepage
-          image: ghcr.io/gethomepage/homepage:v0.8.0
+          image: ghcr.io/gethomepage/homepage:v0.8.6
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -285,7 +285,14 @@ data:
                 href: http://netboot.internal.untouchedwagons.com
             - Technitium:
                 icon: technitium.png
-                href: http://technitium.internal.untouchedwagons.com/
+                href: http://technitium.internal.untouchedwagons.com
+            - PeaNUT:
+                icon: peanut.png
+                href: https://peanut.services.untouchedwagons.com
+                widget:
+                  type: peanut
+                  url: https://peanut.services.untouchedwagons.com
+                  key: OR1500LCDRT2U
 
         - Services:
             - Vaultwarden:
