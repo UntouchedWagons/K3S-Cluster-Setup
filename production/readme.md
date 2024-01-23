@@ -6,7 +6,6 @@
     helm repo add jetstack https://charts.jetstack.io
     helm repo add democratic-csi https://democratic-csi.github.io/charts/
     helm repo add bitnami https://charts.bitnami.com/bitnami
-    helm repo add runix https://helm.runix.net/
     helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
     helm repo add grafana https://grafana.github.io/helm-charts
     helm repo add longhorn https://charts.longhorn.io
@@ -45,7 +44,7 @@
 
     kubectl apply -f production/database/
     helm upgrade --install postgresql bitnami/postgresql --namespace database --version 13.2.24 --values production/database/postgresql/values.yaml
-    helm upgrade --install pgadmin4 runix/pgadmin4 --namespace database --version 1.18.5 --values production/database/pgadmin4/values.yaml
+    kubectl apply -f production/database/pgadmin4/
     kubectl apply -f production/database/docker-db-backup/
 
 # Restore PostgreSQL databases

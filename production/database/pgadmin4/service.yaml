@@ -1,0 +1,127 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pgadmin4
+  namespace: database
+  labels:
+    app.kubernetes.io/name: pgadmin4
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 256Mi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pgadmin4-server-definitions
+  namespace: database
+  labels:
+    app.kubernetes.io/name: pgadmin4
+data:
+  servers.json: |-
+    {
+      "Servers": {
+        "local": {
+          "Group": "Servers",
+          "Host": "postgresql.database.svc.cluster.local",
+          "MaintenanceDB": "postgres",
+          "Name": "Local",
+          "Port": 5432,
+          "SSLMode": "prefer",
+          "Username": "postgres"
+        }
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin4
+  namespace: database
+  labels:
+    app.kubernetes.io/name: pgadmin4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: pgadmin4
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: pgadmin4
+    spec:
+      securityContext:
+        fsGroup: 5050
+        runAsGroup: 5050
+        runAsUser: 5050
+      containers:
+        - name: pgadmin4
+          image: dpage/pgadmin4:8.1
+          env:
+            - name: PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION
+              value: "False"
+            - name: PGADMIN_DEFAULT_EMAIL
+              value: "UntouchedWagons@untouchedwagons.com"
+            - name: PGADMIN_DEFAULT_PASSWORD
+              value: "AimSterileBannerPork"
+            - name: PGADMIN_SERVER_JSON_FILE
+              value: /pgadmin4/servers.json
+          volumeMounts:
+            - name: pgadmin-data
+              mountPath: /var/lib/pgadmin
+            - name: definitions
+              mountPath: /pgadmin4/servers.json
+              subPath: servers.json
+          resources: {}
+      volumes:
+        - name: pgadmin-data
+          persistentVolumeClaim:
+            claimName: pgadmin4
+        - name: definitions
+          configMap:
+            name: pgadmin4-server-definitions
+            items:
+              - key: servers.json
+                path: servers.json
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgadmin4
+  namespace: database
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  selector:
+    app.kubernetes.io/name: pgadmin4
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pgadmin4
+  namespace: database
+  annotations:
+    traefik.ingress.kubernetes.io/frontend-entry-points: http,https
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  tls:
+    - hosts:
+        - "pgadmin4.services.untouchedwagons.com"
+      secretName: com-untouchedwagons-services
+  rules:
+    - host: "pgadmin4.services.untouchedwagons.com"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: pgadmin4
+                port:
+                  number: 80
