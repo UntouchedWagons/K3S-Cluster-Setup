@@ -115,7 +115,7 @@ spec:
             description: 'High ping loss ratio detected for {{ $labels.target }}.'
             summary: High ping loss ratio.
           expr: |-
-            ping_loss_ratio != 0
+            ping_loss_ratio >= 0.6
           for: 1m
           labels:
             severity: critical
