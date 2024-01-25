@@ -55,7 +55,9 @@
     kubectl apply -f production/default/homepage/
     kubectl apply -f production/default/it-tools/
     kubectl apply -f production/default/jellyfin/
-    sops -d production/default/qbittorrent/service.yaml | kubectl apply -f -
+    kubectl apply -f production/default/qbittorrent/volume.yaml
+    sops -d production/default/qbittorrent/secrets.yaml | kubectl apply -f -
+    kubectl apply -f production/default/qbittorrent/service.yaml
     kubectl apply -f production/default/sabnzbd/
     kubectl apply -f production/default/vaultwarden/
     kubectl apply -f production/servarr/
