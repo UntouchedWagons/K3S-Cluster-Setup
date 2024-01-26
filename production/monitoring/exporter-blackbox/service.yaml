@@ -1,0 +1,84 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: &app exporter-blackbox
+  namespace: monitoring
+  labels:
+    app: *app
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: *app
+  template:
+    metadata:
+      labels:
+        app: *app
+    spec:
+      containers:
+        - name: *app
+          image: quay.io/prometheus/blackbox-exporter:v0.24.0
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "64Mi"
+            requests:
+              cpu: "1m"
+              memory: "16Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: &app exporter-blackbox
+  namespace: monitoring
+spec:
+  selector:
+    app: *app
+  ports:
+    - name: http
+      targetPort: 9115
+      port: 9115
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: &app exporter-blackbox
+  namespace: monitoring
+spec:
+  scrapeInterval: 1m
+  metricsPath: /probe
+  params:
+    module: [http_2xx]
+  staticConfigs:
+    - targets:
+      - http://brother_hl-2270dw.internal.untouchedwagons.com
+      - http://camera-front-door.internal.untouchedwagons.com
+      - http://camera-side-door.internal.untouchedwagons.com
+      - https://pve-cluster-node-01.internal.untouchedwagons.com:8006
+      - https://pve-cluster-node-02.internal.untouchedwagons.com:8006
+      - https://pve-cluster-node-03.internal.untouchedwagons.com:8006
+      - http://storage.internal.untouchedwagons.com
+      - http://homeassistant.internal.untouchedwagons.com:8123
+      - http://opnsense.internal.untouchedwagons.com
+      - http://rmcard205.internal.untouchedwagons.com
+      - http://netboot.internal.untouchedwagons.com
+      - http://technitium.internal.untouchedwagons.com
+      # - http://idrac-7p57cz1.internal.untouchedwagons.com
+      # - http://idrac-cjtyp22.internal.untouchedwagons.com
+      # - http://idrac-czblpd2.internal.untouchedwagons.com
+      # - http://idrac-jnky182.internal.untouchedwagons.com
+  relabelings:
+    - action: replace
+      sourceLabels: [__address__]
+      targetLabel: __param_target
+    - action: replace
+      sourceLabels: [__param_target]
+      targetLabel: instance
+    - action: replace
+      targetLabel: __address__
+      replacement: exporter-blackbox.monitoring.svc.cluster.local:9115
