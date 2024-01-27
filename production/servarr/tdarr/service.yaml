@@ -153,6 +153,8 @@ spec:
       labels:
         app: *app
     spec:
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
       securityContext:
         fsGroup: 1000
       initContainers: # There may be a better way to autogenerate a config
