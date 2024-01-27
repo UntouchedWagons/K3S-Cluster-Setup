@@ -1,0 +1,129 @@
+---
+k3s_version: v1.28.3+k3s2
+# this is the user that has ssh access to these machines
+ansible_user: jordan
+systemd_dir: /etc/systemd/system
+
+# Set your timezone
+system_timezone: "America/Toronto"
+
+# interface which will be used for flannel
+flannel_iface: "eth0"
+
+# apiserver_endpoint is virtual ip-address which will be configured on each master
+apiserver_endpoint: "192.168.35.60"
+
+# k3s_token is required  masters can talk together securely
+# this token should be alpha numeric only
+k3s_token: "NoteworthyViolationRejoinBush"
+
+# The IP on which the node is reachable in the cluster.
+# Here, a sensible default is provided, you can still override
+# it for each of your hosts, though.
+k3s_node_ip: '{{ ansible_facts[flannel_iface]["ipv4"]["address"] }}'
+
+# Disable the taint manually by setting: k3s_master_taint = false
+k3s_master_taint: "{{ true if groups['node'] | default([]) | length >= 1 else false }}"
+
+# these arguments are recommended for servers as well as agents:
+extra_args: >-
+  --flannel-iface={{ flannel_iface }}
+  --node-ip={{ k3s_node_ip }}
+
+# change these to your liking, the only required are: --disable servicelb, --tls-san {{ apiserver_endpoint }}
+extra_server_args: >-
+  {{ extra_args }}
+  {{ '--node-taint node-role.kubernetes.io/master=true:NoSchedule' if k3s_master_taint else '' }}
+  --tls-san {{ apiserver_endpoint }}
+  --disable servicelb
+  --disable traefik
+extra_agent_args: >-
+  {{ extra_args }}
+
+# image tag for kube-vip
+kube_vip_tag_version: "v0.6.4"
+
+# metallb type frr or native
+metal_lb_type: "native"
+
+# metallb mode layer2 or bgp
+metal_lb_mode: "layer2"
+
+# bgp options
+# metal_lb_bgp_my_asn: "64513"
+# metal_lb_bgp_peer_asn: "64512"
+# metal_lb_bgp_peer_address: "192.168.30.1"
+
+# image tag for metal lb
+metal_lb_speaker_tag_version: "v0.13.12"
+metal_lb_controller_tag_version: "v0.13.12"
+
+# metallb ip range for load balancer
+metal_lb_ip_range: "192.168.35.61-192.168.35.69"
+
+# Only enable if your nodes are proxmox LXC nodes, make sure to configure your proxmox nodes
+# in your hosts.ini file.
+# Please read https://gist.github.com/triangletodd/02f595cd4c0dc9aac5f7763ca2264185 before using this.
+# Most notably, your containers must be privileged, and must not have nesting set to true.
+# Please note this script disables most of the security of lxc containers, with the trade off being that lxc
+# containers are significantly more resource efficent compared to full VMs.
+# Mixing and matching VMs and lxc containers is not supported, ymmv if you want to do this.
+# I would only really recommend using this if you have partiularly low powered proxmox nodes where the overhead of
+# VMs would use a significant portion of your available resources.
+proxmox_lxc_configure: false
+# the user that you would use to ssh into the host, for example if you run ssh some-user@my-proxmox-host,
+# set this value to some-user
+proxmox_lxc_ssh_user: root
+# the unique proxmox ids for all of the containers in the cluster, both worker and master nodes
+proxmox_lxc_ct_ids:
+  - 200
+  - 201
+  - 202
+  - 203
+  - 204
+
+# Only enable this if you have set up your own container registry to act as a mirror / pull-through cache
+# (harbor / nexus / docker's official registry / etc).
+# Can be beneficial for larger dev/test environments (for example if you're getting rate limited by docker hub),
+# or air-gapped environments where your nodes don't have internet access after the initial setup
+# (which is still needed for downloading the k3s binary and such).
+# k3s's documentation about private registries here: https://docs.k3s.io/installation/private-registry
+custom_registries: false
+# The registries can be authenticated or anonymous, depending on your registry server configuration.
+# If they allow anonymous access, simply remove the following bit from custom_registries_yaml
+#   configs:
+#     "registry.domain.com":
+#       auth:
+#         username: yourusername
+#         password: yourpassword
+# The following is an example that pulls all images used in this playbook through your private registries.
+# It also allows you to pull your own images from your private registry, without having to use imagePullSecrets
+# in your deployments.
+# If all you need is your own images and you don't care about caching the docker/quay/ghcr.io images,
+# you can just remove those from the mirrors: section.
+custom_registries_yaml: |
+  mirrors:
+    docker.io:
+      endpoint:
+        - "https://registry.domain.com/v2/dockerhub"
+    quay.io:
+      endpoint:
+        - "https://registry.domain.com/v2/quayio"
+    ghcr.io:
+      endpoint:
+        - "https://registry.domain.com/v2/ghcrio"
+    registry.domain.com:
+      endpoint:
+        - "https://registry.domain.com"
+
+  configs:
+    "registry.domain.com":
+      auth:
+        username: yourusername
+        password: yourpassword
+
+# Only enable and configure these if you access the internet through a proxy
+# proxy_env:
+#   HTTP_PROXY: "http://proxy.domain.local:3128"
+#   HTTPS_PROXY: "http://proxy.domain.local:3128"
+#   NO_PROXY: "*.domain.local,127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"

@@ -21,11 +21,11 @@ sops:
             dFZScE1mUkFPVHFmbE5Sb2JDTVM0NlUKSKRN0EnHA4dnghkcCqi7ijxhownfE2PS
             yVjVfQk7MpGeXRlo9Pc8atyhWuKIP9AcxqVhQ5YcMmIoCOhxCC6OxA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-22T01:17:44Z"
-    mac: ENC[AES256_GCM,data:DT3QcHugKeovjTypLJAhdtnn8Z/BFrRgAetSi2krNWWTxUzObX/LhWq9PJAhpCTl+J8N/jIp0j2AMLM28PqrZxa9ZOsnW15AueaiarLD0eitYtsp8cI/1L/gduGwFOgLfzOyhr8z7Haj6YtWOi5f0aX8ziDpfE4BM7N+fb7lAfs=,iv:EYyqA+xIahtgVYXR6eSA3cb4vNJzvNAG2zCv5iVk+P8=,tag:aVRqX6X4gQl59DkrRqlV5A==,type:str]
+    lastmodified: "2024-01-26T22:41:44Z"
+    mac: ENC[AES256_GCM,data:TdjXXkP6pXAStES/Cg9dTfBqONyLnBrw7S4uspTnYHDg15QzQS/yb4wfuZT2SKr++5gh2HljegMvGOb930BuBvpooHDUbn4hOjGU3YgdTIvV5lvHVEZ51qIiPWuSC1Mh1KX/OXzzzhJZinTbU0TeOj0OAVSIKzZOhQMFIH4w1G0=,iv:4AsHvx9OVzOJqFNg5sq2MKNwW/VYpL0fBVHykxd4evE=,tag:po9b3fIM8IwF6qS+1wN+9Q==,type:str]
     pgp: []
     encrypted_regex: ^(stringData|email)$
-    version: 3.8.0
+    version: 3.8.1
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -62,11 +62,11 @@ sops:
             dFZScE1mUkFPVHFmbE5Sb2JDTVM0NlUKSKRN0EnHA4dnghkcCqi7ijxhownfE2PS
             yVjVfQk7MpGeXRlo9Pc8atyhWuKIP9AcxqVhQ5YcMmIoCOhxCC6OxA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-22T01:17:44Z"
-    mac: ENC[AES256_GCM,data:DT3QcHugKeovjTypLJAhdtnn8Z/BFrRgAetSi2krNWWTxUzObX/LhWq9PJAhpCTl+J8N/jIp0j2AMLM28PqrZxa9ZOsnW15AueaiarLD0eitYtsp8cI/1L/gduGwFOgLfzOyhr8z7Haj6YtWOi5f0aX8ziDpfE4BM7N+fb7lAfs=,iv:EYyqA+xIahtgVYXR6eSA3cb4vNJzvNAG2zCv5iVk+P8=,tag:aVRqX6X4gQl59DkrRqlV5A==,type:str]
+    lastmodified: "2024-01-26T22:41:44Z"
+    mac: ENC[AES256_GCM,data:TdjXXkP6pXAStES/Cg9dTfBqONyLnBrw7S4uspTnYHDg15QzQS/yb4wfuZT2SKr++5gh2HljegMvGOb930BuBvpooHDUbn4hOjGU3YgdTIvV5lvHVEZ51qIiPWuSC1Mh1KX/OXzzzhJZinTbU0TeOj0OAVSIKzZOhQMFIH4w1G0=,iv:4AsHvx9OVzOJqFNg5sq2MKNwW/VYpL0fBVHykxd4evE=,tag:po9b3fIM8IwF6qS+1wN+9Q==,type:str]
     pgp: []
     encrypted_regex: ^(stringData|email)$
-    version: 3.8.0
+    version: 3.8.1
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -78,10 +78,10 @@ spec:
     issuerRef:
         name: letsencrypt-testing
         kind: ClusterIssuer
-    commonName: '*.testing.internal.untouchedwagons.com'
+    commonName: '*.testing.untouchedwagons.com'
     dnsNames:
-        - testing.internal.untouchedwagons.com
-        - '*.testing.internal.untouchedwagons.com'
+        - testing.untouchedwagons.com
+        - '*.testing.untouchedwagons.com'
 sops:
     kms: []
     gcp_kms: []
@@ -97,8 +97,8 @@ sops:
             dFZScE1mUkFPVHFmbE5Sb2JDTVM0NlUKSKRN0EnHA4dnghkcCqi7ijxhownfE2PS
             yVjVfQk7MpGeXRlo9Pc8atyhWuKIP9AcxqVhQ5YcMmIoCOhxCC6OxA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-22T01:17:44Z"
-    mac: ENC[AES256_GCM,data:DT3QcHugKeovjTypLJAhdtnn8Z/BFrRgAetSi2krNWWTxUzObX/LhWq9PJAhpCTl+J8N/jIp0j2AMLM28PqrZxa9ZOsnW15AueaiarLD0eitYtsp8cI/1L/gduGwFOgLfzOyhr8z7Haj6YtWOi5f0aX8ziDpfE4BM7N+fb7lAfs=,iv:EYyqA+xIahtgVYXR6eSA3cb4vNJzvNAG2zCv5iVk+P8=,tag:aVRqX6X4gQl59DkrRqlV5A==,type:str]
+    lastmodified: "2024-01-26T22:41:44Z"
+    mac: ENC[AES256_GCM,data:TdjXXkP6pXAStES/Cg9dTfBqONyLnBrw7S4uspTnYHDg15QzQS/yb4wfuZT2SKr++5gh2HljegMvGOb930BuBvpooHDUbn4hOjGU3YgdTIvV5lvHVEZ51qIiPWuSC1Mh1KX/OXzzzhJZinTbU0TeOj0OAVSIKzZOhQMFIH4w1G0=,iv:4AsHvx9OVzOJqFNg5sq2MKNwW/VYpL0fBVHykxd4evE=,tag:po9b3fIM8IwF6qS+1wN+9Q==,type:str]
     pgp: []
     encrypted_regex: ^(stringData|email)$
-    version: 3.8.0
+    version: 3.8.1
