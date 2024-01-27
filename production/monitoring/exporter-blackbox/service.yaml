@@ -59,19 +59,15 @@ spec:
       - http://brother_hl-2270dw.internal.untouchedwagons.com
       - http://camera-front-door.internal.untouchedwagons.com
       - http://camera-side-door.internal.untouchedwagons.com
+      - http://homeassistant.internal.untouchedwagons.com:8123
       - https://pve-cluster-node-01.internal.untouchedwagons.com:8006
       - https://pve-cluster-node-02.internal.untouchedwagons.com:8006
       - https://pve-cluster-node-03.internal.untouchedwagons.com:8006
-      - http://storage.internal.untouchedwagons.com
-      - http://homeassistant.internal.untouchedwagons.com:8123
+      - http://netboot.internal.untouchedwagons.com
       - http://opnsense.internal.untouchedwagons.com
       - http://rmcard205.internal.untouchedwagons.com
-      - http://netboot.internal.untouchedwagons.com
+      - http://storage.internal.untouchedwagons.com
       - http://technitium.internal.untouchedwagons.com
-      # - http://idrac-7p57cz1.internal.untouchedwagons.com
-      # - http://idrac-cjtyp22.internal.untouchedwagons.com
-      # - http://idrac-czblpd2.internal.untouchedwagons.com
-      # - http://idrac-jnky182.internal.untouchedwagons.com
   relabelings:
     - action: replace
       sourceLabels: [__address__]
@@ -82,3 +78,69 @@ spec:
     - action: replace
       targetLabel: __address__
       replacement: exporter-blackbox.monitoring.svc.cluster.local:9115
+    - action: replace
+      targetLabel: module
+      replacement: http_2xx
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: &app exporter-blackbox-tcp
+  namespace: monitoring
+spec:
+  scrapeInterval: 1m
+  metricsPath: /probe
+  params:
+    module: [tcp_connect]
+  staticConfigs:
+    - targets:
+      - idrac-7p57cz1.internal.untouchedwagons.com:443
+      - idrac-cjtyp22.internal.untouchedwagons.com:443
+      - idrac-czblpd2.internal.untouchedwagons.com:443
+      - idrac-jnky182.internal.untouchedwagons.com:443
+      - ups.internal.untouchedwagons.com:3493
+  relabelings:
+    - action: replace
+      sourceLabels: [__address__]
+      targetLabel: __param_target
+    - action: replace
+      sourceLabels: [__param_target]
+      targetLabel: instance
+    - action: replace
+      targetLabel: __address__
+      replacement: exporter-blackbox.monitoring.svc.cluster.local:9115
+    - action: replace
+      targetLabel: module
+      replacement: tcp_connect
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: &app exporter-blackbox-ssh
+  namespace: monitoring
+spec:
+  scrapeInterval: 1m
+  metricsPath: /probe
+  params:
+    module: [ssh_banner]
+  staticConfigs:
+    - targets:
+      - netboot.internal.untouchedwagons.com:22
+      - pivpn.internal.untouchedwagons.com:22
+      - u6-lite.internal.untouchedwagons.com:22
+      - ups.internal.untouchedwagons.com:22
+      - usw-pro-48-poe.internal.untouchedwagons.com:22
+      - vault.internal.untouchedwagons.com:22
+  relabelings:
+    - action: replace
+      sourceLabels: [__address__]
+      targetLabel: __param_target
+    - action: replace
+      sourceLabels: [__param_target]
+      targetLabel: instance
+    - action: replace
+      targetLabel: __address__
+      replacement: exporter-blackbox.monitoring.svc.cluster.local:9115
+    - action: replace
+      targetLabel: module
+      replacement: ssh_banner
