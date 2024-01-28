@@ -36,7 +36,6 @@ metadata:
   name: exporter-proxmox
   namespace: monitoring
 spec:
-  type: LoadBalancer
   selector:
     app: exporter-proxmox
   ports:
