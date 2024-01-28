@@ -270,7 +270,7 @@ data:
                 #   key: 1-mcbaPOzyTI8kCpGOfwZ2Q93Kij88uN1akJhBxIzkHyXHIwCvDwCnThgsIHeDnSrd
             - Home Assistant:
                 icon: home-assistant.png
-                href: http://homeassistant.internal.untouchedwagons.com:8123
+                href: http://homeassistant.internal.untouchedwagons.com
             - Traefik:
                 icon: traefik.png
                 href: https://traefik.services.untouchedwagons.com
