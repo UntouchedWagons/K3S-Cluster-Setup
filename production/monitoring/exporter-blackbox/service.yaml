@@ -91,7 +91,6 @@ spec:
       - brother_hl-2270dw.internal.untouchedwagons.com
       - camera-front-door.internal.untouchedwagons.com
       - camera-side-door.internal.untouchedwagons.com
-      - homeassistant.internal.untouchedwagons.com
       - netboot.internal.untouchedwagons.com
       - opnsense.internal.untouchedwagons.com
       - rmcard205.internal.untouchedwagons.com
