@@ -270,7 +270,7 @@ data:
                 #   key: 1-mcbaPOzyTI8kCpGOfwZ2Q93Kij88uN1akJhBxIzkHyXHIwCvDwCnThgsIHeDnSrd
             - Home Assistant:
                 icon: home-assistant.png
-                href: http://homeassistant.internal.untouchedwagons.com
+                href: https://home-assistant.services.untouchedwagons.com
             - Traefik:
                 icon: traefik.png
                 href: https://traefik.services.untouchedwagons.com
@@ -286,13 +286,9 @@ data:
             - Technitium:
                 icon: technitium.png
                 href: http://technitium.internal.untouchedwagons.com
-            - PeaNUT:
-                icon: peanut.png
-                href: https://peanut.services.untouchedwagons.com
-                widget:
-                  type: peanut
-                  url: https://peanut.services.untouchedwagons.com
-                  key: OR1500LCDRT2U
+            - ZWave JS UI:
+                icon: zwavejs2mqtt.png
+                href: https://zwave.services.untouchedwagons.com
 
         - Services:
             - Vaultwarden:
