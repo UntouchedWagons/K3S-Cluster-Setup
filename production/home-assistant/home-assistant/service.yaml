@@ -48,6 +48,30 @@ spec:
             - mountPath: /tmp
               name: tmp
 
+        - name: backup
+          image: untouchedwagons/simple-backup:1.0.5
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /data
+              name: ha-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/home-assistant"
+            - name: BACKUP_BASE_NAME
+              value: "home-assistant"
+            - name: BACKUP_RETENTION
+              value: "7"
+            - name: BACKUP_FREQUENCY
+              value: "0 0 * * *"
+
       volumes:
         - name: ha-config
           persistentVolumeClaim:
@@ -55,6 +79,10 @@ spec:
         - name: tmp
           emptyDir:
             medium: Memory
+        - name: backups
+          nfs:
+            server: 192.168.35.30
+            path: /mnt/tank/Media/Backups
 ---
 apiVersion: v1
 kind: Service
@@ -94,3 +122,40 @@ spec:
     - hosts: 
       - untouchedwagons.com
       secretName: com-untouchedwagons-services
+
+# automations.yaml
+
+# - id: '1634399186826'
+#   alias: Turn on outside lights when sun has set
+#   description: ''
+#   trigger:
+#   - platform: sun
+#     event: sunset
+#   condition: []
+#   action:
+#   - type: turn_on
+#     device_id: f64a080d907bffdeff145ed67e91bdb9
+#     entity_id: switch.front_door_smart_switch
+#     domain: switch
+#   - type: turn_on
+#     device_id: 7a5db4e4d8319039d0e057854631039c
+#     entity_id: switch.side_door_smart_switch
+#     domain: switch
+#   mode: single
+# - id: '1634399286945'
+#   alias: Turn off outside lights when sun has risen
+#   description: ''
+#   trigger:
+#   - platform: sun
+#     event: sunrise
+#   condition: []
+#   action:
+#   - type: turn_off
+#     device_id: f64a080d907bffdeff145ed67e91bdb9
+#     entity_id: switch.front_door_smart_switch
+#     domain: switch
+#   - type: turn_off
+#     device_id: 7a5db4e4d8319039d0e057854631039c
+#     entity_id: switch.side_door_smart_switch
+#     domain: switch
+#   mode: single
