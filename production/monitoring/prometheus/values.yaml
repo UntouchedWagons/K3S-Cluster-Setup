@@ -159,12 +159,8 @@ defaultRules:
         kubernetesSystem: false
 grafana:
     enabled: false
-    forceDeployDashboards: true
-    sidecar:
-        dashboards:
-            multicluster:
-                etcd:
-                    enabled: true
+    forceDeployDashboards: false
+    defaultDashboardsEnabled: false
 sops:
     kms: []
     gcp_kms: []
@@ -180,8 +176,8 @@ sops:
             M211eCsrcWtaNEp3d0x1eXdHaG53d0EKtfbifPxrHnzz2C1hVDs8n3dH2SbxefZo
             vSSzdlHrGIF/e+FsC7LYj6qZX0T//F9mhbd8IFaNi1T+JCH0zojc1A==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-01-20T21:30:36Z"
-    mac: ENC[AES256_GCM,data:KhsZ+FPcFbywivWOk06lJyuO+MCEbLhbs0OnwKPryogkMbQ3+OH2H+sm5gS57GFOM8fS2/Z2ogMNeMOmFvSGkzFlaxrfgJmz4pHEt0QMWKHQTYpaOIiKX2c0MX2UwxZA4War8d7w+zyOdU1xLz6+JSHC0ohxbfyrGLHaQJj2kUc=,iv:YNhHAatF9r8m+ssf13uAPaTLkbVY4xVv3IbHG8IKba0=,tag:Ya6r7AIHoet13bHmjfzoPg==,type:str]
+    lastmodified: "2024-01-24T03:23:37Z"
+    mac: ENC[AES256_GCM,data:YuO0FRLee06PlelKzbt32ajXfwXWtqNz5uTzieE8Oy9IYY8lwfhJr+YUSNrw36MFYSDjCiu6RCjQpUxx/KxW8fMQWVsSo83reyN42DdYcvqAMcNWtLSA7A4mdRm/wqPQDUUDBqO6DrOQbttFDEKrmrTAdeUWawUbKz+MDPrBwjM=,iv:i/FwTw/dVfGMIdeAU3V0bBNygQQ9a1rASdPaWW0g6fM=,tag:HcYnBSVWNmDeU9jKcQwbFg==,type:str]
     pgp: []
     encrypted_regex: ^(pushover_configs)$
     version: 3.8.0
