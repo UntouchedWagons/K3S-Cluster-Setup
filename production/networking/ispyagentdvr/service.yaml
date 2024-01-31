@@ -20,6 +20,8 @@ spec:
       labels:
         app: ispyagentdvr
     spec:
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
       initContainers:
         - name: ispyagentdvr-restore
           image: untouchedwagons/simple-restore:1.0.4
@@ -40,9 +42,11 @@ spec:
             requests:
               memory: 256Mi
               cpu: "2"
+              gpu.intel.com/i915: "1"
             limits:
               memory: 512Mi
               cpu: "4"
+              gpu.intel.com/i915: "1"
           volumeMounts:
             - mountPath: /agent/Media/XML/
               name: ispyagentdvr-config
