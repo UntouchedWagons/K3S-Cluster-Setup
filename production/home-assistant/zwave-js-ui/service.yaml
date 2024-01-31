@@ -1,0 +1,99 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: zwave-js-ui
+  namespace: home-assistant
+  labels:
+    app: zwave-js-ui
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: zwave-js-ui
+  template:
+    metadata:
+      labels:
+        app: zwave-js-ui
+    spec:
+      securityContext:
+        fsGroup: 568
+      containers:
+        - name: zwave-js-ui
+          image: ghcr.io/zwave-js/zwave-js-ui:9.8.2
+          securityContext:
+            privileged: true
+          env:
+            - name: TZ
+              value: "America/Toronto"
+          # resources:
+          #   limits:
+          #     memory: 1Gi
+          #     cpu: "2"
+          #   requests:
+          #     memory: 512Mi
+          #     cpu: "0.2"
+          volumeMounts:
+            - mountPath: /usr/src/app/store
+              name: zwave-config
+
+      volumes:
+        - name: zwave-config
+          persistentVolumeClaim:
+            claimName: zwave-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zwave-js-ui
+  namespace: home-assistant
+spec:
+  selector:
+    app: zwave-js-ui
+  ports:
+    - name: http
+      targetPort: 8091
+      port: 8091
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zwave-js-ui-websock
+  namespace: home-assistant
+spec:
+  selector:
+    app: zwave-js-ui
+  ports:
+    - name: websock
+      targetPort: 3000
+      port: 3000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: zwave-js-ui
+  namespace: home-assistant
+  annotations:
+    traefik.ingress.kubernetes.io/frontend-entry-points: http,https
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  rules:
+  - host: zwave.services.untouchedwagons.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: zwave-js-ui
+            port:
+              number: 8091
+        path: /
+        pathType: Prefix
+  tls:
+    - hosts: 
+      - untouchedwagons.com
+      secretName: com-untouchedwagons-services
