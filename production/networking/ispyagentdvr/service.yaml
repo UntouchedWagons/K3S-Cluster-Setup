@@ -37,7 +37,7 @@ spec:
               value: "ispyagentdvr"
       containers:
         - name: ispyagentdvr
-          image: doitandbedone/ispyagentdvr:5.1.4.0
+          image: doitandbedone/ispyagentdvr:5.2.4.0
           resources:
             requests:
               memory: 256Mi
