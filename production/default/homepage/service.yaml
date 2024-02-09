@@ -148,6 +148,9 @@ data:
             - Github:
                 icon: github.png
                 href: https://github.com
+            - BlueSky:
+                icon: bluesky.png
+                href: https://bsky.app
         - Multimedia:
             - Sonarr:
                 icon: sonarr.png
