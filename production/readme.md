@@ -21,7 +21,7 @@
 
 # Longhorn
 
-    helm upgrade --install longhorn --create-namespace --namespace longhorn-system longhorn/longhorn --version 1.5.3 --values production/longhorn-system/longhorn/values.yaml
+    helm upgrade --install longhorn --create-namespace --namespace longhorn-system longhorn/longhorn --version 1.6.0 --values production/longhorn-system/longhorn/values.yaml
     kubectl apply -f production/longhorn-system/longhorn/ingress.yaml
 
 # Node Feature Discovery
@@ -62,6 +62,7 @@
     kubectl apply -f production/default/vaultwarden/
     kubectl apply -f production/servarr/
     kubectl apply -f production/servarr/bazarr/
+    kubectl apply -f production/servarr/flaresolverr/
     kubectl apply -f production/servarr/lidarr/
     kubectl apply -f production/servarr/prowlarr/
     kubectl apply -f production/servarr/radarr/
@@ -74,11 +75,18 @@
     sops -d production/networking/ddclient/service.yaml | kubectl apply -f -
     sops -d production/networking/rclone/service.yaml | kubectl apply -f -
 
+# Home Assistant
+
+    kubectl apply -f production/home-assistant/
+    kubectl apply -f production/home-assistant/zwave-js-ui
+    kubectl apply -f production/home-assistant/home-assistant
+
 # Monitoring
 
     sops -d ./production/monitoring/prometheus/values.yaml | helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack --create-namespace --namespace monitoring --version 55.11.0 --values -
     helm upgrade --install grafana grafana/grafana --namespace monitoring --version 7.2.1 --values ./production/monitoring/grafana/values.yaml
     kubectl apply -f production/monitoring/exporter-idrac/
+    kubectl apply -f production/monitoring/exporter-flaresolverr/
     kubectl apply -f production/monitoring/exporter-linux/
     kubectl apply -f production/monitoring/exporter-opnsense/
     kubectl apply -f production/monitoring/exporter-proxmox/
@@ -93,3 +101,4 @@
     kubectl apply -f production/monitoring/exporter-ping/
     kubectl apply -f production/monitoring/exporter-zfs/
     kubectl apply -f production/monitoring/exporter-technitium/
+    kubectl apply -f production/monitoring/exporter-blackbox/

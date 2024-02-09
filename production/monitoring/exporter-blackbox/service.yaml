@@ -195,6 +195,9 @@ spec:
       - k3s-prod-node-01.internal.untouchedwagons.com:22
       - k3s-prod-node-02.internal.untouchedwagons.com:22
       - k3s-prod-node-03.internal.untouchedwagons.com:22
+      - k3s-prod-master-node-01.internal.untouchedwagons.com:22
+      - k3s-prod-master-node-02.internal.untouchedwagons.com:22
+      - k3s-prod-master-node-03.internal.untouchedwagons.com:22
       - u6-lite.internal.untouchedwagons.com:22
       - unifi.internal.untouchedwagons.com:22
       - ups.internal.untouchedwagons.com:22
