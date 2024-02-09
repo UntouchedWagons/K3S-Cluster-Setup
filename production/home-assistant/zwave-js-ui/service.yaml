@@ -24,6 +24,19 @@ spec:
         feature.node.kubernetes.io/usb-ff_10c4_ea60.present: "true"
       securityContext:
         fsGroup: 568
+      initContainers:
+        - name: zwave-restore
+          image: untouchedwagons/simple-restore:1.0.4
+          volumeMounts:
+            - mountPath: /data
+              name: zwave-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/zwave"
+            - name: BACKUP_BASE_NAME
+              value: "zwave"
       containers:
         - name: zwave-js-ui
           image: ghcr.io/zwave-js/zwave-js-ui:9.8.2

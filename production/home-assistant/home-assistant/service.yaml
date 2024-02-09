@@ -22,6 +22,19 @@ spec:
     spec:
       securityContext:
         fsGroup: 568
+      initContainers:
+        - name: ha-restore
+          image: untouchedwagons/simple-restore:1.0.4
+          volumeMounts:
+            - mountPath: /data
+              name: ha-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/home-assistant"
+            - name: BACKUP_BASE_NAME
+              value: "home-assistant"
       containers:
         - name: home-assistant
           image: ghcr.io/onedr0p/home-assistant:2024.1.6
