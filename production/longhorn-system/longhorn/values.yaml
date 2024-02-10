@@ -1,4 +1,0 @@
-
-defaultSettings:
-  defaultReplicaCount: 3
-  backupTarget: "nfs://storage.internal.untouchedwagons.com:/mnt/tank/Longhorn/Production"

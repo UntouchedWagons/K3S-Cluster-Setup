@@ -21,7 +21,7 @@
 
 # Longhorn
 
-    helm upgrade --install longhorn --create-namespace --namespace longhorn-system longhorn/longhorn --version 1.6.0 --values production/longhorn-system/longhorn/values.yaml
+    helm upgrade --install longhorn --create-namespace --namespace longhorn-system longhorn/longhorn --version 1.6.0
     kubectl apply -f production/longhorn-system/longhorn/ingress.yaml
 
 # Node Feature Discovery
