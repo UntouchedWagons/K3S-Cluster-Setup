@@ -45,7 +45,7 @@ spec:
               gpu.intel.com/i915: "1"
             requests:
               memory: 1024Mi
-              cpu: "1"
+              cpu: "10m"
               gpu.intel.com/i915: "1"
           volumeMounts:
             - mountPath: /config
