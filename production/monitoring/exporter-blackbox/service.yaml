@@ -228,12 +228,12 @@ spec:
   groups:
     - name: blackbox
       rules:
-        - alert: targetUnavailable
+        - alert: servicesUnavailable
           annotations:
-            description: 'Target "{{ $labels.instance }}" is not available.'
-            summary: Target unavailable.
+            description: 'Some services on "{{ $labels.instance }}" are not functioning.'
+            summary: Unavailable services.
           expr: |-
-            probe_success == 0
+            sum by (instance) (probe_success) != count by (instance) (probe_success)
           for: 1m
           labels:
             severity: critical
