@@ -158,9 +158,16 @@ defaultRules:
         kubelet: false
         kubernetesSystem: false
 grafana:
-    enabled: false
+    enabled: true
     forceDeployDashboards: false
     defaultDashboardsEnabled: false
+    ingress:
+        enabled: true
+        hosts:
+            - prometheus.services.untouchedwagons.com
+        tls:
+            - hosts:
+                - prometheus.services.untouchedwagons.com
 sops:
     kms: []
     gcp_kms: []
@@ -176,8 +183,8 @@ sops:
             M211eCsrcWtaNEp3d0x1eXdHaG53d0EKtfbifPxrHnzz2C1hVDs8n3dH2SbxefZo
             vSSzdlHrGIF/e+FsC7LYj6qZX0T//F9mhbd8IFaNi1T+JCH0zojc1A==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-01-24T03:23:37Z"
-    mac: ENC[AES256_GCM,data:YuO0FRLee06PlelKzbt32ajXfwXWtqNz5uTzieE8Oy9IYY8lwfhJr+YUSNrw36MFYSDjCiu6RCjQpUxx/KxW8fMQWVsSo83reyN42DdYcvqAMcNWtLSA7A4mdRm/wqPQDUUDBqO6DrOQbttFDEKrmrTAdeUWawUbKz+MDPrBwjM=,iv:i/FwTw/dVfGMIdeAU3V0bBNygQQ9a1rASdPaWW0g6fM=,tag:HcYnBSVWNmDeU9jKcQwbFg==,type:str]
+    lastmodified: "2024-02-15T22:35:46Z"
+    mac: ENC[AES256_GCM,data:TF2nLHVciUSrqUPAvzRI9bsJXCeqB9g0r8rtZgsc5diwfVwVUDT+Irqc9bQgMvK2qbZ4khaIGzVDl2YSB+fnl8cjpqGun02Ux3gmu3Y3wuFzHS1vZeqS+Xu1K+VwvyofC2c8Cjq3LobL7njBllkQebzrZfpdG1c1a53ICCoXxdU=,iv:3vL9UC7jRPCdIyYSD90l6yliy5cigjO5dRUmW8S5PL4=,tag:/6F/AsHzWK/Hqo0tz/HIog==,type:str]
     pgp: []
     encrypted_regex: ^(pushover_configs)$
-    version: 3.8.0
+    version: 3.8.1
