@@ -105,9 +105,6 @@ Node Feature Discovery uses rules to determine what to label and why. The rule I
     helm repo update
 
     helm upgrade --install node-feature-discovery node-feature-discovery/node-feature-discovery --version 0.14.3
-    kubectl apply -f testing/node-feature-discovery/rules.yaml
-
-More rules can be added later and NFD will automatically detect and run them.
 
 ## Intel GPU Plugin
 
@@ -117,7 +114,7 @@ More rules can be added later and NFD will automatically detect and run them.
     helm upgrade --install device-plugin-operator intel/intel-device-plugins-operator
     helm upgrade --install gpu-device-plugin intel/intel-device-plugins-gpu --values intel/values.yaml
 
-The values.yaml file is quite sparse, having only one key-pair: `sharedDevNum: 2`. Setting the value to something greater than 1 allows N pods to use the same GPU on a node.
+The values.yaml file is quite sparse, having only two key-pairs: `sharedDevNum: 4` and `nodeFeatureRule: true`. Setting sharedDevNum something greater than 1 allows N pods to use the same GPU on a node. `nodeFeatureRule: true` adds Node Feature Discovery rules for detecting various Intel GPUs
 
 And that's it! You are now ready to use your Intel GPU in a pod.
 
