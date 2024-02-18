@@ -7,20 +7,12 @@ additionalArguments:
   - "--log.level=INFO"
 
 deployment:
-  enabled: true
   replicas: 3
-  annotations: {}
-  podAnnotations: {}
-  additionalContainers: []
-  initContainers: []
 
 ports:
   web:
     redirectTo:
       port: websecure
-  websecure:
-    tls:
-      enabled: true
 
 ingressRoute:
   dashboard:
@@ -43,14 +35,3 @@ providers:
     allowExternalNameServices: true
     publishedService:
       enabled: false
-
-rbac:
-  enabled: true
-
-service:
-  enabled: true
-  type: LoadBalancer
-  annotations: {}
-  labels: {}
-  loadBalancerSourceRanges: []
-  externalIPs: []

@@ -13,7 +13,7 @@
 
 # Cert-manager
     kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.crds.yaml
-    helm upgrade --install cert-manager jetstack/cert-manager --create-namespace --namespace cert-manager --version v1.11.0 --values production/cert-manager/01-values.yaml
+    helm upgrade --install cert-manager jetstack/cert-manager --create-namespace --namespace cert-manager --version v1.11.0 --values production/cert-manager/values.yaml
     sops -d ./production/cert-manager/02-cert-manager.yaml | kubectl apply -f -
 
 # Traefik
