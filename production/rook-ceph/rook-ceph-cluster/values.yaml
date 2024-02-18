@@ -1,0 +1,25 @@
+
+monitoring:
+  enabled: true
+  createPrometheusRules: true
+  rulesNamespaceOverride: monitoring
+
+cephClusterSpec:
+  storage:
+    useAllNodes: true
+    useAllDevices: true
+
+ingress:
+  # -- Enable an ingress for the ceph-dashboard
+  dashboard:
+    annotations:
+      traefik.ingress.kubernetes.io/frontend-entry-points: http,https
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      traefik.ingress.kubernetes.io/redirect-entry-point: https
+    host:
+      name: ceph.services.untouchedwagons.com
+      path: /
+    tls:
+      - hosts:
+        - untouchedwagons.com
+        secretName: com-untouchedwagons-services

@@ -1,0 +1,28 @@
+
+cephClusterSpec:
+  network:
+    connections:
+      compression:
+        enabled: true
+  
+  # Configure the healthcheck and liveness probes for ceph pods.
+  # Valid values for daemons are 'mon', 'osd', 'status'
+  healthCheck:
+    daemonHealth:
+      mon:
+        disabled: true
+        interval: 45s
+      osd:
+        disabled: true
+        interval: 60s
+      status:
+        disabled: true
+        interval: 60s
+    # Change pod liveness probe, it works for all mon, mgr, and osd pods.
+    livenessProbe:
+      mon:
+        disabled: true
+      mgr:
+        disabled: true
+      osd:
+        disabled: true
