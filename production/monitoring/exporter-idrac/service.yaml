@@ -60,7 +60,6 @@ metadata:
   name: exporter-idrac
   namespace: monitoring
 spec:
-  type: LoadBalancer
   selector:
     app: exporter-idrac
   ports:
