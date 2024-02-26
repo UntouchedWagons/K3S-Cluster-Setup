@@ -50,7 +50,7 @@ spec:
               value: "radarr"
       containers:
         - name: radarr
-          image: ghcr.io/onedr0p/radarr:5.2.6.8376
+          image: ghcr.io/onedr0p/radarr:5.3.6.8612
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:

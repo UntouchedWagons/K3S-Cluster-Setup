@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: homepage
-          image: ghcr.io/gethomepage/homepage:v0.8.6
+          image: ghcr.io/gethomepage/homepage:v0.8.8
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
