@@ -24,9 +24,9 @@ data:
   servers.json: |-
     {
       "Servers": {
-        "local": {
+        "postgres-cluster": {
           "Group": "Servers",
-          "Host": "postgresql.database.svc.cluster.local",
+          "Host": "postgresql-cluster-rw.database.svc.cluster.local",
           "MaintenanceDB": "postgres",
           "Name": "Local",
           "Port": 5432,

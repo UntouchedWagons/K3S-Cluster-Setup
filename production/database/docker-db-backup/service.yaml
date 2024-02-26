@@ -46,7 +46,7 @@ spec:
             - name: DB01_TYPE
               value: "postgres"
             - name: DB01_HOST
-              value: "postgresql.database.svc.cluster.local"
+              value: "postgresql-cluster-rw.database.svc.cluster.local"
             - name: DB01_NAME
               value: "ALL"
             - name: DB01_USER

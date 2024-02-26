@@ -1,0 +1,27 @@
+apiVersion: v1
+stringData:
+  username: postgres
+  password: TrembleBulwarkBeautifulGossip
+kind: Secret
+metadata:
+  name: postgresql-cluster-superuser
+  namespace: database
+type: kubernetes.io/basic-auth
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgresql-cluster
+  namespace: database
+spec:
+  instances: 3
+
+  storage:
+    size: 10Gi
+
+  monitoring:
+    enablePodMonitor: true
+
+  enableSuperuserAccess: true
+  superuserSecret:
+    name: postgresql-cluster-superuser

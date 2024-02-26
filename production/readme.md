@@ -4,14 +4,14 @@
     ./get_helm.sh
     helm repo add traefik https://helm.traefik.io/traefik
     helm repo add jetstack https://charts.jetstack.io
-    helm repo add democratic-csi https://democratic-csi.github.io/charts/
-    helm repo add bitnami https://charts.bitnami.com/bitnami
     helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
     helm repo add grafana https://grafana.github.io/helm-charts
     helm repo add longhorn https://charts.longhorn.io
+    helm repo add cloudnative-pg https://cloudnative-pg.io/charts/
     helm repo update
 
 # Cert-manager
+
     kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.crds.yaml
     helm upgrade --install cert-manager jetstack/cert-manager --create-namespace --namespace cert-manager --version v1.11.0 --values production/cert-manager/values.yaml
     sops -d ./production/cert-manager/02-cert-manager.yaml | kubectl apply -f -
@@ -41,8 +41,8 @@
 
 # PostgreSQL
 
-    kubectl apply -f production/database/
-    helm upgrade --install postgresql bitnami/postgresql --namespace database --version 13.2.24 --values production/database/postgresql/values.yaml
+    helm upgrade --install cnpg --create-namespace --namespace cnpg-system cloudnative-pg/cloudnative-pg
+    kubectl apply -f production/database/postgresql
     kubectl apply -f production/database/pgadmin4/
     kubectl apply -f production/database/docker-db-backup/
 

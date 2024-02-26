@@ -27,7 +27,7 @@ spec:
           image: ghcr.io/onedr0p/postgres-init:15.5
           env:
             - name: INIT_POSTGRES_HOST
-              value: "postgresql.database.svc.cluster.local"
+              value: "postgresql-cluster-rw.database.svc.cluster.local"
             - name: INIT_POSTGRES_USER
               value: "sonarr"
             - name: INIT_POSTGRES_PASS
@@ -65,7 +65,7 @@ spec:
             - name: SONARR__AUTHENTICATION_REQUIRED
               value: "DisabledForLocalAddresses"
             - name: SONARR__POSTGRES_HOST
-              value: "postgresql.database.svc.cluster.local"
+              value: "postgresql-cluster-rw.database.svc.cluster.local"
             - name: SONARR__POSTGRES_MAIN_DB
               value: "sonarr-main"
             - name: SONARR__POSTGRES_LOG_DB

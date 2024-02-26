@@ -12,7 +12,7 @@ spec:
           image: ghcr.io/onedr0p/postgres-init:15.5
           env:
             - name: INIT_POSTGRES_HOST
-              value: "postgresql.database.svc.cluster.local"
+              value: "postgresql-cluster-rw.database.svc.cluster.local"
             - name: INIT_POSTGRES_USER
               value: "lidarr"
             - name: INIT_POSTGRES_PASS
@@ -28,13 +28,13 @@ spec:
             - /bin/sh
             - -ec
             - |
-              zcat /backups/kubernetes/production/database/latest-pgsql_lidarr-main_postgresql.database.svc.cluster.local | /opt/bitnami/postgresql/bin/psql --host=$PGHOST --username=$PGUSER --dbname=$PGDATABASE
+              zcat /backups/kubernetes/production/database/latest-pgsql_lidarr-main_postgresql-cluster-rw.database.svc.cluster.local | /opt/bitnami/postgresql/bin/psql --host=$PGHOST --username=$PGUSER --dbname=$PGDATABASE
           volumeMounts:
             - mountPath: /backups
               name: backups
           env:
             - name: PGHOST
-              value: "postgresql.database.svc.cluster.local"
+              value: "postgresql-cluster-rw.database.svc.cluster.local"
             - name: PGUSER
               value: "lidarr"
             - name: PGPASSWORD
@@ -47,13 +47,13 @@ spec:
             - /bin/sh
             - -ec
             - |
-              zcat /backups/kubernetes/production/postgresql/latest-pgsql_lidarr-logs_postgresql.database.svc.cluster.local | /opt/bitnami/postgresql/bin/psql --host=$PGHOST --username=$PGUSER --dbname=$PGDATABASE
+              zcat /backups/kubernetes/production/database/latest-pgsql_lidarr-logs_postgresql-cluster-rw.database.svc.cluster.local | /opt/bitnami/postgresql/bin/psql --host=$PGHOST --username=$PGUSER --dbname=$PGDATABASE
           volumeMounts:
             - mountPath: /backups
               name: backups
           env:
             - name: PGHOST
-              value: "postgresql.database.svc.cluster.local"
+              value: "postgresql-cluster-rw.database.svc.cluster.local"
             - name: PGUSER
               value: "lidarr"
             - name: PGPASSWORD

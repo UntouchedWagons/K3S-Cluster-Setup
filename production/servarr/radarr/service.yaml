@@ -27,7 +27,7 @@ spec:
           image: ghcr.io/onedr0p/postgres-init:15.5
           env:
             - name: INIT_POSTGRES_HOST
-              value: "postgresql.database.svc.cluster.local"
+              value: "postgresql-cluster-rw.database.svc.cluster.local"
             - name: INIT_POSTGRES_USER
               value: "radarr"
             - name: INIT_POSTGRES_PASS
@@ -65,7 +65,7 @@ spec:
             - name: RADARR__AUTHENTICATION_REQUIRED
               value: "DisabledForLocalAddresses"
             - name: RADARR__POSTGRES_HOST
-              value: "postgresql.database.svc.cluster.local"
+              value: "postgresql-cluster-rw.database.svc.cluster.local"
             - name: RADARR__POSTGRES_MAIN_DB
               value: "radarr-main"
             - name: RADARR__POSTGRES_LOG_DB
