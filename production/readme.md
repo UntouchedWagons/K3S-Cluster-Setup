@@ -83,7 +83,7 @@ kubectl apply -f production/servarr/radarr/
 kubectl apply -f production/servarr/sonarr/
 kubectl apply -f production/servarr/tdarr/
 kubectl apply -f production/ai/
-kubectl apply -f production/ai/deepstack/
+kubectl apply -f production/ai/codeproject/
 kubectl apply -f production/networking/
 kubectl apply -f production/networking/ispyagentdvr/
 sops -d production/networking/ddclient/service.yaml | kubectl apply -f -
