@@ -1,23 +1,18 @@
 
-monitoring:
-  enabled: true
-  createPrometheusRules: true
-  rulesNamespaceOverride: monitoring
-
 cephClusterSpec:
   storage:
     useAllNodes: false
     useAllDevices: false
     nodes:
-      - name: "k3s-prod-node-01"
+      - name: "ceph-test-1"
         devices:
-          - name: "/dev/nvme0n1"
-      - name: "k3s-prod-node-02"
+          - name: "/dev/vdb"
+      - name: "ceph-test-2"
         devices:
-          - name: "/dev/nvme0n1"
-      - name: "k3s-prod-node-03"
+          - name: "/dev/vdb"
+      - name: "ceph-test-3"
         devices:
-          - name: "/dev/nvme0n1"
+          - name: "/dev/vdb"
 
 ingress:
   # -- Enable an ingress for the ceph-dashboard
@@ -27,9 +22,9 @@ ingress:
       traefik.ingress.kubernetes.io/router.tls: "true"
       traefik.ingress.kubernetes.io/redirect-entry-point: https
     host:
-      name: ceph.services.untouchedwagons.com
+      name: ceph.testing.untouchedwagons.com
       path: /
     tls:
       - hosts:
         - untouchedwagons.com
-        secretName: com-untouchedwagons-services
+        secretName: testing-certificate
