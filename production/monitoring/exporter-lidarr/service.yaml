@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: exporter-lidarr
-          image: ghcr.io/onedr0p/exportarr:v1.5.3
+          image: ghcr.io/onedr0p/exportarr:v1.6.2
           args:
             - lidarr
           env:

@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: exporter-bazarr
-          image: ghcr.io/onedr0p/exportarr:v1.6.0
+          image: ghcr.io/onedr0p/exportarr:v1.6.2
           args:
             - bazarr
           env:
