@@ -97,7 +97,7 @@ And that's it. Do that for each node that has an Intel GPU.
 
 ## Node Feature Discovery
 
-Node Feature Discovery uses rules to determine what to label and why. The rule I use is stored in the `node-feature-discovery` folder which you can find [here](https://github.com/UntouchedWagons/K3S-Cluster-Setup/blob/e2803b8ac6a0e96c055e7aa6ed6b9421ccadcabd/node-feature-discovery/rules.yaml). If you have an integrated GPU like I do you likely won't need to change anything. The rule checks to see if the i915 driver is loaded on that node (the why) and if that check is true then the label is applied to that node (the what). It is possible to check for a specific PCIe Vendor ID and Device ID but the author was unable to get that to work.
+Node Feature Discovery uses rules to determine what to label and why. The Intel GPU Device Plugin that we'll be installing comes with pre-made rules to automatically label your nodes.
 
 ### Installing NFD
 
