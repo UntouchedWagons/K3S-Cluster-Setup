@@ -1,9 +1,4 @@
 
-monitoring:
-  enabled: true
-  createPrometheusRules: true
-  rulesNamespaceOverride: monitoring
-
 cephClusterSpec:
   storage:
     useAllNodes: false
