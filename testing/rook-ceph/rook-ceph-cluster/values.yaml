@@ -4,13 +4,13 @@ cephClusterSpec:
     useAllNodes: false
     useAllDevices: false
     nodes:
-      - name: "ceph-test-1"
+      - name: "k3s-dev-node-01"
         devices:
           - name: "/dev/vdb"
-      - name: "ceph-test-2"
+      - name: "k3s-dev-node-02"
         devices:
           - name: "/dev/vdb"
-      - name: "ceph-test-3"
+      - name: "k3s-dev-node-03"
         devices:
           - name: "/dev/vdb"
 
