@@ -905,6 +905,10 @@ metadata:
   name: rook-ceph-exporter
   namespace: monitoring
 spec:
+  relabelings:
+    - action: replace
+      targetLabel: cluster
+      replacement: rook-ceph-cluster
   scrapeTimeout: 30s
   staticConfigs:
     - targets:
@@ -916,6 +920,10 @@ metadata:
   name: rook-ceph-mgr
   namespace: monitoring
 spec:
+  relabelings:
+    - action: replace
+      targetLabel: cluster
+      replacement: rook-ceph-cluster
   scrapeTimeout: 30s
   staticConfigs:
     - targets:
