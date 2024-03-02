@@ -11,6 +11,7 @@ helm repo add longhorn https://charts.longhorn.io
 helm repo add cloudnative-pg https://cloudnative-pg.io/charts/
 helm repo add intel https://intel.github.io/helm-charts/
 helm repo add node-feature-discovery https://kubernetes-sigs.github.io/node-feature-discovery/charts
+helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 ```
 
@@ -102,6 +103,7 @@ kubectl apply -f production/home-assistant/home-assistant
 
 ```
 sops -d ./production/monitoring/prometheus/values.yaml | helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack --create-namespace --namespace monitoring --version 55.11.0 --values -
+helm upgrade --install grafana grafana/grafana --namespace monitoring --version 7.3.3 --values ./production/monitoring/grafana/values.yaml
 kubectl apply -f production/monitoring/exporter-idrac/
 kubectl apply -f production/monitoring/exporter-flaresolverr/
 kubectl apply -f production/monitoring/exporter-linux/
