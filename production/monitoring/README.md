@@ -21,10 +21,6 @@ Very little is actually needed, node-exporter needs to be installed and running 
 
 Monitoring of my UPS is handled via [prometheus-nut-exporter](https://github.com/hon95/prometheus-nut-exporter), there is an alternative exporter but I found this one worked better somehow. There's even a sample Grafana dashboard!
 
-## Monitoring of nvidia GPUs
-
-This one can be a bit tricky if a node has multiple GPUs and time slicing hasn't been set up but the [nvidia_gpu_exporter](https://github.com/utkuozdemir/nvidia_gpu_exporter) will get you on the right track, comes with a grafana dashboard too.
-
 ## Monitoring of OpnSense
 
 Another straightforward one, it can be rolled into the generic Linux job above but I have it separate since OpnSense runs on some flavour of BSD. Requires the node-exporter plugin in OpnSense
