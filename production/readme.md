@@ -67,6 +67,7 @@ kubectl apply -f production/database/postgresql-restore/
 # Services
 
 ```
+kubectl apply -f production/default/file-browser/
 kubectl apply -f production/default/homepage/
 kubectl apply -f production/default/it-tools/
 kubectl apply -f production/default/jellyfin/
