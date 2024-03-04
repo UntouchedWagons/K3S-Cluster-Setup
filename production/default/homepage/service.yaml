@@ -306,6 +306,9 @@ data:
             - Tdarr:
                 icon: tdarr.png
                 href: https://tdarr.services.untouchedwagons.com
+            - File Browser:
+                icon: filebrowser.png
+                href: https://file-browser.services.untouchedwagons.com
 
         - Monitoring:
             - Grafana:
