@@ -88,6 +88,7 @@ kubectl apply -f production/ai/
 kubectl apply -f production/ai/codeproject/
 kubectl apply -f production/networking/
 kubectl apply -f production/networking/ispyagentdvr/
+sops -d production/networking/cloudflared/values.yaml | helm upgrade --install cloudflared kubitodev/cloudflared --namespace networking --version 1.1.0 --values -
 sops -d production/networking/ddclient/service.yaml | kubectl apply -f -
 sops -d production/networking/rclone/service.yaml | kubectl apply -f -
 ```
