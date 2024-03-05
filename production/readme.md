@@ -46,7 +46,7 @@ helm upgrade --install node-feature-discovery node-feature-discovery/node-featur
 
 ```
 helm upgrade --install device-plugin-operator intel/intel-device-plugins-operator
-helm upgrade --install gpu-device-plugin intel/intel-device-plugins-gpu --values intel/values.yaml
+helm upgrade --install gpu-device-plugin intel/intel-device-plugins-gpu --values k3s-intel/values.yaml
 ```
 
 # PostgreSQL
