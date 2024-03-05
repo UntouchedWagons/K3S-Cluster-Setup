@@ -4,3 +4,6 @@
 [submodule "k3s-intel"]
 	path = k3s-intel
 	url = http://github.com/UntouchedWagons/K3S-Intel
+[submodule "k3s-nvidia"]
+	path = k3s-nvidia
+	url = http://github.com/UntouchedWagons/K3S-NVidia
