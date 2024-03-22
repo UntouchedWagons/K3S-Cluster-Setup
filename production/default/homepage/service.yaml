@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: homepage
-          image: ghcr.io/gethomepage/homepage:v0.8.8
+          image: ghcr.io/gethomepage/homepage:v0.8.9
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -264,13 +264,6 @@ data:
                 #   url: https://vault.internal.untouchedwagons.com:8007
                 #   username: root@pam!homepage
                 #   password: a68b0d0f-a97b-4c57-9025-a54758686405
-            - TrueNAS:
-                icon: truenas.png
-                href: http://storage.internal.untouchedwagons.com
-                # widget:
-                #   type: truenas
-                #   url: http://storage.internal.untouchedwagons.com
-                #   key: 1-mcbaPOzyTI8kCpGOfwZ2Q93Kij88uN1akJhBxIzkHyXHIwCvDwCnThgsIHeDnSrd
             - Home Assistant:
                 icon: home-assistant.png
                 href: https://home-assistant.services.untouchedwagons.com
