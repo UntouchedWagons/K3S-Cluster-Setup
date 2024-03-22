@@ -16,6 +16,8 @@ spec:
       - pve-cluster-node-02.internal.untouchedwagons.com:9134
       - pve-cluster-node-03.internal.untouchedwagons.com:9134
       - vault.internal.untouchedwagons.com:9134
+      - storage.internal.untouchedwagons.com:9134
+      - pve.internal.untouchedwagons.com:9134
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule

@@ -94,7 +94,6 @@ spec:
       - netboot.internal.untouchedwagons.com
       - opnsense.internal.untouchedwagons.com
       - rmcard205.internal.untouchedwagons.com
-      - storage.internal.untouchedwagons.com
       - technitium.internal.untouchedwagons.com
   relabelings:
     - action: replace
@@ -203,6 +202,8 @@ spec:
       - ups.internal.untouchedwagons.com:22
       - usw-pro-48-poe.internal.untouchedwagons.com:22
       - vault.internal.untouchedwagons.com:22
+      - storage.internal.untouchedwagons.com:22
+      - pve.internal.untouchedwagons.com:22
   relabelings:
     - action: replace
       sourceLabels: [__address__]
