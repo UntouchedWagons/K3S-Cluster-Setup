@@ -1,0 +1,110 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+    name: msmtpd
+    namespace: networking
+    labels:
+        app: msmtpd
+spec:
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 0
+    strategy:
+        type: Recreate
+    selector:
+        matchLabels:
+            app: msmtpd
+    template:
+        metadata:
+            labels:
+                app: msmtpd
+        spec:
+            securityContext:
+                fsGroup: 1500
+            containers:
+                - name: msmtpd
+                  image: crazymax/msmtpd:1.8.25
+                  resources:
+                    limits:
+                        memory: 256Mi
+                        cpu: "1"
+                    requests:
+                        memory: 64Mi
+                        cpu: "0.1"
+                  env:
+                    - name: PUID
+                      value: ENC[AES256_GCM,data:AAAgoA==,iv:K0qudST2IGo9k2/quHaEem8WSGURrEqRpXtbtZ3r3xQ=,tag:Zh+Yv8K84t+n8IaSmmtU5Q==,type:str]
+                    - name: PGID
+                      value: ENC[AES256_GCM,data:YfaKuA==,iv:OsHyhGBIZgJjEx3yObHFbWP6ZzaJrv/hc+RiO8960ts=,tag:gCRa9BuQo5l5zTCEJXi4BQ==,type:str]
+                    - name: SMTP_HOST
+                      value: ENC[AES256_GCM,data:H/Q+PbDSfb6nlTPZc9deaJU=,iv:AaBfDHIqWhugW76uo4YY/UkhdtgZKbJr/TUI+12dbZY=,tag:mgI59/uLI5KiT4v8Q4gd4A==,type:str]
+                    - name: SMTP_PORT
+                      value: ENC[AES256_GCM,data:PByV,iv:dmCG/fRexKmXt84qjE/oMm/jLBcNFojw5xkzMXC5JUM=,tag:epeI4vHTtLrIqb61OaL2ew==,type:str]
+                    - name: SMTP_TLS
+                      value: ENC[AES256_GCM,data:G6o=,iv:9eeFoShcQ86/N7huaClAFBeUCKpnafvswmF8xGhsYT0=,tag:iWkLbkH9nM1xQkIKiw9d4w==,type:str]
+                    - name: SMTP_STARTTLS
+                      value: ENC[AES256_GCM,data:1rti,iv:Wg3WnLG6sMZfpzjaq7F01OKt53pVJJxBToiw3sKrJZ4=,tag:ZULjCbGi7xnd2PLVB0/zog==,type:str]
+                    - name: SMTP_TLS_CHECKCERT
+                      value: ENC[AES256_GCM,data:1zc=,iv:1qzh9tOWFAPxkAK5V3dpQOMyLym77vhY0OI4mJxz9OY=,tag:x1Q+yf+5khacJgIEAgE3JA==,type:str]
+                    - name: SMTP_AUTH
+                      value: ENC[AES256_GCM,data:iOs=,iv:5faSOcfCEmjMyogNiMw08ULgVWGxVLTOcVOMP07KNEo=,tag:farafw8aNLLlM+uzQSnFmw==,type:str]
+                    - name: SMTP_USER
+                      value: ENC[AES256_GCM,data:O0Q7fwQ8hMFdN67SQ8TQXgQNL2ib1n2k9g==,iv:ZwRJSMr979nEp6RLKk/z5XOTn0djQQOQLsq9gYrhea0=,tag:8FLrtp/T3UyL0Joy0ddyLg==,type:str]
+                    - name: SMTP_PASSWORD
+                      value: ENC[AES256_GCM,data:fzUvbTQ2huPwo0L9+DEH0A==,iv:OuBF2EAvDzSRpz4CLiq/klPXhPC5/eWC/MLIN1xRBhw=,tag:6yP1rAqvtEojXIK6JLl69w==,type:str]
+                    - name: SMTP_FROM
+                      value: ENC[AES256_GCM,data:54N/r6W+WZCLRDV8tl25j7YnvM6SSm+ipw==,iv:wocpEc2TREBPjqpkmC2axaIL0/VR7JWjo+EURoqDF04=,tag:yROi8T2mv+G4UtzE1qhUMQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBNVGpob3R1b2FTamk4clh5
+            MHFONkY0SUFrSVVHSE90WVFuQTFTSUo2QUJJCmN4czc5UHRocUs4akNqcnNMNTUv
+            RmwvUEJWdmlMODNUUUtlMDViL3QyVU0KLS0tIEZrZ2lwaTl1SnVDTTVRaE5TbGNl
+            TDl2YzhmT3RrK0VYbUpMc2NNTFovKzAKofCvrLyGaetwd2SuRDT2hcmSrCUwvU4r
+            w+2P7EOpIJN8odMHtAjMIv9ntbH+MmRw8nZkgK3t5qaIwFa+WiHAjg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-03-22T02:15:00Z"
+    mac: ENC[AES256_GCM,data:znxDyG6w1frH7lXLNLIQ9si+Dm8LRHG+okNGx+zmOB1EpMT0667oAJp7VrgYvsIMJuVdSB01SEz4AHDT8u1syLj+H9d+WrKC0jikK5KZ6MrqHgsHWhzEuuDynuPoYS/JFb4SEfFqgG7v6zX6XH4O4Qht/wMtTMVsuCp25ye/UVs=,iv:6db2BPl1HwdosoLBfoe3DIHI4BntPQGYuIhx/RTjuZE=,tag:h6zxp5tZPzou/UUUN+s3aw==,type:str]
+    pgp: []
+    encrypted_regex: ^(value)$
+    version: 3.8.1
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: msmtpd
+    namespace: networking
+spec:
+    type: LoadBalancer
+    selector:
+        app: msmtpd
+    ports:
+        - name: msmtpd
+          targetPort: 2500
+          port: 2500
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBNVGpob3R1b2FTamk4clh5
+            MHFONkY0SUFrSVVHSE90WVFuQTFTSUo2QUJJCmN4czc5UHRocUs4akNqcnNMNTUv
+            RmwvUEJWdmlMODNUUUtlMDViL3QyVU0KLS0tIEZrZ2lwaTl1SnVDTTVRaE5TbGNl
+            TDl2YzhmT3RrK0VYbUpMc2NNTFovKzAKofCvrLyGaetwd2SuRDT2hcmSrCUwvU4r
+            w+2P7EOpIJN8odMHtAjMIv9ntbH+MmRw8nZkgK3t5qaIwFa+WiHAjg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-03-22T02:15:00Z"
+    mac: ENC[AES256_GCM,data:znxDyG6w1frH7lXLNLIQ9si+Dm8LRHG+okNGx+zmOB1EpMT0667oAJp7VrgYvsIMJuVdSB01SEz4AHDT8u1syLj+H9d+WrKC0jikK5KZ6MrqHgsHWhzEuuDynuPoYS/JFb4SEfFqgG7v6zX6XH4O4Qht/wMtTMVsuCp25ye/UVs=,iv:6db2BPl1HwdosoLBfoe3DIHI4BntPQGYuIhx/RTjuZE=,tag:h6zxp5tZPzou/UUUN+s3aw==,type:str]
+    pgp: []
+    encrypted_regex: ^(value)$
+    version: 3.8.1
