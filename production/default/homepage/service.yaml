@@ -219,7 +219,7 @@ data:
                 href: https://Camera-Side-Door.internal.untouchedwagons.com
             - ISpyAgent DVR:
                 icon: ispy.png
-                href: http://192.168.35.54
+                href: http://192.168.35.53
 
         - Networking & Equipment:
             - Home Hub 3000:
@@ -250,7 +250,7 @@ data:
         - Infrastructure:
             - Proxmox:
                 icon: proxmox.png
-                href: https://pve-cluster-node-01.internal.untouchedwagons.com:8006
+                href: https://pve.internal.untouchedwagons.com:8006
                 # widget:
                 #     type: proxmox
                 #     url: https://pve-node-01.internal.untouchedwagons.com:8006
@@ -273,9 +273,9 @@ data:
                 widget:
                   type: traefik
                   url: https://traefik.services.untouchedwagons.com
-            - Longhorn:
-                icon: longhorn.png
-                href: https://longhorn.services.untouchedwagons.com
+            - Ceph:
+                icon: ceph.png
+                href: https://ceph.services.untouchedwagons.com
             - Netboot.XYZ:
                 icon: netboot.png
                 href: http://netboot.internal.untouchedwagons.com

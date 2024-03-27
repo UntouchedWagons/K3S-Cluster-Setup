@@ -8,13 +8,13 @@ systemd_dir: /etc/systemd/system
 system_timezone: "America/Toronto"
 
 # interface which will be used for flannel
-flannel_iface: "eth0"
+flannel_iface: "bond0"
 
 cilium_bgp: false
 calico_ebpf: false
 
 # apiserver_endpoint is virtual ip-address which will be configured on each master
-apiserver_endpoint: "192.168.35.50"
+apiserver_endpoint: "192.168.35.10"
 
 # k3s_token is required  masters can talk together securely
 # this token should be alpha numeric only

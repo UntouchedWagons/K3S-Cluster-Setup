@@ -121,9 +121,7 @@ spec:
     module: [http_2xx]
   staticConfigs:
     - targets:
-      - https://pve-cluster-node-01.internal.untouchedwagons.com:8006
-      - https://pve-cluster-node-02.internal.untouchedwagons.com:8006
-      - https://pve-cluster-node-03.internal.untouchedwagons.com:8006
+      - https://pve.internal.untouchedwagons.com:8006
       - https://unifi.internal.untouchedwagons.com:8443
   relabelings:
     - action: replace
@@ -188,15 +186,9 @@ spec:
     - targets:
       - netboot.internal.untouchedwagons.com:22
       - pivpn.internal.untouchedwagons.com:22
-      - pve-cluster-node-01.internal.untouchedwagons.com:22
-      - pve-cluster-node-02.internal.untouchedwagons.com:22
-      - pve-cluster-node-03.internal.untouchedwagons.com:22
       - k3s-prod-node-01.internal.untouchedwagons.com:22
       - k3s-prod-node-02.internal.untouchedwagons.com:22
       - k3s-prod-node-03.internal.untouchedwagons.com:22
-      - k3s-prod-master-node-01.internal.untouchedwagons.com:22
-      - k3s-prod-master-node-02.internal.untouchedwagons.com:22
-      - k3s-prod-master-node-03.internal.untouchedwagons.com:22
       - u6-lite.internal.untouchedwagons.com:22
       - unifi.internal.untouchedwagons.com:22
       - ups.internal.untouchedwagons.com:22

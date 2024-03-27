@@ -28,7 +28,7 @@ spec:
             - name: PVE_TOKEN_NAME
               value: "pve-exporter"
             - name: PVE_TOKEN_VALUE
-              value: "c37b8110-b20e-44d8-a882-c9d10ca976c3"
+              value: "ac4d0a24-cafa-4174-81ba-a24a05b3d9c2"
 ---
 apiVersion: v1
 kind: Service
@@ -57,4 +57,4 @@ spec:
   metricsPath: /pve
   params:
     target:
-      - pve-cluster-node-01.internal.untouchedwagons.com
+      - pve.internal.untouchedwagons.com

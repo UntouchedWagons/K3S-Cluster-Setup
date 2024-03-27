@@ -7,7 +7,7 @@ chmod 700 get_helm.sh
 helm repo add traefik https://helm.traefik.io/traefik
 helm repo add jetstack https://charts.jetstack.io
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm repo add longhorn https://charts.longhorn.io
+helm repo add rook-release https://charts.rook.io/release
 helm repo add cloudnative-pg https://cloudnative-pg.io/charts/
 helm repo add intel https://intel.github.io/helm-charts/
 helm repo add node-feature-discovery https://kubernetes-sigs.github.io/node-feature-discovery/charts
@@ -29,11 +29,11 @@ sops -d ./production/cert-manager/02-cert-manager.yaml | kubectl apply -f -
 helm upgrade --install traefik traefik/traefik --create-namespace --namespace traefik --values production/traefik/values.yaml
 ```
 
-# Longhorn
+# Ceph
 
 ```
-helm upgrade --install longhorn --create-namespace --namespace longhorn-system longhorn/longhorn --version 1.6.0
-kubectl apply -f production/longhorn-system/longhorn/ingress.yaml
+helm install --create-namespace --namespace rook-ceph rook-ceph rook-release/rook-ceph
+helm install --create-namespace --namespace rook-ceph rook-ceph-cluster rook-release/rook-ceph-cluster -f rook-ceph/rook-ceph-cluster/values.yaml -f production/rook-ceph/rook-ceph-cluster/values.yaml
 ```
 
 # Node Feature Discovery
@@ -53,6 +53,7 @@ helm upgrade --install gpu-device-plugin intel/intel-device-plugins-gpu --values
 
 ```
 helm upgrade --install cnpg --create-namespace --namespace cnpg-system cloudnative-pg/cloudnative-pg
+kubectl create namespace database
 kubectl apply -f production/database/postgresql
 kubectl apply -f production/database/pgadmin4/
 kubectl apply -f production/database/docker-db-backup/
