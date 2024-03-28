@@ -162,6 +162,13 @@ metadata:
     traefik.ingress.kubernetes.io/frontend-entry-points: http,https
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/redirect-entry-point: https
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Multimedia
+    gethomepage.dev/icon: sonarr.png
+    gethomepage.dev/name: Sonarr
+    gethomepage.dev/widget.type: "sonarr"
+    gethomepage.dev/widget.url: "https://sonarr.services.untouchedwagons.com"
+    gethomepage.dev/widget.key: "0fe183143c5745269ae3b9ea163c8f85"
 spec:
   rules:
   - host: sonarr.services.untouchedwagons.com

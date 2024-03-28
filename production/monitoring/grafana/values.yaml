@@ -3,6 +3,11 @@ persistence:
 ingress:
   enabled: true
   ingressClassName: traefik
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/icon: grafana.png
+    gethomepage.dev/name: Grafana
   hosts:
     - grafana.services.untouchedwagons.com
   tls:

@@ -105,6 +105,10 @@ metadata:
     traefik.ingress.kubernetes.io/frontend-entry-points: http,https
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/redirect-entry-point: https
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Infrastructure
+    gethomepage.dev/icon: zwavejs2mqtt.png
+    gethomepage.dev/name: ZWave JS UI
 spec:
   rules:
   - host: zwave.services.untouchedwagons.com

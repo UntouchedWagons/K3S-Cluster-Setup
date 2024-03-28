@@ -17,6 +17,11 @@ alertmanager:
                   token: ENC[AES256_GCM,data:1kvCqDwK1n+2wJRgcBvwS9kS9V0QVXkZovMw//Oq,iv:uLSiK0o9kCwGuSfjL7ybnx08o7i+sXMcIynQEPxZDZg=,tag:nfA+GFNleT+WHnjouGVrmw==,type:str]
     ingress:
         enabled: true
+        annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Monitoring
+            gethomepage.dev/icon: alertmanager.png
+            gethomepage.dev/name: Alert Manager
         hosts:
             - alertmanager.services.untouchedwagons.com
         tls:
@@ -117,6 +122,11 @@ prometheus:
         enabled: true
         ingressClassName: traefik
         pathType: Prefix
+        annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/group: Monitoring
+            gethomepage.dev/icon: prometheus.png
+            gethomepage.dev/name: Prometheus
         hosts:
             - prometheus.services.untouchedwagons.com
         tls:
@@ -174,8 +184,8 @@ sops:
             M211eCsrcWtaNEp3d0x1eXdHaG53d0EKtfbifPxrHnzz2C1hVDs8n3dH2SbxefZo
             vSSzdlHrGIF/e+FsC7LYj6qZX0T//F9mhbd8IFaNi1T+JCH0zojc1A==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-03-02T01:27:36Z"
-    mac: ENC[AES256_GCM,data:PMkmJgyen2LYSrQ5du5Qxe+jajKEAOHoILe1ly7vJG/xOwOewA/eLRY3nHpwsHZD7+go3nNx1PHq3FnohHoIXlKIcQREzVqFeB1Byt7UJgdSuZz/+iUwhoq3tK1m8634kctwM3QsSOXUZp3oQSqW+SO9bS8RzOrGuKoPhJSiRAA=,iv:/5eGKqMtJ9yGYGrGdOyouaBBdL05S+9q4Hg6/PIdflA=,tag:AzrE/+t4Lq873+sY+b2Prw==,type:str]
+    lastmodified: "2024-03-28T20:08:49Z"
+    mac: ENC[AES256_GCM,data:KqS1gw7WWlctkUyPvQL17kw7bowOOBynwBGbvni4q01ADgof48hazAo83gzeyzfJr/oT8aarU4k0sfj0saXEN/k5AXIN/9KeBVBc21RX36eYxo2xAuAXb6riN30KeaSDC6SalHSG5idRq5injHFCor5EaaSRJpnLoEOVbmpxLCQ=,iv:vzFtsa/2fLddeBk8wnIN4aBNzjfuiPUWLr5nJOXjTng=,tag:u/wnTMbtTJRUO2yBV08g1w==,type:str]
     pgp: []
     encrypted_regex: ^(pushover_configs)$
     version: 3.8.1

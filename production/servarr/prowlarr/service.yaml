@@ -138,6 +138,13 @@ metadata:
     traefik.ingress.kubernetes.io/frontend-entry-points: http,https
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/redirect-entry-point: https
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Multimedia
+    gethomepage.dev/icon: prowlarr.png
+    gethomepage.dev/name: Prowlarr
+    gethomepage.dev/widget.type: "prowlarr"
+    gethomepage.dev/widget.url: "https://prowlarr.services.untouchedwagons.com"
+    gethomepage.dev/widget.key: "fa88672ddbeb4b5683a009951076bf38"
 spec:
   rules:
   - host: prowlarr.services.untouchedwagons.com

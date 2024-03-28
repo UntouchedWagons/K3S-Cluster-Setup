@@ -20,6 +20,11 @@ service:
 
 ingress:
   main:
+    annotations:
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Services
+      gethomepage.dev/icon: it-tools.png
+      gethomepage.dev/name: IT Tools
     hosts:
       - host: it-tools.services.untouchedwagons.com
         paths:

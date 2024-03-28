@@ -109,6 +109,10 @@ metadata:
     traefik.ingress.kubernetes.io/frontend-entry-points: http,https
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/redirect-entry-point: https
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Services
+    gethomepage.dev/icon: pgadmin.png
+    gethomepage.dev/name: pgAdmin 4
 spec:
   tls:
     - hosts:

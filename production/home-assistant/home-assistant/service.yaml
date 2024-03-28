@@ -119,6 +119,10 @@ metadata:
     traefik.ingress.kubernetes.io/frontend-entry-points: http,https
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/redirect-entry-point: https
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Infrastructure
+    gethomepage.dev/icon: home-assistant.png
+    gethomepage.dev/name: Home Assistant
 spec:
   rules:
   - host: home-assistant.services.untouchedwagons.com

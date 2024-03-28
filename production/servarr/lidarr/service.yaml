@@ -157,6 +157,13 @@ metadata:
     traefik.ingress.kubernetes.io/frontend-entry-points: http,https
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/redirect-entry-point: https
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Multimedia
+    gethomepage.dev/icon: lidarr.png
+    gethomepage.dev/name: Lidarr
+    gethomepage.dev/widget.type: "lidarr"
+    gethomepage.dev/widget.url: "https://lidarr.services.untouchedwagons.com"
+    gethomepage.dev/widget.key: "1555da6d78404bffb22c90ace2b31b31"
 spec:
   rules:
   - host: lidarr.services.untouchedwagons.com

@@ -142,6 +142,13 @@ metadata:
     traefik.ingress.kubernetes.io/frontend-entry-points: http,https
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/redirect-entry-point: https
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Multimedia
+    gethomepage.dev/icon: bazarr.png
+    gethomepage.dev/name: Bazarr
+    gethomepage.dev/widget.type: "bazarr"
+    gethomepage.dev/widget.url: "https://bazarr.services.untouchedwagons.com"
+    gethomepage.dev/widget.key: "b9f8668f49e13b76f2c872e5bcaf2048"
 spec:
   rules:
   - host: bazarr.services.untouchedwagons.com

@@ -39,6 +39,14 @@ service:
 
 ingress:
   main:
+    annotations:
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Download Clients
+      gethomepage.dev/icon: sabnzbd.png
+      gethomepage.dev/name: SabNZBd
+      gethomepage.dev/widget.type: "sabnzbd"
+      gethomepage.dev/widget.url: "https://sabnzbd.services.untouchedwagons.com"
+      gethomepage.dev/widget.key: "441c51b1799e551d7b4757b179fe7e96"
     hosts:
       - host: sabnzbd.services.untouchedwagons.com
         paths:

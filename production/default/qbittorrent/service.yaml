@@ -191,6 +191,12 @@ metadata:
     traefik.ingress.kubernetes.io/frontend-entry-points: http,https
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/redirect-entry-point: https
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Download Clients
+    gethomepage.dev/icon: qbittorrent.png
+    gethomepage.dev/name: QBitTorrent
+    gethomepage.dev/widget.type: "qbittorrent"
+    gethomepage.dev/widget.url: "https://qbittorrent.services.untouchedwagons.com"
 spec:
   rules:
     - host: qbittorrent.services.untouchedwagons.com

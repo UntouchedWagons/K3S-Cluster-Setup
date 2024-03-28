@@ -45,6 +45,11 @@ service:
 
 ingress:
   main:
+    annotations:
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Services
+      gethomepage.dev/icon: filebrowser.png
+      gethomepage.dev/name: File Browser
     hosts:
       - host: file-browser.services.untouchedwagons.com
         paths:

@@ -156,6 +156,13 @@ metadata:
     traefik.ingress.kubernetes.io/frontend-entry-points: http,https
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/redirect-entry-point: https
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Multimedia
+    gethomepage.dev/icon: radarr.png
+    gethomepage.dev/name: Radarr
+    gethomepage.dev/widget.type: "radarr"
+    gethomepage.dev/widget.url: "https://radarr.services.untouchedwagons.com"
+    gethomepage.dev/widget.key: "0416a6d418be4cd7b9b64e3862aa436a"
 spec:
   rules:
   - host: radarr.services.untouchedwagons.com

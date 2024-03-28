@@ -39,6 +39,11 @@ service:
 
 ingress:
   main:
+    annotations:
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Services
+      gethomepage.dev/icon: bitwarden.png
+      gethomepage.dev/name: Vaultwarden
     hosts:
       - host: vaultwarden.services.untouchedwagons.com
         paths:
