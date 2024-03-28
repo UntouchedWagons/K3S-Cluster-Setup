@@ -1,11 +1,87 @@
 ---
-kind: Deployment
-apiVersion: apps/v1
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: homepage
+  labels:
+    app.kubernetes.io/name: homepage
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+      - pods
+      - nodes
+    verbs:
+      - get
+      - list
+  - apiGroups:
+      - extensions
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - list
+  - apiGroups:
+      - traefik.containo.us
+    resources:
+      - ingressroutes
+    verbs:
+      - get
+      - list
+  - apiGroups:
+      - metrics.k8s.io
+    resources:
+      - nodes
+      - pods
+    verbs:
+      - get
+      - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: homepage
+  labels:
+    app.kubernetes.io/name: homepage
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: homepage
+subjects:
+  - kind: ServiceAccount
+    name: homepage
+    namespace: default
+---
+apiVersion: v1
+kind: ServiceAccount
 metadata:
   name: homepage
   namespace: default
   labels:
-    app: homepage
+    app.kubernetes.io/name: homepage
+secrets:
+  - name: homepage
+---
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/service-account-token
+metadata:
+  name: homepage
+  namespace: default
+  labels:
+    app.kubernetes.io/name: homepage
+  annotations:
+    kubernetes.io/service-account.name: homepage
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: &app homepage
+  namespace: default
+  labels:
+    app: *app
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -14,15 +90,18 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: homepage
+      app: *app
   template:
     metadata:
       labels:
-        app: homepage
+        app: *app
     spec:
+      serviceAccountName: *app
+      automountServiceAccountToken: true
+      enableServiceLinks: true
       containers:
-        - name: homepage
-          image: ghcr.io/gethomepage/homepage:v0.8.9
+        - name: *app
+          image: ghcr.io/gethomepage/homepage:v0.8.10
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -97,7 +176,8 @@ metadata:
     labels:
         app.kubernetes.io/name: homepage
 data:
-    kubernetes.yaml: ""
+    kubernetes.yaml: |
+      mode: cluster
     settings.yaml: |
         ---
         # For configuration options and examples, please see:
@@ -315,4 +395,24 @@ data:
         - search:
             provider: duckduckgo
             target: _blank
+        - kubernetes:
+            cluster:
+              # Shows cluster-wide statistics
+              show: true
+              # Shows the aggregate CPU stats
+              cpu: true
+              # Shows the aggregate memory stats
+              memory: true
+              # Shows a custom label
+              showLabel: true
+              label: "cluster"
+            nodes:
+              # Shows node-specific statistics
+              show: true
+              # Shows the CPU for each node
+              cpu: true
+              # Shows the memory for each node
+              memory: true
+              # Shows the label, which is always the node name
+              showLabel: true
     docker.yaml: ""
