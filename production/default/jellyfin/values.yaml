@@ -1,0 +1,112 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
+
+controllers:
+  main:
+    strategy: Recreate
+
+    initContainers:
+      restore:
+        image:
+          repository: untouchedwagons/simple-restore
+          tag: 1.0.4
+        env:
+          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/jellyfin"
+          BACKUP_BASE_NAME: "jellyfin"
+
+    containers:
+      main:
+        image:
+          repository: jellyfin/jellyfin
+          tag: 10.8.13-1
+        resources:
+          limits:
+            memory: 2048Mi
+            cpu: "2"
+            gpu.intel.com/i915: "1"
+          requests:
+            memory: 1024Mi
+            cpu: "10m"
+            gpu.intel.com/i915: "1"
+
+      backup:
+        image:
+          repository: untouchedwagons/simple-backup
+          tag: 1.0.5
+        env:
+          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/jellyfin"
+          BACKUP_BASE_NAME: "jellyfin"
+          BACKUP_RETENTION: "24"
+          BACKUP_FREQUENCY: "0 */8 * * *"
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 8080
+
+ingress:
+  main:
+    hosts:
+      - host: jellyfin.services.untouchedwagons.com
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts: 
+        - untouchedwagons.com
+        secretName: com-untouchedwagons-services
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    advancedMounts:
+      main: 
+        main:
+          - path: /config
+        backup:
+          - path: /data
+        restore:
+          - path: /data
+
+  tmp:
+    type: emptyDir
+    advancedMounts:
+      main: 
+        main:
+          - path: /config/transcodes
+
+  nfs-backups:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Media/Backups"
+    advancedMounts:
+      main: 
+        backup:
+          - path: /backups
+        restore:
+          - path: /backups
+
+  nfs-music:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Media/Music"
+    advancedMounts:
+      main: 
+        main:
+          - path: /mnt/data/Music
+
+  nfs-videos:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Media/Videos"
+    advancedMounts:
+      main: 
+        main:
+          - path: /mnt/data/Videos

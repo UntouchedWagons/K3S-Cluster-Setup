@@ -1,0 +1,42 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
+
+controllers:
+  main:
+    strategy: Recreate
+
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/exportarr
+          tag: v1.6.2
+        args: 
+          - prowlarr
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - all
+            add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
+        env:
+          PORT: "9707"
+          URL: "http://prowlarr.servarr.svc.cluster.local:9696"
+          APIKEY: "fa88672ddbeb4b5683a009951076bf38"
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 9707
+
+serviceMonitor:
+  main:
+    enabled: true
+    serviceName: '{{ include "bjw-s.common.lib.chart.names.fullname" $ }}'
+    endpoints:
+      - port: http
+        scheme: http
+        path: /metrics
+        interval: 1m
+        scrapeTimeout: 10s

@@ -12,6 +12,7 @@ helm repo add cloudnative-pg https://cloudnative-pg.io/charts/
 helm repo add intel https://intel.github.io/helm-charts/
 helm repo add node-feature-discovery https://kubernetes-sigs.github.io/node-feature-discovery/charts
 helm repo add grafana https://grafana.github.io/helm-charts
+helm repo add bjw-s https://bjw-s.github.io/helm-charts/
 helm repo update
 ```
 
@@ -68,30 +69,30 @@ kubectl apply -f production/database/postgresql-restore/
 # Services
 
 ```
-kubectl apply -f production/default/file-browser/
+helm upgrade --install file-browser bjw-s/app-template -f production/default/file-browser/values.yaml
 kubectl apply -f production/default/homepage/
-kubectl apply -f production/default/it-tools/
-kubectl apply -f production/default/jellyfin/
+helm upgrade --install it-tools bjw-s/app-template -f production/default/it-tools/values.yaml
+helm upgrade --install jellyfin bjw-s/app-template -f production/default/jellyfin/values.yaml
 kubectl apply -f production/default/qbittorrent/volume.yaml
 sops -d production/default/qbittorrent/secrets.yaml | kubectl apply -f -
 kubectl apply -f production/default/qbittorrent/service.yaml
-kubectl apply -f production/default/sabnzbd/
-kubectl apply -f production/default/vaultwarden/
+helm upgrade --install sabnzbd bjw-s/app-template -f production/default/sabnzbd/values.yaml
+helm upgrade --install vaultwarden bjw-s/app-template -f production/default/vaultwarden/values.yaml
 kubectl apply -f production/servarr/
 kubectl apply -f production/servarr/bazarr/
-kubectl apply -f production/servarr/flaresolverr/
+helm upgrade --install flaresolverr bjw-s/app-template --namespace servarr -f production/servarr/flaresolverr/values.yaml
 kubectl apply -f production/servarr/lidarr/
 kubectl apply -f production/servarr/prowlarr/
 kubectl apply -f production/servarr/radarr/
 kubectl apply -f production/servarr/sonarr/
-kubectl apply -f production/servarr/tdarr/
 kubectl apply -f production/ai/
-kubectl apply -f production/ai/codeproject/
+helm upgrade --install cpas bjw-s/app-template --namespace ai -f production/ai/codeproject/values.yaml
 kubectl apply -f production/networking/
 kubectl apply -f production/networking/ispyagentdvr/
 sops -d production/networking/cloudflared/values.yaml | helm upgrade --install cloudflared kubitodev/cloudflared --namespace networking --version 1.1.0 --values -
 sops -d production/networking/ddclient/service.yaml | kubectl apply -f -
 sops -d production/networking/rclone/service.yaml | kubectl apply -f -
+sops -d production/networking/msmtpd/service.yaml | kubectl apply -f -
 ```
 
 # Home Assistant
@@ -112,12 +113,12 @@ kubectl apply -f production/monitoring/exporter-flaresolverr/
 kubectl apply -f production/monitoring/exporter-linux/
 kubectl apply -f production/monitoring/exporter-opnsense/
 kubectl apply -f production/monitoring/exporter-proxmox/
-kubectl apply -f production/monitoring/exporter-sonarr/
-kubectl apply -f production/monitoring/exporter-radarr/
-kubectl apply -f production/monitoring/exporter-lidarr/
-kubectl apply -f production/monitoring/exporter-prowlarr/
-kubectl apply -f production/monitoring/exporter-bazarr/
-kubectl apply -f production/monitoring/exporter-sabnzbd/
+helm upgrade --install exporter-sonarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-sonarr/values.yaml
+helm upgrade --install exporter-radarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-radarr/values.yaml
+helm upgrade --install exporter-lidarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-lidarr/values.yaml
+helm upgrade --install exporter-prowlarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-prowlarr/values.yaml
+helm upgrade --install exporter-bazarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-bazarr/values.yaml
+helm upgrade --install exporter-sabnzbd bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-sabnzbd/values.yaml
 kubectl apply -f production/monitoring/exporter-qbittorrent/
 kubectl apply -f production/monitoring/exporter-nut/
 kubectl apply -f production/monitoring/exporter-zfs/

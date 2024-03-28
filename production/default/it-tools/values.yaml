@@ -1,0 +1,34 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
+
+controllers:
+  main:
+    strategy: Recreate
+
+    containers:
+      main:
+        image:
+          repository: corentinth/it-tools
+          tag: 2023.12.21-5ed3693
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 80
+
+ingress:
+  main:
+    hosts:
+      - host: it-tools.services.untouchedwagons.com
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts: 
+        - untouchedwagons.com
+        secretName: com-untouchedwagons-services
