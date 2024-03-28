@@ -29,6 +29,8 @@ service:
     ports:
       http:
         port: 9707
+    labels:
+      instance: "exporter-radarr.monitoring.svc.cluster.local"
 
 serviceMonitor:
   main:
@@ -40,3 +42,5 @@ serviceMonitor:
         path: /metrics
         interval: 1m
         scrapeTimeout: 10s
+    targetLabels:
+      - instance
