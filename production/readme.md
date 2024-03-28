@@ -119,7 +119,7 @@ helm upgrade --install exporter-lidarr bjw-s/app-template --namespace monitoring
 helm upgrade --install exporter-prowlarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-prowlarr/values.yaml
 helm upgrade --install exporter-bazarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-bazarr/values.yaml
 helm upgrade --install exporter-sabnzbd bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-sabnzbd/values.yaml
-kubectl apply -f production/monitoring/exporter-qbittorrent/
+helm upgrade --install exporter-qbittorrent bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-qbittorrent/values.yaml
 kubectl apply -f production/monitoring/exporter-nut/
 kubectl apply -f production/monitoring/exporter-zfs/
 kubectl apply -f production/monitoring/exporter-technitium/
