@@ -232,7 +232,7 @@ data:
                 icon: github.png
                 href: https://github.com
             - BlueSky:
-                icon: bluesky.png
+                icon: si-bluesky-#0285FF
                 href: https://bsky.app
             - Lemmy:
                 icon: lemmy.png
@@ -284,10 +284,10 @@ data:
                 icon: proxmox.png
                 href: https://pve.internal.untouchedwagons.com:8006
                 widget:
-                    type: proxmox
-                    url: https://pve.internal.untouchedwagons.com:8006
-                    username: root@pam!pve-exporter
-                    password: ac4d0a24-cafa-4174-81ba-a24a05b3d9c2
+                  type: proxmox
+                  url: https://pve.internal.untouchedwagons.com:8006
+                  username: root@pam!pve-exporter
+                  password: ac4d0a24-cafa-4174-81ba-a24a05b3d9c2
             - Proxmox Backup Server:
                 icon: proxmox.png
                 href: https://vault.internal.untouchedwagons.com:8007
