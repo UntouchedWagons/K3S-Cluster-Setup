@@ -12,16 +12,10 @@
   "__elements": {},
   "__requires": [
     {
-      "type": "panel",
-      "id": "gauge",
-      "name": "Gauge",
-      "version": ""
-    },
-    {
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "10.2.3"
+      "version": "10.3.3"
     },
     {
       "type": "panel",
@@ -128,7 +122,8 @@
                 "value": 1
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -141,8 +136,8 @@
       "id": 2,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
+        "graphMode": "none",
+        "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -151,21 +146,23 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "qbittorrent_up",
           "format": "time_series",
           "instant": false,
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
@@ -212,7 +209,8 @@
                 "value": 1
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -235,17 +233,19 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "qbittorrent_connected - qbittorrent_firewalled",
+          "editorMode": "code",
+          "expr": "qbittorrent_firewalled",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -293,7 +293,8 @@
                 "value": 100
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -316,16 +317,18 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "qbittorrent_dht_nodes",
           "instant": true,
           "interval": "",
@@ -354,7 +357,8 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -377,10 +381,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -415,7 +420,8 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -438,10 +444,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -476,7 +483,8 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "none",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -489,7 +497,7 @@
       "id": 7,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
@@ -499,10 +507,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
@@ -527,6 +536,9 @@
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "decimals": 1,
           "mappings": [],
           "max": 48000000,
@@ -535,16 +547,13 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-red",
+                "color": "green",
                 "value": null
-              },
-              {
-                "color": "dark-green",
-                "value": 8000000
               }
             ]
           },
-          "unit": "binBps"
+          "unit": "binBps",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -556,8 +565,9 @@
       },
       "id": 16,
       "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -566,26 +576,27 @@
           "fields": "",
           "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "rate(qbittorrent_dl_info_data_total[2m])",
           "instant": false,
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
       "title": "Download speed",
-      "type": "gauge"
+      "type": "stat"
     },
     {
       "datasource": {
@@ -594,6 +605,9 @@
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "decimals": 1,
           "mappings": [],
           "max": 18000000,
@@ -602,16 +616,13 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-red",
+                "color": "green",
                 "value": null
-              },
-              {
-                "color": "dark-green",
-                "value": 4000000
               }
             ]
           },
-          "unit": "binBps"
+          "unit": "binBps",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -623,8 +634,9 @@
       },
       "id": 17,
       "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -633,27 +645,28 @@
           "fields": "",
           "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "rate(qbittorrent_up_info_data_total[2m])",
           "hide": false,
           "instant": false,
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
       "title": "Upload speed",
-      "type": "gauge"
+      "type": "stat"
     },
     {
       "datasource": {
@@ -711,7 +724,8 @@
               }
             ]
           },
-          "unit": "binBps"
+          "unit": "binBps",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -769,6 +783,12 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "fieldConfig": {
+        "defaults": {
+          "unitScale": true
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -798,7 +818,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.3.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -865,7 +885,8 @@
               "viz": false
             }
           },
-          "mappings": []
+          "mappings": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -968,13 +989,13 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Qbittorrent",
   "uid": "eKyTETFMk",
-  "version": 2,
+  "version": 8,
   "weekStart": ""
 }
