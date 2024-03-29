@@ -57,7 +57,7 @@ helm upgrade --install cnpg --create-namespace --namespace cnpg-system cloudnati
 kubectl create namespace database
 kubectl apply -f production/database/postgresql
 kubectl apply -f production/database/pgadmin4/
-kubectl apply -f production/database/docker-db-backup/
+helm upgrade --install docker-db-backup bjw-s/app-template --namespace database -f production/database/docker-db-backup/values.yaml
 ```
 
 # Restore PostgreSQL databases

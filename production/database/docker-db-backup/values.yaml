@@ -1,0 +1,41 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
+
+controllers:
+  main:
+    strategy: Recreate
+
+    containers:
+      main:
+        image:
+          repository: tiredofit/db-backup
+          tag: 4.0.35
+        env:
+          TIMEZONE: "America/Toronto"
+          DEFAULT_FILESYSTEM_PATH: "/backups/kubernetes/production/database"
+          USER_DBBACKUP: "1000"
+          GROUP_DBBACKUP: "1000"
+          CONTAINER_ENABLE_MONITORING: "FALSE"
+          DB01_TYPE: "postgres"
+          DB01_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
+          DB01_NAME: "ALL"
+          DB01_USER: "postgres"
+          DB01_PASS: "TrembleBulwarkBeautifulGossip"
+          DB01_COMPRESSION: "gz"
+          DB01_SPLIT_DB: "TRUE"
+
+persistence:
+  nfs-backups:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Media/Backups"
+    globalMounts:
+      - path: /backups
+        readOnly: false
+
+  tmp:
+    type: emptyDir
+    advancedMounts:
+      main: 
+        main:
+          - path: /tmp/backups
