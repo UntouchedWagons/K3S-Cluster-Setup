@@ -75,7 +75,6 @@ helm upgrade --install it-tools bjw-s/app-template -f production/default/it-tool
 helm upgrade --install jellyfin bjw-s/app-template -f production/default/jellyfin/values.yaml
 kubectl apply -f production/default/qbittorrent/volume.yaml
 sops -d production/default/qbittorrent/values.yaml | helm upgrade --install qbittorrent bjw-s/app-template -f -
-kubectl apply -f production/default/qbittorrent/service.yaml
 helm upgrade --install sabnzbd bjw-s/app-template -f production/default/sabnzbd/values.yaml
 helm upgrade --install vaultwarden bjw-s/app-template -f production/default/vaultwarden/values.yaml
 kubectl apply -f production/servarr/

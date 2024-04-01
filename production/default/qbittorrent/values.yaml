@@ -69,6 +69,12 @@ service:
         ports:
             http:
                 port: 8080
+    gluetun:
+        controller: main
+        type: LoadBalancer
+        ports:
+            proxy:
+                port: 8888
 ingress:
     main:
         annotations:
@@ -138,8 +144,8 @@ sops:
             dWtTc1Z6VkNMLzJSVDJ6WHphejhnNzQKDtvNyDAkFY9ZKVdHOO2vfEdhi92KOtq3
             JLzc2LW0tJqpZyL3aQgNSHZBa1bIKB3TTmyfGbg0TP+BhPfui29pbw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-03-29T00:13:29Z"
-    mac: ENC[AES256_GCM,data:geWv88tMaOPAI7rmo50vfk+QrKClkCe0CLUUtnUa+2QGi3Gvtbr722p/BjBXCO78IIISHWA90Bmjl+d6+mQhhrg3WNVQsmc1AMQchadUCMSI4IqTZv7EpY5LEELjvyZSJEnSobyYn1ahG2trMe5d4SsiMo+9+uncrN5ro1vOUaA=,iv:lSgpBkP5mDd97XFkTF2zlzccjIJnwpFSdVhGsqycigg=,tag:1srReIcJJlT/NIAxdvlpKQ==,type:str]
+    lastmodified: "2024-04-01T01:18:06Z"
+    mac: ENC[AES256_GCM,data:etPQxqXbMFjP+9pvgEDNsPihhKOJ9BHg70BchuVVwA0KYVveI+eeqg7yxnJWh5apw5OEtHotVH1/tNVpNjEkvoEUxWlIk/dawa1pMY7J5uz08ZlXX9XD0Z9IWYqIXzZphI/6hqQx0o9pfmPphZ15epJF5Xe0AhZo4y8mpU6dhmw=,iv:ThqewO15v6ERoJVLib+ZAa4w0EZdmjvuw5PYPP1yZ+U=,tag:TqM6xMMEjUczaNuK5E2wgQ==,type:str]
     pgp: []
     encrypted_regex: ^(WIREGUARD_)
     version: 3.8.1
