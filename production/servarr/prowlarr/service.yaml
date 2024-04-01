@@ -50,7 +50,7 @@ spec:
               value: "prowlarr"
       containers:
         - name: prowlarr
-          image: ghcr.io/onedr0p/prowlarr:1.13.3.4273
+          image: ghcr.io/onedr0p/prowlarr:1.15.0.4361
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
