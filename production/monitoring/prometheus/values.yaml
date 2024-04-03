@@ -127,6 +127,8 @@ prometheus:
             gethomepage.dev/group: Monitoring
             gethomepage.dev/icon: prometheus.png
             gethomepage.dev/name: Prometheus
+            gethomepage.dev/widget.type: prometheus
+            gethomepage.dev/widget.url: https://prometheus.services.untouchedwagons.com
         hosts:
             - prometheus.services.untouchedwagons.com
         tls:
@@ -184,8 +186,8 @@ sops:
             M211eCsrcWtaNEp3d0x1eXdHaG53d0EKtfbifPxrHnzz2C1hVDs8n3dH2SbxefZo
             vSSzdlHrGIF/e+FsC7LYj6qZX0T//F9mhbd8IFaNi1T+JCH0zojc1A==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-03-28T20:08:49Z"
-    mac: ENC[AES256_GCM,data:KqS1gw7WWlctkUyPvQL17kw7bowOOBynwBGbvni4q01ADgof48hazAo83gzeyzfJr/oT8aarU4k0sfj0saXEN/k5AXIN/9KeBVBc21RX36eYxo2xAuAXb6riN30KeaSDC6SalHSG5idRq5injHFCor5EaaSRJpnLoEOVbmpxLCQ=,iv:vzFtsa/2fLddeBk8wnIN4aBNzjfuiPUWLr5nJOXjTng=,tag:u/wnTMbtTJRUO2yBV08g1w==,type:str]
+    lastmodified: "2024-04-03T23:17:31Z"
+    mac: ENC[AES256_GCM,data:DZ57AmCFQyGhsjn+ROaDHHgJ/Sq2UtZcfnZEiUty6haOJlQlotkRLdGgnbvshAUCwyq3g5o3AuwHv6THypLA4EeMta3asJldvUpBy4BXMT7TDmwjq5upiJbknL1maYc7dEWDl9n72ML2uC1RWEjgaIbjkuFew+mDJyHNyQ8Y5yA=,iv:8OnOlZTt9oikayf0BfPPPmMZLUBzrRcZ5mO17iF+fms=,tag:W7wBqIixwYlHJvuoisCVsA==,type:str]
     pgp: []
     encrypted_regex: ^(pushover_configs)$
     version: 3.8.1
