@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
+controllers:
+  main:
+    strategy: Recreate
+    containers:
+      main:
+        image:
+          repository: untouchedwagons/network-ups-tools
+          tag: 1.0.0
+
+service:
+  main:
+    controller: main
+    type: LoadBalancer
+    ports:
+      http:
+        port: 3493
+
+persistence:
+  settings:
+    type: configMap
+    name: nut
+    globalMounts:
+      - path: /etc/nut/ups.conf
+        subPath: ups.conf
+      - path: /etc/nut/upsd.users
+        subPath: upsd.users
+
+configMaps:
+  nut:
+    enabled: true
+    data:
+      ups.conf: | # Adjust this section as needed
+        [OR1500LCDRT2U]
+        driver = "snmp-ups"
+        port = "rmcard205.internal.untouchedwagons.com"
+        desc = "OR1500LCDRT2U"
+        mibs = "cyberpower"
+        community = "public"
+      upsd.users: | # Adjust this section as needed
+        [upsmon]
+          password = NowGuideStandOwnJump
+          upsmon slave
