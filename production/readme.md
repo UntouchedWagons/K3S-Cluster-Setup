@@ -83,8 +83,7 @@ kubectl apply -f production/servarr/lidarr/
 kubectl apply -f production/servarr/prowlarr/
 kubectl apply -f production/servarr/radarr/
 kubectl apply -f production/servarr/sonarr/
-kubectl apply -f production/ai/
-helm upgrade --install cpas bjw-s/app-template --namespace ai -f production/ai/codeproject/values.yaml
+helm upgrade --install cpas bjw-s/app-template --create-namespace --namespace ai -f production/ai/codeproject/values.yaml
 kubectl apply -f production/networking/
 kubectl apply -f production/networking/ispyagentdvr/
 sops -d production/networking/cloudflared/values.yaml | helm upgrade --install cloudflared kubitodev/cloudflared --namespace networking --version 1.1.0 --values -
