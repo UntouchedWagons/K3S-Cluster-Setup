@@ -87,7 +87,7 @@ helm upgrade --install cpas bjw-s/app-template --create-namespace --namespace ai
 kubectl apply -f production/networking/
 kubectl apply -f production/networking/ispyagentdvr/
 sops -d production/networking/cloudflared/values.yaml | helm upgrade --install cloudflared kubitodev/cloudflared --namespace networking --version 1.1.0 --values -
-sops -d production/networking/ddclient/service.yaml | kubectl apply -f -
+sops -d production/networking/ddclient/values.yaml | helm upgrade --install ddclient bjw-s/app-template --namespace networking -f -
 sops -d production/networking/rclone/service.yaml | kubectl apply -f -
 sops -d production/networking/msmtpd/service.yaml | kubectl apply -f -
 ```

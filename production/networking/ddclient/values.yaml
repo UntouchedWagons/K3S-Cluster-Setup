@@ -1,0 +1,48 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
+controllers:
+    main:
+        strategy: Recreate
+        containers:
+            main:
+                image:
+                    repository: matthewhuie/ddclient
+                    tag: 2ea45fd
+                securityContext:
+                    allowPrivilegeEscalation: false
+                    capabilities:
+                        drop:
+                            - all
+persistence:
+    settings:
+        type: configMap
+        name: ddclient
+        advancedMounts:
+            main:
+                main:
+                    - path: /etc/ddclient/ddclient.conf
+                      subPath: ddclient.conf
+configMaps:
+    ddclient:
+        enabled: true
+        data:
+            ddclient.conf: ENC[AES256_GCM,data:69TSA38ITZ9BcKvqBzBrQjI0XptEvHyhkAfovFBVx+ioZJDhcIjAFWfrsQjP1p4nyQZ+TINzL3SaKBou4AdsMC6HFtlWRwm8gusqKmGoO6aIVWdUqNjw8Tw0n0fr2awAzfim3ewqcCOINl0rHt7dH7fFc4LcUNnFGA57etTGYzdJaoJmViPJ5EkNCZn17+W+5asPzSdFdrgq31pyheYo6jREf2LVkHmOO+eZJo1eDTWHbPLnfCH8t6EqrFXZQbZTsNnvBi8ks5bWok3Cp6YnS7mOv5NGP5DIJNyHkpBmrAcQY+8YBcc6n1XAxMpUH+nwlLuRlo4PfGLGqW/JuCCQnzDkfnxLxEA8OLA21+j5Mo2B9NwZeg+U1Qxo8fM6b1hKzwOWvuOJQ5JAVTRkV8u1Ji4Hqz2ovzVfMXmu+L8PAqXa2Bin0KKg2XJHNi+Kjo+NQvB4ad2TFjCoYBf/BxysIhBZjeoKBfHhRNgNlk3nK20GNvdbKlzuC845z271pdTJEdL48DuA83U4WkrduY0J06B04a8obexYDsS79TNQMKRZCrGdi/exN4dnBQAeKIaIPCT4MB2F0sOr/zzbJnoBuOGPTg46/YHHTP8r4ASPcWbGBAFoR7JmWp6bwI/+yFqbtlGMxRnN/dqSl2GrpkEv+K7QV4JRS5mhEsDaGu5Txx+yD89L6ErwdwnE6VdsOeexwOkDFy3Dm7AcjMLHn7BNO53Ru038MQ==,iv:m6SRikQTQTaoGYo+jxfsTdE/qigf5WQB6WxpYLLC8+U=,tag:C585QMXkFiD/GT/3ZsBrtA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBmeEp1U1loZFNibTJCUnhs
+            YlVUV2VSQVFuc0pSdHk2ZGNPYzRHdUdGWWwwCnZzZzhsc2toNEhVTXhaWUNPZjdU
+            K0lIL2xnU2hWRVFFNzk5ei9HUkN3U1UKLS0tIC9oRU85aHRucFRIK3ZsQTFpYVQz
+            cnpwNFh4eEJJcUNLQ2tIYVU1MmdCUjAKSz96th82v7EkFRSqAJeLpsjwzaEsnopF
+            0Z0FUPk5KXMg2y/tKimsUyjQGU03XlrsOhkXdnhuqfro2b1ljXxO7g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-03T01:33:56Z"
+    mac: ENC[AES256_GCM,data:qm7hmmkNH8oG+9nqWBpWaOud4C43/VKIfqRLNPtBeCXm0rkcipWyzEls3Z/oC5TFZf5ZOQ6auBBXOmeVlxZShBYBNy0RsIXKRdH/G1YL768FrI/qaxwJy+/win8/UH2ykLgCeW5tAKAlU/QXhbToDQfSqT2Sp6GjPV4CGk4ommk=,iv:51WN2AGKqLpcLuXqLzA1Qbh7eNDXUxGnOWznnRpQM5c=,tag:mUs6mtXpDBo8w8YUP/ZUig==,type:str]
+    pgp: []
+    encrypted_regex: ^(data)$
+    version: 3.8.1
