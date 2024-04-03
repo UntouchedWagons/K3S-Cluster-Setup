@@ -1,0 +1,191 @@
+image:
+  repository: ghcr.io/gethomepage/homepage
+  tag: v0.8.10
+
+enableRbac: true
+
+serviceAccount:
+  create: true
+  name: homepage
+
+service:
+  main:
+    ports:
+      http:
+        port: 3000
+
+ingress:
+  main:
+    enabled: true
+    hosts:
+      - host: services.untouchedwagons.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - untouchedwagons.com
+        secretName: com-untouchedwagons-services
+
+config:
+  # To use an existing ConfigMap uncomment this line and specify the name
+  # useExistingConfigMap: existing-homepage-configmap
+  bookmarks: []
+
+  services:
+    - Bookmarks:
+        - Reddit:
+            icon: reddit.png
+            href: https://reddit.com
+        - YouTube:
+            icon: youtube.png
+            href: https://youtube.com
+        - Mastodon:
+            icon: mastodon.png
+            href: https://mstdn.ca
+        - Github:
+            icon: github.png
+            href: https://github.com
+        - BlueSky:
+            icon: si-bluesky-#0285FF
+            href: https://bsky.app
+        - Lemmy:
+            icon: lemmy.png
+            href: https://lemmy.ca
+
+    - Download Clients: []
+
+    - Infrastructure:
+        - Proxmox:
+            icon: proxmox.png
+            href: https://pve.internal.untouchedwagons.com:8006
+            widget:
+              type: proxmox
+              url: https://pve.internal.untouchedwagons.com:8006
+              username: root@pam!pve-exporter
+              password: ac4d0a24-cafa-4174-81ba-a24a05b3d9c2
+        - Proxmox Backup Server:
+            icon: proxmox.png
+            href: https://vault.internal.untouchedwagons.com:8007
+            widget:
+              type: proxmoxbackupserver
+              url: https://vault.internal.untouchedwagons.com:8007
+              username: root@pam!homepage
+              password: a68b0d0f-a97b-4c57-9025-a54758686405
+        - Traefik:
+            icon: traefik.png
+            href: https://traefik.services.untouchedwagons.com
+            widget:
+              type: traefik
+              url: https://traefik.services.untouchedwagons.com
+        - Ceph:
+            icon: ceph.png
+            href: https://ceph.services.untouchedwagons.com
+        - Netboot.XYZ:
+            icon: netboot.png
+            href: http://netboot.internal.untouchedwagons.com
+        - Technitium:
+            icon: technitium.png
+            href: http://technitium.internal.untouchedwagons.com
+
+    - Monitoring: []
+
+    - Multimedia: []
+
+    - Networking & Equipment:
+        - Home Hub 3000:
+            icon: mdi-router-wireless
+            href: https://192.168.10.1
+        - OPNSense:
+            icon: opnsense.png
+            href: http://opnsense.internal.untouchedwagons.com
+        - Unifi:
+            icon: unifi.png
+            href: https://unifi.internal.untouchedwagons.com:8443
+        - UPS Remote Management Card:
+            icon: mdi-car-battery
+            href: http://rmcard205.internal.untouchedwagons.com
+        - Dell R220 iDRAC:
+            icon: idrac.png
+            href: https://idrac-cjtyp22.internal.untouchedwagons.com
+        - Dell R420 iDRAC:
+            icon: idrac.png
+            href: https://idrac-7p57cz1.internal.untouchedwagons.com
+        - Dell R630 iDRAC:
+            icon: idrac.png
+            href: https://idrac-CZBLPD2.internal.untouchedwagons.com
+        - Dell R730XD iDRAC:
+            icon: idrac.png
+            href: https://idrac-jnky182.internal.untouchedwagons.com
+
+    - Security:
+        - Front door camera:
+            icon: mdi-cctv
+            href: https://Camera-Front-Door.internal.untouchedwagons.com
+        - Side door camera:
+            icon: mdi-cctv
+            href: https://Camera-Side-Door.internal.untouchedwagons.com
+        - ISpyAgent DVR:
+            icon: ispy.png
+            href: http://192.168.35.53
+
+    - Services: []
+
+  widgets:
+    - resources:
+        # change backend to 'kubernetes' to use Kubernetes integration. Requires RBAC.
+        backend: resources
+        expanded: true
+        cpu: true
+        memory: true
+    - search:
+        provider: duckduckgo
+        target: _blank
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+          label: "cluster"
+        nodes:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+  kubernetes:
+    # change mode to 'cluster' to use RBAC service account
+    mode: cluster
+  docker:
+  settings:
+    layout:
+      Bookmarks:
+        style: row
+        columns: 3
+      Multimedia:
+        style: row
+        columns: 3
+      Download Clients:
+        style: row
+        columns: 2
+      Infrastructure:
+        style: row
+        columns: 3
+      Networking & Equipment:
+        style: row
+        columns: 3
+      Security:
+        style: row
+        columns: 3
+      Services:
+        style: row
+        columns: 3
+      Monitoring:
+        style: row
+        columns: 3
+
+persistence:
+  logs:
+    enabled: true
+    type: emptyDir
+    mountPath: /app/config/logs

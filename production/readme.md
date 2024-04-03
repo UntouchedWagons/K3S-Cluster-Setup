@@ -13,6 +13,7 @@ helm repo add intel https://intel.github.io/helm-charts/
 helm repo add node-feature-discovery https://kubernetes-sigs.github.io/node-feature-discovery/charts
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo add bjw-s https://bjw-s.github.io/helm-charts/
+helm repo add jameswynn https://jameswynn.github.io/helm-charts
 helm repo update
 ```
 
@@ -70,7 +71,7 @@ kubectl apply -f production/database/postgresql-restore/
 
 ```
 helm upgrade --install file-browser bjw-s/app-template -f production/default/file-browser/values.yaml
-kubectl apply -f production/default/homepage/
+helm upgrade --install homepage jameswynn/homepage -f production/default/homepage/values.yaml
 helm upgrade --install it-tools bjw-s/app-template -f production/default/it-tools/values.yaml
 helm upgrade --install jellyfin bjw-s/app-template -f production/default/jellyfin/values.yaml
 sops -d production/default/qbittorrent/values.yaml | helm upgrade --install qbittorrent bjw-s/app-template -f -
