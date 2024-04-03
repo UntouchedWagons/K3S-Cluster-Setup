@@ -56,7 +56,7 @@ helm upgrade --install gpu-device-plugin intel/intel-device-plugins-gpu --values
 helm upgrade --install cnpg --create-namespace --namespace cnpg-system cloudnative-pg/cloudnative-pg
 kubectl create namespace database
 kubectl apply -f production/database/postgresql
-kubectl apply -f production/database/pgadmin4/
+helm upgrade --install pgadmin4 bjw-s/app-template --namespace database -f production/database/pgadmin4/values.yaml
 helm upgrade --install docker-db-backup bjw-s/app-template --namespace database -f production/database/docker-db-backup/values.yaml
 ```
 
