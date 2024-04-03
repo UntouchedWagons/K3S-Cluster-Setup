@@ -1,0 +1,263 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: &app tdarr
+  namespace: servarr
+  labels:
+    app: *app
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: *app
+  template:
+    metadata:
+      labels:
+        app: *app
+    spec:
+      securityContext:
+        fsGroup: 1000
+      initContainers:
+        - name: restore
+          image: untouchedwagons/simple-restore:1.0.4
+          volumeMounts:
+            - mountPath: /data
+              name: tdarr-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/tdarr"
+            - name: BACKUP_BASE_NAME
+              value: "tdarr"
+      containers:
+        - name: tdarr
+          image: ghcr.io/haveagitgat/tdarr:2.17.01
+          env:
+            - name: serverIP
+              value: "0.0.0.0"
+            - name: serverPort
+              value: "8266"
+            - name: webUIPort
+              value: "8265"
+            - name: internalNode
+              value: "false"
+            - name: inContainer
+              value: "true"
+            - name: ffmpegVersion
+              value: "6"
+            - name: TZ
+              value: "America/Toronto"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+          volumeMounts:
+            - mountPath: /app/configs
+              name: tdarr-config
+              subPath: configs
+            - mountPath: /app/logs
+              name: tdarr-config
+              subPath: logs
+            - mountPath: /app/server
+              name: tdarr-config
+              subPath: server
+            - mountPath: /mnt/data/Videos
+              name: videos
+            - mountPath: /temp
+              name: tmp
+        - name: backup
+          image: untouchedwagons/simple-backup:1.0.5
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /data
+              name: tdarr-config
+            - mountPath: /backups
+              name: backups
+          env:
+            - name: BACKUP_APPEND_DIRECTORY
+              value: "/kubernetes/production/tdarr"
+            - name: BACKUP_BASE_NAME
+              value: "tdarr"
+            - name: BACKUP_RETENTION
+              value: "24"
+            - name: BACKUP_FREQUENCY
+              value: "0 0 * * *"
+
+      volumes:
+        - name: tdarr-config
+          persistentVolumeClaim:
+            claimName: tdarr-config
+        - name: videos
+          nfs:
+            server: 192.168.35.30
+            path: /mnt/tank/Media/Videos
+        - name: tmp
+          nfs:
+            server: 192.168.35.30
+            path: /mnt/tank/Scratch
+        - name: backups
+          nfs:
+            server: 192.168.35.30
+            path: /mnt/tank/Media/Backups
+---
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: &app tdarr-node
+  namespace: servarr
+  labels:
+    app: *app
+spec:
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: *app
+  template:
+    metadata:
+      labels:
+        app: *app
+    spec:
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
+      securityContext:
+        fsGroup: 1000
+      initContainers:
+        - name: init-config
+          image: jetbrainsinfra/jq:latest
+          command:
+            - /bin/sh
+            - -ec
+            - |
+              cat << EOF | jq ".nodeName = \"$NODE_NAME\"" > /app/configs/Tdarr_Node_Config.json
+              {
+                "nodeName": "",
+                "serverIP": "tdarr.servarr.svc.cluster.local",
+                "serverPort": "8266",
+                "handbrakePath": "",
+                "ffmpegPath": "",
+                "mkvpropeditPath": "",
+                "pathTranslators": [
+                  {
+                    "server": "",
+                    "node": ""
+                  }
+                ],
+                "logLevel": "INFO",
+                "priority": -1,
+                "cronPluginUpdate": ""
+              }
+              EOF
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          volumeMounts:
+            - mountPath: /app/configs
+              name: tdarr-config
+      containers:
+        - name: tdarr-node
+          image: ghcr.io/haveagitgat/tdarr_node:2.17.01
+          resources:
+            requests:
+              gpu.intel.com/i915: "1"
+            limits:
+              gpu.intel.com/i915: "1"
+          env:
+            - name: serverIP
+              value: "tdarr.servarr.svc.cluster.local"
+            - name: serverPort
+              value: "8266"
+            - name: inContainer
+              value: "true"
+            - name: ffmpegVersion
+              value: "6"
+            - name: TZ
+              value: "America/Toronto"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+          volumeMounts:
+            - mountPath: /app/configs
+              name: tdarr-config
+            - mountPath: /mnt/data/Videos
+              name: videos
+            - mountPath: /temp
+              name: tmp
+
+      volumes:
+        - name: tdarr-config
+          emptyDir:
+            medium: Memory
+        - name: tdarr-sample-config
+          configMap:
+            name: tdarr-sample-config
+        - name: videos
+          nfs:
+            server: 192.168.35.30
+            path: /mnt/tank/Media/Videos
+        - name: tmp
+          nfs:
+            server: 192.168.35.30
+            path: /mnt/tank/Scratch
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: &app tdarr
+  namespace: servarr
+spec:
+  selector:
+    app: tdarr
+  ports:
+    - name: http
+      targetPort: 8265
+      port: 8265
+    - name: comms
+      targetPort: 8266
+      port: 8266
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: &app tdarr
+  namespace: servarr
+  annotations:
+    traefik.ingress.kubernetes.io/frontend-entry-points: http,https
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Multimedia
+    gethomepage.dev/icon: tdarr.png
+    gethomepage.dev/name: TDarr
+    gethomepage.dev/widget.type: "tdarr"
+    gethomepage.dev/widget.url: "https://tdarr.services.untouchedwagons.com"
+spec:
+  rules:
+  - host: tdarr.services.untouchedwagons.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: *app
+            port:
+              number: 8265
+        path: /
+        pathType: Prefix
+  tls:
+    - hosts: 
+      - untouchedwagons.com
+      secretName: com-untouchedwagons-services
