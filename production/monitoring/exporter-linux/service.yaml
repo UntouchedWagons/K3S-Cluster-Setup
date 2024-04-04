@@ -15,5 +15,5 @@ spec:
     - targets:
       - vault.internal.untouchedwagons.com:9100
       - technitium.internal.untouchedwagons.com:9100
-      - pve.internal.untouchedwagons.com:9100
+      - proxmox.internal.untouchedwagons.com:9100
       - storage.internal.untouchedwagons.com:9100

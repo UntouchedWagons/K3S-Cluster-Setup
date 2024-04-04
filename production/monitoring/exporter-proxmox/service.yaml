@@ -28,7 +28,7 @@ spec:
             - name: PVE_TOKEN_NAME
               value: "pve-exporter"
             - name: PVE_TOKEN_VALUE
-              value: "ac4d0a24-cafa-4174-81ba-a24a05b3d9c2"
+              value: "019d4ad7-a1cc-4b45-ae02-02363f60f03e"
 ---
 apiVersion: v1
 kind: Service
@@ -57,4 +57,4 @@ spec:
   metricsPath: /pve
   params:
     target:
-      - pve.internal.untouchedwagons.com
+      - proxmox.internal.untouchedwagons.com

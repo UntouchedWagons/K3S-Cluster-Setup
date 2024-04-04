@@ -121,7 +121,7 @@ spec:
     module: [http_2xx]
   staticConfigs:
     - targets:
-      - https://pve.internal.untouchedwagons.com:8006
+      - https://proxmox.internal.untouchedwagons.com:8006
       - https://unifi.internal.untouchedwagons.com:8443
   relabelings:
     - action: replace
@@ -195,7 +195,7 @@ spec:
       - usw-pro-48-poe.internal.untouchedwagons.com:22
       - vault.internal.untouchedwagons.com:22
       - storage.internal.untouchedwagons.com:22
-      - pve.internal.untouchedwagons.com:22
+      - proxmox.internal.untouchedwagons.com:22
   relabelings:
     - action: replace
       sourceLabels: [__address__]

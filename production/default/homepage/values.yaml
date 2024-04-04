@@ -58,12 +58,12 @@ config:
     - Infrastructure:
         - Proxmox:
             icon: proxmox.png
-            href: https://pve.internal.untouchedwagons.com:8006
+            href: https://proxmox.internal.untouchedwagons.com:8006
             widget:
               type: proxmox
-              url: https://pve.internal.untouchedwagons.com:8006
+              url: https://proxmox.internal.untouchedwagons.com:8006
               username: root@pam!pve-exporter
-              password: ac4d0a24-cafa-4174-81ba-a24a05b3d9c2
+              password: 019d4ad7-a1cc-4b45-ae02-02363f60f03e
         - Proxmox Backup Server:
             icon: proxmox.png
             href: https://vault.internal.untouchedwagons.com:8007
