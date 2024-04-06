@@ -1,0 +1,137 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
+
+defaultPodOptions:
+  securityContext:
+    fsGroup: 568
+
+controllers:
+  main:
+    strategy: Recreate
+
+    initContainers:
+      restore:
+        image:
+          repository: untouchedwagons/simple-restore
+          tag: 1.0.4
+        env:
+          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/lidarr"
+          BACKUP_BASE_NAME: "lidarr"
+      
+      postgres-init:
+        image:
+          repository: ghcr.io/onedr0p/postgres-init
+          tag: 15.5
+        env:
+          INIT_POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
+          INIT_POSTGRES_USER: "lidarr"
+          INIT_POSTGRES_PASS: "DespoticPubProprietySavour"
+          INIT_POSTGRES_DBNAME: "lidarr-main lidarr-logs"
+          INIT_POSTGRES_SUPER_PASS: "TrembleBulwarkBeautifulGossip"
+
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/lidarr
+          tag: 2.1.7
+        env:
+          LIDARR__API_KEY: "1555da6d78404bffb22c90ace2b31b31"
+          LIDARR__AUTHENTICATION_METHOD: "None"
+          LIDARR__AUTHENTICATION_REQUIRED: "DisabledForLocalAddresses"
+          LIDARR__POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
+          LIDARR__POSTGRES_MAIN_DB: "lidarr-main"
+          LIDARR__POSTGRES_LOG_DB: "lidarr-logs"
+          LIDARR__POSTGRES_USER: "lidarr"
+          LIDARR__POSTGRES_PASSWORD: "DespoticPubProprietySavour"
+
+      backup:
+        image:
+          repository: untouchedwagons/simple-backup
+          tag: 1.0.5
+        env:
+          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/lidarr"
+          BACKUP_BASE_NAME: "lidarr"
+          BACKUP_RETENTION: "24"
+          BACKUP_FREQUENCY: "0 */8 * * *"
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 8686
+
+ingress:
+  main:
+    annotations:
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Multimedia
+      gethomepage.dev/icon: lidarr.png
+      gethomepage.dev/name: Lidarr
+      gethomepage.dev/widget.type: "lidarr"
+      gethomepage.dev/widget.url: "https://lidarr.services.untouchedwagons.com"
+      gethomepage.dev/widget.key: "1555da6d78404bffb22c90ace2b31b31"
+    hosts:
+      - host: lidarr.services.untouchedwagons.com
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts: 
+        - untouchedwagons.com
+        secretName: com-untouchedwagons-services
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    advancedMounts:
+      main: 
+        main:
+          - path: /config
+        backup:
+          - path: /data
+        restore:
+          - path: /data
+
+  nfs-backups:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Media/Backups"
+    advancedMounts:
+      main: 
+        backup:
+          - path: /backups
+        restore:
+          - path: /backups
+
+  nfs-music:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Media/Music"
+    advancedMounts:
+      main: 
+        main:
+          - path: /mnt/data/Music
+
+  nfs-torrents:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Media/Torrents"
+    advancedMounts:
+      main: 
+        main:
+          - path: /mnt/data/Torrents
+
+  nfs-usenet:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Media/Usenet"
+    advancedMounts:
+      main: 
+        main:
+          - path: /mnt/data/Usenet

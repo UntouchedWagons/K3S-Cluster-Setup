@@ -80,7 +80,7 @@ helm upgrade --install vaultwarden bjw-s/app-template -f production/default/vaul
 kubectl apply -f production/servarr/
 helm upgrade --install bazarr bjw-s/app-template --namespace servarr -f production/servarr/bazarr/values.yaml
 helm upgrade --install flaresolverr bjw-s/app-template --namespace servarr -f production/servarr/flaresolverr/values.yaml
-kubectl apply -f production/servarr/lidarr/
+helm upgrade --install lidarr bjw-s/app-template --namespace servarr -f production/servarr/lidarr/values.yaml
 kubectl apply -f production/servarr/prowlarr/
 kubectl apply -f production/servarr/radarr/
 kubectl apply -f production/servarr/sonarr/
