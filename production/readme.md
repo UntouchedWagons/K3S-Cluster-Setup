@@ -81,7 +81,7 @@ kubectl apply -f production/servarr/
 helm upgrade --install bazarr bjw-s/app-template --namespace servarr -f production/servarr/bazarr/values.yaml
 helm upgrade --install flaresolverr bjw-s/app-template --namespace servarr -f production/servarr/flaresolverr/values.yaml
 helm upgrade --install lidarr bjw-s/app-template --namespace servarr -f production/servarr/lidarr/values.yaml
-kubectl apply -f production/servarr/prowlarr/
+helm upgrade --install prowlarr bjw-s/app-template --namespace servarr -f production/servarr/prowlarr/values.yaml
 kubectl apply -f production/servarr/radarr/
 kubectl apply -f production/servarr/sonarr/
 helm upgrade --install cpas bjw-s/app-template --create-namespace --namespace ai -f production/ai/codeproject/values.yaml

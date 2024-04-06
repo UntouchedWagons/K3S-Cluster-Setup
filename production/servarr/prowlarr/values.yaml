@@ -1,0 +1,110 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
+
+defaultPodOptions:
+  securityContext:
+    fsGroup: 568
+
+controllers:
+  main:
+    strategy: Recreate
+
+    initContainers:
+      restore:
+        image:
+          repository: untouchedwagons/simple-restore
+          tag: 1.0.4
+        env:
+          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/prowlarr"
+          BACKUP_BASE_NAME: "prowlarr"
+      
+      postgres-init:
+        image:
+          repository: ghcr.io/onedr0p/postgres-init
+          tag: 15.5
+        env:
+          INIT_POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
+          INIT_POSTGRES_USER: "prowlarr"
+          INIT_POSTGRES_PASS: "CulpableRadianceCavityDespotic"
+          INIT_POSTGRES_DBNAME: "prowlarr-main prowlarr-logs"
+          INIT_POSTGRES_SUPER_PASS: "TrembleBulwarkBeautifulGossip"
+
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/prowlarr
+          tag: 1.15.0.4361
+        env:
+          LIDARR__API_KEY: "fa88672ddbeb4b5683a009951076bf38"
+          LIDARR__AUTHENTICATION_METHOD: "None"
+          LIDARR__AUTHENTICATION_REQUIRED: "DisabledForLocalAddresses"
+          LIDARR__POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
+          LIDARR__POSTGRES_MAIN_DB: "prowlarr-main"
+          LIDARR__POSTGRES_LOG_DB: "prowlarr-logs"
+          LIDARR__POSTGRES_USER: "prowlarr"
+          LIDARR__POSTGRES_PASSWORD: "DespoticPubProprietySavour"
+
+      backup:
+        image:
+          repository: untouchedwagons/simple-backup
+          tag: 1.0.5
+        env:
+          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/prowlarr"
+          BACKUP_BASE_NAME: "prowlarr"
+          BACKUP_RETENTION: "24"
+          BACKUP_FREQUENCY: "0 */8 * * *"
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 9696
+
+ingress:
+  main:
+    annotations:
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Multimedia
+      gethomepage.dev/icon: prowlarr.png
+      gethomepage.dev/name: Prowlarr
+      gethomepage.dev/widget.type: "prowlarr"
+      gethomepage.dev/widget.url: "https://prowlarr.services.untouchedwagons.com"
+      gethomepage.dev/widget.key: "fa88672ddbeb4b5683a009951076bf38"
+    hosts:
+      - host: prowlarr.services.untouchedwagons.com
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts: 
+        - untouchedwagons.com
+        secretName: com-untouchedwagons-services
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    advancedMounts:
+      main: 
+        main:
+          - path: /config
+        backup:
+          - path: /data
+        restore:
+          - path: /data
+
+  nfs-backups:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Media/Backups"
+    advancedMounts:
+      main: 
+        backup:
+          - path: /backups
+        restore:
+          - path: /backups
