@@ -39,6 +39,10 @@ controllers:
           BACKUP_RETENTION: "24"
           BACKUP_FREQUENCY: "0 */8 * * *"
 
+defaultPodOptions:
+  nodeSelector:
+    intel.feature.node.kubernetes.io/gpu: "true"
+
 service:
   main:
     controller: main
