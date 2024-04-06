@@ -1,0 +1,138 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
+
+defaultPodOptions:
+  securityContext:
+    fsGroup: 568
+
+controllers:
+  main:
+    strategy: Recreate
+
+    initContainers:
+      restore:
+        image:
+          repository: untouchedwagons/simple-restore
+          tag: 1.0.4
+        env:
+          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/radarr"
+          BACKUP_BASE_NAME: "radarr"
+      
+      postgres-init:
+        image:
+          repository: ghcr.io/onedr0p/postgres-init
+          tag: 15.5
+        env:
+          INIT_POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
+          INIT_POSTGRES_USER: "radarr"
+          INIT_POSTGRES_PASS: "ReptileBubbleKissConversion"
+          INIT_POSTGRES_DBNAME: "radarr-main radarr-logs"
+          INIT_POSTGRES_SUPER_PASS: "TrembleBulwarkBeautifulGossip"
+
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/radarr
+          tag: 5.3.6.8612
+        env:
+          RADARR__API_KEY: "0416a6d418be4cd7b9b64e3862aa436a"
+          RADARR__AUTHENTICATION_METHOD: "None"
+          RADARR__AUTHENTICATION_REQUIRED: "DisabledForLocalAddresses"
+          RADARR__POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
+          RADARR__POSTGRES_MAIN_DB: "radarr-main"
+          RADARR__POSTGRES_LOG_DB: "radarr-logs"
+          RADARR__POSTGRES_USER: "radarr"
+          RADARR__POSTGRES_PASSWORD: "ReptileBubbleKissConversion"
+
+      backup:
+        image:
+          repository: untouchedwagons/simple-backup
+          tag: 1.0.5
+        env:
+          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/radarr"
+          BACKUP_BASE_NAME: "radarr"
+          BACKUP_RETENTION: "24"
+          BACKUP_FREQUENCY: "0 */8 * * *"
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 7878
+
+ingress:
+  main:
+    annotations:
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Multimedia
+      gethomepage.dev/icon: radarr.png
+      gethomepage.dev/name: Radarr
+      gethomepage.dev/widget.type: "radarr"
+      gethomepage.dev/widget.url: "https://radarr.services.untouchedwagons.com"
+      gethomepage.dev/widget.key: "0416a6d418be4cd7b9b64e3862aa436a"
+    hosts:
+      - host: radarr.services.untouchedwagons.com
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts: 
+        - untouchedwagons.com
+        secretName: com-untouchedwagons-services
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    advancedMounts:
+      main: 
+        main:
+          - path: /config
+        backup:
+          - path: /data
+        restore:
+          - path: /data
+
+  nfs-backups:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Media/Backups"
+    advancedMounts:
+      main: 
+        backup:
+          - path: /backups
+        restore:
+          - path: /backups
+
+  nfs-videos:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Media/Videos"
+    advancedMounts:
+      main: 
+        main:
+          - path: /mnt/data/Videos
+
+  nfs-torrents:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Media/Torrents"
+    advancedMounts:
+      main: 
+        main:
+          - path: /mnt/data/Torrents
+
+  nfs-usenet:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Media/Usenet"
+    advancedMounts:
+      main: 
+        main:
+          - path: /mnt/data/Usenet
+
