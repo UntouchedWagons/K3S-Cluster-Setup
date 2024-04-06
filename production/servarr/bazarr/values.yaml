@@ -1,0 +1,114 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
+
+controllers:
+  main:
+    strategy: Recreate
+
+    initContainers:
+      restore:
+        image:
+          repository: untouchedwagons/simple-restore
+          tag: 1.0.4
+        env:
+          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/bazarr"
+          BACKUP_BASE_NAME: "bazarr"
+      
+      postgres-init:
+        image:
+          repository: ghcr.io/onedr0p/postgres-init
+          tag: 15.5
+        env:
+          INIT_POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
+          INIT_POSTGRES_USER: "bazarr"
+          INIT_POSTGRES_PASS: "GrouseStampAbnormalSpurious"
+          INIT_POSTGRES_DBNAME: "bazarr-main"
+          INIT_POSTGRES_SUPER_PASS: "TrembleBulwarkBeautifulGossip"
+
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/bazarr
+          tag: 1.4.2
+        env:
+          BAZARR__API_KEY: "b9f8668f49e13b76f2c872e5bcaf2048"
+          BAZARR__AUTHENTICATION_METHOD: "None"
+          BAZARR__AUTHENTICATION_REQUIRED: "DisabledForLocalAddresses"
+          BAZARR__POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
+          BAZARR__POSTGRES_MAIN_DB: "bazarr-main"
+          BAZARR__POSTGRES_USER: "bazarr"
+          BAZARR__POSTGRES_PASSWORD: "GrouseStampAbnormalSpurious"
+
+      backup:
+        image:
+          repository: untouchedwagons/simple-backup
+          tag: 1.0.5
+        env:
+          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/bazarr"
+          BACKUP_BASE_NAME: "bazarr"
+          BACKUP_RETENTION: "24"
+          BACKUP_FREQUENCY: "0 */8 * * *"
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 6767
+
+ingress:
+  main:
+    annotations:
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Multimedia
+      gethomepage.dev/icon: bazarr.png
+      gethomepage.dev/name: Bazarr
+      gethomepage.dev/widget.type: "bazarr"
+      gethomepage.dev/widget.url: "https://bazarr.services.untouchedwagons.com"
+      gethomepage.dev/widget.key: "b9f8668f49e13b76f2c872e5bcaf2048"
+    hosts:
+      - host: bazarr.services.untouchedwagons.com
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts: 
+        - untouchedwagons.com
+        secretName: com-untouchedwagons-services
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    advancedMounts:
+      main: 
+        main:
+          - path: /config
+        backup:
+          - path: /data
+        restore:
+          - path: /data
+
+  nfs-backups:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Media/Backups"
+    advancedMounts:
+      main: 
+        backup:
+          - path: /backups
+        restore:
+          - path: /backups
+
+  nfs-videos:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Media/Videos"
+    advancedMounts:
+      main: 
+        main:
+          - path: /mnt/data/Videos

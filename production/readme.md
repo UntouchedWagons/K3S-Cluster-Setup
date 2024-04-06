@@ -78,7 +78,7 @@ sops -d production/default/qbittorrent/values.yaml | helm upgrade --install qbit
 helm upgrade --install sabnzbd bjw-s/app-template -f production/default/sabnzbd/values.yaml
 helm upgrade --install vaultwarden bjw-s/app-template -f production/default/vaultwarden/values.yaml
 kubectl apply -f production/servarr/
-kubectl apply -f production/servarr/bazarr/
+helm upgrade --install bazarr bjw-s/app-template --namespace servarr -f production/servarr/bazarr/values.yaml
 helm upgrade --install flaresolverr bjw-s/app-template --namespace servarr -f production/servarr/flaresolverr/values.yaml
 kubectl apply -f production/servarr/lidarr/
 kubectl apply -f production/servarr/prowlarr/
