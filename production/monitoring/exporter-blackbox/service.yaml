@@ -152,7 +152,6 @@ spec:
   staticConfigs:
     - targets:
       - idrac-7p57cz1.internal.untouchedwagons.com:443
-      - idrac-cjtyp22.internal.untouchedwagons.com:443
       - idrac-czblpd2.internal.untouchedwagons.com:443
       - idrac-jnky182.internal.untouchedwagons.com:443
       - ups.internal.untouchedwagons.com:3493
