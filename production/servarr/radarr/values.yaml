@@ -34,6 +34,12 @@ controllers:
         image:
           repository: ghcr.io/onedr0p/radarr
           tag: 5.3.6.8612
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - all
+            add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
         env:
           RADARR__API_KEY: "0416a6d418be4cd7b9b64e3862aa436a"
           RADARR__AUTHENTICATION_METHOD: "None"

@@ -34,6 +34,12 @@ controllers:
         image:
           repository: ghcr.io/onedr0p/sonarr
           tag: 4.0.3
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - all
+            add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
         env:
           SONARR__API_KEY: "0fe183143c5745269ae3b9ea163c8f85"
           SONARR__AUTHENTICATION_METHOD: "None"

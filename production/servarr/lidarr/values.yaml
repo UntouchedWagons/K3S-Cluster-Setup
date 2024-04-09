@@ -34,6 +34,12 @@ controllers:
         image:
           repository: ghcr.io/onedr0p/lidarr
           tag: 2.1.7
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - all
+            add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
         env:
           LIDARR__API_KEY: "1555da6d78404bffb22c90ace2b31b31"
           LIDARR__AUTHENTICATION_METHOD: "None"

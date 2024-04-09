@@ -30,6 +30,12 @@ controllers:
         image:
           repository: ghcr.io/onedr0p/bazarr
           tag: 1.4.2
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - all
+            add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
         env:
           BAZARR__API_KEY: "b9f8668f49e13b76f2c872e5bcaf2048"
           BAZARR__AUTHENTICATION_METHOD: "None"

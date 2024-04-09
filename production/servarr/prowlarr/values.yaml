@@ -34,6 +34,12 @@ controllers:
         image:
           repository: ghcr.io/onedr0p/prowlarr
           tag: 1.15.0.4361
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - all
+            add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
         env:
           PROWLARR__API_KEY: "fa88672ddbeb4b5683a009951076bf38"
           PROWLARR__AUTHENTICATION_METHOD: "None"
