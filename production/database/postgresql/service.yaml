@@ -1,17 +1,29 @@
 apiVersion: v1
-stringData:
-  username: postgres
-  password: TrembleBulwarkBeautifulGossip
 kind: Secret
 metadata:
   name: postgresql-cluster-superuser
   namespace: database
 type: kubernetes.io/basic-auth
+stringData:
+  username: postgres
+  password: TrembleBulwarkBeautifulGossip
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: wasabi-creds
+  namespace: database
+  labels:
+    cnpg.io/reload: "true"
+stringData:
+  ACCESS_KEY_ID: Redacted
+  ACCESS_SECRET_KEY: Redacted
+type: Opaque
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgresql-cluster
+  name: &currentCluster postgres16-v1
   namespace: database
 spec:
   instances: 3
@@ -26,3 +38,34 @@ spec:
   enableSuperuserAccess: true
   superuserSecret:
     name: postgresql-cluster-superuser
+
+  # One day this might be worth my time
+  # Today is not that day
+  # backup:
+  #   barmanObjectStore: &barmanObjectStore
+  #     destinationPath: s3://jb-postgres-backups/
+  #     endpointURL: https://s3.us-east-1.wasabisys.com
+  #     serverName: *currentCluster
+
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: wasabi-creds
+  #         key: ACCESS_KEY_ID
+  #       secretAccessKey:
+  #         name: wasabi-creds
+  #         key: ACCESS_SECRET_KEY
+  #     wal:
+  #       compression: gzip
+  #       maxParallel: 8
+    
+  #   retentionPolicy: "30d"
+
+  # bootstrap:
+  #   recovery:
+  #     source: &previousCluster postgres16-v1
+
+  # externalClusters:
+  #   - name: *previousCluster
+  #     barmanObjectStore:
+  #       <<: *barmanObjectStore
+  #       serverName: *previousCluster
