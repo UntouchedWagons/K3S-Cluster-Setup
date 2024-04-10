@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
+
+controllers:
+  main:
+    strategy: Recreate
+
+    containers:
+      main:
+        image:
+          repository: codeproject/ai-server
+          tag: cpu-2.6.2
+        securityContext:
+            privileged: true
+
+defaultPodOptions:
+  nodeSelector:
+    google.feature.node.kubernetes.io/coral: "true"
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 32168
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 3Gi
+    advancedMounts:
+      main: 
+        main:
+          - path: /etc/codeproject/ai
+            subPath: data
+          - path: /app/modules
+            subPath: modules
+  usb:
+    type: hostPath
+    hostPath: /dev/bus/usb
+    hostPathType: Directory
+    globalMounts:
+      - path: /dev/bus/usb
