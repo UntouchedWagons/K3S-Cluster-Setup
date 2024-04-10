@@ -35,7 +35,7 @@ helm upgrade --install traefik traefik/traefik --create-namespace --namespace tr
 
 ```
 helm install --create-namespace --namespace rook-ceph rook-ceph rook-release/rook-ceph
-helm install --create-namespace --namespace rook-ceph rook-ceph-cluster rook-release/rook-ceph-cluster -f rook-ceph/rook-ceph-cluster/values.yaml -f production/rook-ceph/rook-ceph-cluster/values.yaml
+helm upgrade --install --create-namespace --namespace rook-ceph rook-ceph-cluster rook-release/rook-ceph-cluster -f rook-ceph/rook-ceph-cluster/values.yaml -f production/rook-ceph/rook-ceph-cluster/values.yaml
 ```
 
 # Node Feature Discovery
@@ -84,7 +84,7 @@ helm upgrade --install lidarr bjw-s/app-template --namespace servarr -f producti
 helm upgrade --install prowlarr bjw-s/app-template --namespace servarr -f production/servarr/prowlarr/values.yaml
 helm upgrade --install radarr bjw-s/app-template --namespace servarr -f production/servarr/radarr/values.yaml
 helm upgrade --install sonarr bjw-s/app-template --namespace servarr -f production/servarr/sonarr/values.yaml
-helm upgrade --install cpas bjw-s/app-template --create-namespace --namespace ai -f production/ai/codeproject/values.yaml
+helm upgrade --install cpas-coral bjw-s/app-template --create-namespace --namespace ai -f production/ai/codeproject-coral/values.yaml
 kubectl apply -f production/networking/
 kubectl apply -f production/networking/ispyagentdvr/
 sops -d production/networking/cloudflared/values.yaml | helm upgrade --install cloudflared kubitodev/cloudflared --namespace networking --version 1.1.0 --values -
