@@ -57,7 +57,7 @@ controllers:
             backup:
                 image:
                     repository: untouchedwagons/simple-backup
-                    tag: 1.0.5
+                    tag: 1.0.6
                 env:
                     BACKUP_APPEND_DIRECTORY: /kubernetes/production/qbittorrent
                     BACKUP_BASE_NAME: qbittorrent
@@ -144,8 +144,8 @@ sops:
             dWtTc1Z6VkNMLzJSVDJ6WHphejhnNzQKDtvNyDAkFY9ZKVdHOO2vfEdhi92KOtq3
             JLzc2LW0tJqpZyL3aQgNSHZBa1bIKB3TTmyfGbg0TP+BhPfui29pbw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-01T01:18:06Z"
-    mac: ENC[AES256_GCM,data:etPQxqXbMFjP+9pvgEDNsPihhKOJ9BHg70BchuVVwA0KYVveI+eeqg7yxnJWh5apw5OEtHotVH1/tNVpNjEkvoEUxWlIk/dawa1pMY7J5uz08ZlXX9XD0Z9IWYqIXzZphI/6hqQx0o9pfmPphZ15epJF5Xe0AhZo4y8mpU6dhmw=,iv:ThqewO15v6ERoJVLib+ZAa4w0EZdmjvuw5PYPP1yZ+U=,tag:TqM6xMMEjUczaNuK5E2wgQ==,type:str]
+    lastmodified: "2024-04-09T20:30:41Z"
+    mac: ENC[AES256_GCM,data:TIy41fD+wEtXQ1BGJ7FHghnlYtgfpjU1RbcQ2BhpHFTy0G5bV7SVQJHKoZoPGPwMhsvzgEhY2lPPYetsq+c9cwMQjT+4UFg9T2AHCov1jE4uO3Q2lSobnriTHpcyM/44KA7vruU8vCizC9EHr8Pdh08ADCF3gmJOWNFKz6X/Htc=,iv:9oATpRX+HL4gxIouFrsdVbYiHNoPzd1MN7Mzpa9nWt4=,tag:zXrxvnPeYlm2aNT3mnt00Q==,type:str]
     pgp: []
     encrypted_regex: ^(WIREGUARD_)
     version: 3.8.1

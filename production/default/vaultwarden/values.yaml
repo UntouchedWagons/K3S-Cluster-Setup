@@ -23,7 +23,7 @@ controllers:
       backup:
         image:
           repository: untouchedwagons/simple-backup
-          tag: 1.0.5
+          tag: 1.0.6
         env:
           BACKUP_APPEND_DIRECTORY: "/kubernetes/production/vaultwarden"
           BACKUP_BASE_NAME: "vaultwarden"

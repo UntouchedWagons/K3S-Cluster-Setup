@@ -11,44 +11,50 @@ controllers:
           repository: untouchedwagons/simple-restore
           tag: 1.0.4
         env:
-          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/sabnzbd"
-          BACKUP_BASE_NAME: "sabnzbd"
+          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/stash"
+          BACKUP_BASE_NAME: "stash"
 
     containers:
       main:
         image:
-          repository: ghcr.io/onedr0p/sabnzbd
-          tag: 4.2.3
+          repository: ghcr.io/hotio/stash
+          tag:  release-0.25.1
+        env:
+          TZ: "America/Toronto"
+        resources:
+          requests:
+            memory: 1024Mi
+            cpu: "10m"
+            gpu.intel.com/i915: "1"
+          limits:
+            gpu.intel.com/i915: "1"
 
       backup:
         image:
           repository: untouchedwagons/simple-backup
           tag: 1.0.6
         env:
-          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/sabnzbd"
-          BACKUP_BASE_NAME: "sabnzbd"
+          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/stash"
+          BACKUP_BASE_NAME: "stash"
           BACKUP_RETENTION: "24"
           BACKUP_FREQUENCY: "0 0 * * *"
+
+defaultPodOptions:
+  nodeSelector:
+    intel.feature.node.kubernetes.io/gpu: "true"
 
 service:
   main:
     controller: main
+    type: LoadBalancer
     ports:
       http:
-        port: 8080
+        port: 9999
 
 ingress:
   main:
-    annotations:
-      gethomepage.dev/enabled: "true"
-      gethomepage.dev/group: Download Clients
-      gethomepage.dev/icon: sabnzbd.png
-      gethomepage.dev/name: SabNZBd
-      gethomepage.dev/widget.type: "sabnzbd"
-      gethomepage.dev/widget.url: "https://sabnzbd.services.untouchedwagons.com"
-      gethomepage.dev/widget.key: "441c51b1799e551d7b4757b179fe7e96"
     hosts:
-      - host: sabnzbd.services.untouchedwagons.com
+      - host: stash.services.untouchedwagons.com
         paths:
           - path: /
             pathType: Prefix
@@ -59,12 +65,19 @@ ingress:
       - hosts: 
         - untouchedwagons.com
         secretName: com-untouchedwagons-services
+    annotations:
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Multimedia
+      gethomepage.dev/icon: stash.png
+      gethomepage.dev/name: Stash
+      gethomepage.dev/widget.type: "stash"
+      gethomepage.dev/widget.url: "https://stash.services.untouchedwagons.com"
 
 persistence:
   config:
     type: persistentVolumeClaim
     accessMode: ReadWriteOnce
-    size: 10Gi
+    size: 50Gi
     advancedMounts:
       main: 
         main:
@@ -73,13 +86,6 @@ persistence:
           - path: /data
         restore:
           - path: /data
-
-  tmp:
-    type: emptyDir
-    advancedMounts:
-      main: 
-        main:
-          - path: /tmp
 
   nfs-backups:
     type: "nfs"
@@ -92,11 +98,11 @@ persistence:
         restore:
           - path: /backups
 
-  nfs-usenet:
+  nfs-porn:
     type: "nfs"
     server: "192.168.35.30"
-    path: "/mnt/tank/Media/Usenet"
+    path: "/mnt/tank/Media/Porn"
     advancedMounts:
       main: 
         main:
-          - path: /mnt/data/Usenet
+          - path: /mnt/data/Porn
