@@ -8,11 +8,11 @@ helm repo add traefik https://helm.traefik.io/traefik
 helm repo add jetstack https://charts.jetstack.io
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo add rook-release https://charts.rook.io/release
-helm repo add cloudnative-pg https://cloudnative-pg.io/charts/
-helm repo add intel https://intel.github.io/helm-charts/
+helm repo add cloudnative-pg https://cloudnative-pg.io/charts
+helm repo add intel https://intel.github.io/helm-charts
 helm repo add node-feature-discovery https://kubernetes-sigs.github.io/node-feature-discovery/charts
 helm repo add grafana https://grafana.github.io/helm-charts
-helm repo add bjw-s https://bjw-s.github.io/helm-charts/
+helm repo add bjw-s https://bjw-s.github.io/helm-charts
 helm repo add jameswynn https://jameswynn.github.io/helm-charts
 helm repo update
 ```
@@ -69,6 +69,8 @@ kubectl apply -f production/database/postgresql-restore/
 
 # Services
 
+## Default namespace
+
 ```
 helm upgrade --install file-browser bjw-s/app-template -f production/default/file-browser/values.yaml
 helm upgrade --install homepage jameswynn/homepage -f production/default/homepage/values.yaml
@@ -77,6 +79,11 @@ helm upgrade --install jellyfin bjw-s/app-template -f production/default/jellyfi
 sops -d production/default/qbittorrent/values.yaml | helm upgrade --install qbittorrent bjw-s/app-template -f -
 helm upgrade --install sabnzbd bjw-s/app-template -f production/default/sabnzbd/values.yaml
 helm upgrade --install vaultwarden bjw-s/app-template -f production/default/vaultwarden/values.yaml
+```
+
+## servarr namespace
+
+```
 kubectl apply -f production/servarr/
 kubectl apply -f production/servarr/backups/
 helm upgrade --install bazarr bjw-s/app-template --namespace servarr -f production/servarr/bazarr/values.yaml
@@ -85,7 +92,17 @@ helm upgrade --install lidarr bjw-s/app-template --namespace servarr -f producti
 helm upgrade --install prowlarr bjw-s/app-template --namespace servarr -f production/servarr/prowlarr/values.yaml
 helm upgrade --install radarr bjw-s/app-template --namespace servarr -f production/servarr/radarr/values.yaml
 helm upgrade --install sonarr bjw-s/app-template --namespace servarr -f production/servarr/sonarr/values.yaml
+```
+
+## AI namespace
+
+```
 helm upgrade --install cpas-coral bjw-s/app-template --create-namespace --namespace ai -f production/ai/codeproject-coral/values.yaml
+```
+
+## Networking namespace
+
+```
 kubectl apply -f production/networking/
 kubectl apply -f production/networking/ispyagentdvr/
 sops -d production/networking/cloudflared/values.yaml | helm upgrade --install cloudflared kubitodev/cloudflared --namespace networking --version 1.1.0 --values -
