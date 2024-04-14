@@ -50,16 +50,6 @@ controllers:
           SONARR__POSTGRES_USER: "sonarr"
           SONARR__POSTGRES_PASSWORD: "AuthorizeBrazenWakenVerify"
 
-      backup:
-        image:
-          repository: untouchedwagons/simple-backup
-          tag: 1.0.6
-        env:
-          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/sonarr"
-          BACKUP_BASE_NAME: "sonarr"
-          BACKUP_RETENTION: "24"
-          BACKUP_FREQUENCY: "0 */8 * * *"
-
 service:
   main:
     controller: main
@@ -99,8 +89,6 @@ persistence:
       main: 
         main:
           - path: /config
-        backup:
-          - path: /data
         restore:
           - path: /data
 
@@ -109,9 +97,7 @@ persistence:
     server: "192.168.35.30"
     path: "/mnt/tank/Media/Backups"
     advancedMounts:
-      main: 
-        backup:
-          - path: /backups
+      main:
         restore:
           - path: /backups
 
