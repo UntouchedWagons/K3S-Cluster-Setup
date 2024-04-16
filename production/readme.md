@@ -14,6 +14,7 @@ helm repo add node-feature-discovery https://kubernetes-sigs.github.io/node-feat
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo add bjw-s https://bjw-s.github.io/helm-charts
 helm repo add jameswynn https://jameswynn.github.io/helm-charts
+helm repo add piraeus-charts https://piraeus.io/helm-charts
 helm repo update
 ```
 
@@ -28,7 +29,13 @@ sops -d ./production/cert-manager/02-cert-manager.yaml | kubectl apply -f -
 # Traefik
 
 ```
-helm upgrade --install traefik traefik/traefik --create-namespace --namespace traefik --values production/traefik/values.yaml
+helm upgrade --install traefik traefik/traefik --create-namespace --namespace traefik --values production/traefik/values.yaml --version 27.0.2
+```
+
+# Volume snapshots
+
+```
+helm install snapshot-controller piraeus-charts/snapshot-controller
 ```
 
 # Ceph
