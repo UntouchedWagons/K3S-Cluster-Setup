@@ -54,7 +54,7 @@ sops -d production/version-checker/version-checker/values.yaml | helm upgrade --
 # Node Feature Discovery
 
 ```
-helm upgrade --install node-feature-discovery node-feature-discovery/node-feature-discovery --values production/default/node-feature-discovery/values.yaml
+helm upgrade --install node-feature-discovery node-feature-discovery/node-feature-discovery
 kubectl apply -f production/default/node-feature-discovery/rules.yaml
 ```
 
