@@ -6,6 +6,10 @@ metadata:
   namespace: home-assistant
   labels:
     app: home-assistant
+  annotations:
+    enable.version-checker.io/restore: "true"
+    enable.version-checker.io/home-assistant: "true"
+    enable.version-checker.io/backup: "true"
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -23,7 +27,7 @@ spec:
       securityContext:
         fsGroup: 568
       initContainers:
-        - name: ha-restore
+        - name: restore
           image: untouchedwagons/simple-restore:1.0.4
           volumeMounts:
             - mountPath: /data

@@ -42,6 +42,11 @@ controllers:
 defaultPodOptions:
   nodeSelector:
     intel.feature.node.kubernetes.io/gpu: "true"
+  annotations:
+    enable.version-checker.io/restore: "true"
+    enable.version-checker.io/main: "true"
+    enable.version-checker.io/backup: "true"
+    match-regex.version-checker.io/main: ^\d+\.\d+\.\d+-amd64$
 
 service:
   main:

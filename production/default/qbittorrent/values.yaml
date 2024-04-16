@@ -2,6 +2,15 @@
 defaultPodOptions:
     securityContext:
         fsGroup: 568
+    annotations:
+        enable.version-checker.io/restore: "true"
+        enable.version-checker.io/gluten: "false"
+        enable.version-checker.io/main: "true"
+        enable.version-checker.io/backup: "true"
+        # use-sha.version-checker.io/gluten: "false" # Don't check Glutun since VC gives wrong info
+        use-sha.version-checker.io/main: "false"
+        # use-metadata.version-checker.io/gluten: "true"
+        use-metadata.version-checker.io/main: "true"
 controllers:
     main:
         strategy: Recreate
@@ -17,7 +26,7 @@ controllers:
             gluten:
                 image:
                     repository: qmcgaw/gluetun
-                    tag: v3.35
+                    tag: v3.38.0
                 securityContext:
                     privileged: true
                     capabilities:
@@ -57,7 +66,7 @@ controllers:
             backup:
                 image:
                     repository: untouchedwagons/simple-backup
-                    tag: 1.0.6
+                    tag: 1.1.0
                 env:
                     BACKUP_APPEND_DIRECTORY: /kubernetes/production/qbittorrent
                     BACKUP_BASE_NAME: qbittorrent
@@ -144,8 +153,8 @@ sops:
             dWtTc1Z6VkNMLzJSVDJ6WHphejhnNzQKDtvNyDAkFY9ZKVdHOO2vfEdhi92KOtq3
             JLzc2LW0tJqpZyL3aQgNSHZBa1bIKB3TTmyfGbg0TP+BhPfui29pbw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-09T20:30:41Z"
-    mac: ENC[AES256_GCM,data:TIy41fD+wEtXQ1BGJ7FHghnlYtgfpjU1RbcQ2BhpHFTy0G5bV7SVQJHKoZoPGPwMhsvzgEhY2lPPYetsq+c9cwMQjT+4UFg9T2AHCov1jE4uO3Q2lSobnriTHpcyM/44KA7vruU8vCizC9EHr8Pdh08ADCF3gmJOWNFKz6X/Htc=,iv:9oATpRX+HL4gxIouFrsdVbYiHNoPzd1MN7Mzpa9nWt4=,tag:zXrxvnPeYlm2aNT3mnt00Q==,type:str]
+    lastmodified: "2024-04-16T19:59:28Z"
+    mac: ENC[AES256_GCM,data:tA3w8khRSztwkTgMK7dIED5gtVXD8+u8bRffBNSJLYXC2+6dY6v4OSTfD41gRiNYQWP7tLy++nKieZOyHPclaT0L/9NLeKg/1RcBh0wUE7EFJeg1DgsoZ0zY75DK7vVvPa9zHdptaZxWbhIFZiMqJtSW88RA4mukLlXt7tX7R9c=,iv:yalOkFPc/e/D2T6SdYyL4swoxTxlz725ZBHCNF3yx70=,tag:QL72ZzZx7JY0pZ7SeDkgyw==,type:str]
     pgp: []
     encrypted_regex: ^(WIREGUARD_)
     version: 3.8.1

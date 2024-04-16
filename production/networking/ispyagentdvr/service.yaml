@@ -6,6 +6,10 @@ metadata:
   namespace: networking
   labels:
     app: ispyagentdvr
+  annotations:
+    enable.version-checker.io/restore: "true"
+    enable.version-checker.io/ispyagentdvr: "true"
+    enable.version-checker.io/backup: "true"
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -23,7 +27,7 @@ spec:
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
       initContainers:
-        - name: ispyagentdvr-restore
+        - name: restore
           image: untouchedwagons/simple-restore:1.0.4
           volumeMounts:
             - mountPath: /data

@@ -28,6 +28,8 @@ metadata:
   namespace: monitoring
   labels:
     app: *app
+  annotations:
+    enable.version-checker.io/exporter-blackbox: "true"
 spec:
   replicas: 1
   progressDeadlineSeconds: 600

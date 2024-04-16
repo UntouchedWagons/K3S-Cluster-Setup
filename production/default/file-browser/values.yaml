@@ -1,6 +1,14 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
 
+defaultPodOptions:
+  annotations:
+    enable.version-checker.io/restore: "true"
+    enable.version-checker.io/main: "true"
+    enable.version-checker.io/backup: "true"
+    use-sha.version-checker.io/main: "false"
+    use-metadata.version-checker.io/main: "true"
+
 controllers:
   main:
     strategy: Recreate

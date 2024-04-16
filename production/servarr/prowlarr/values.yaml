@@ -4,6 +4,10 @@
 defaultPodOptions:
   securityContext:
     fsGroup: 568
+  annotations:
+    enable.version-checker.io/restore: "true"
+    enable.version-checker.io/postgres-init: "true"
+    enable.version-checker.io/main: "true"
 
 controllers:
   main:

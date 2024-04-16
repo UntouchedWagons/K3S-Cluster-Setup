@@ -6,6 +6,10 @@ metadata:
   namespace: home-assistant
   labels:
     app: zwave-js-ui
+  annotations:
+    enable.version-checker.io/restore: "true"
+    enable.version-checker.io/zwave-js-ui: "true"
+    enable.version-checker.io/backup: "true"
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
@@ -25,7 +29,7 @@ spec:
       securityContext:
         fsGroup: 568
       initContainers:
-        - name: zwave-restore
+        - name: restore
           image: untouchedwagons/simple-restore:1.0.4
           volumeMounts:
             - mountPath: /data

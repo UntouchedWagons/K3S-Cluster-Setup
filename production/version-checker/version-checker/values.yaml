@@ -1,0 +1,38 @@
+versionChecker:
+    testAllContainers: false
+resources:
+    limits:
+        cpu: 100m
+        memory: 128Mi
+    requests:
+        cpu: 100m
+        memory: 128Mi
+serviceMonitor:
+    enabled: true
+docker:
+    token: ENC[AES256_GCM,data:0Ct/VjccL+qhPYPgTv3sc3pz7XDofLIXRSw/1qxsbNRfgKBr,iv:mRQedIwj08OkiR5geAdKi4qbwR82OPKgnZFtfH8pi9c=,tag:DQbHjQXha6cx9608B3FJjQ==,type:str]
+ghcr:
+    token: ENC[AES256_GCM,data:qJaN05qqpG3AYtZQtKi94oBALNGpB9fR64I9CZ6XY5Gc+UrJTkVs3g==,iv:8BuuJjyUwtbHYJ1o+ZzhVylVBmtXLm0jO+rFMiy8Ayo=,tag:MXosrGd4xF9aZGROPR8njQ==,type:str]
+additionalLabels:
+    use-sha.version-checker.io/version-checker: "false"
+    use-metadata.version-checker.io/version-checker: "true"
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBOM3UrRHJIaDl3d2VMT2c5
+            blQ3Z0ZqVUswd2tsWVNGSTdFamxpWGl0cFI4CkpLdEdDQ3lWYjBWV0JwSHRxUEZY
+            dUhjZDFPZFNMSDI0WUdSU0RlQktyMmcKLS0tIDhXMTNnc0FlOUVETXNJZ1R6ZGlF
+            d293blRWT3NlSDlIOEd4eFIzZnA2aTQKjFnTTptto4lqkY49rx6+Y7rGa9+iut4F
+            whXiUhQH2Of4ScPX5SgB8HIHkPprX6aSZLB69XdSigTelX9CWiuXgA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-04-16T20:08:05Z"
+    mac: ENC[AES256_GCM,data:+eSUaB8z/QkV6+4tDnKx0JSngIUFVm8xmUBSaUE8+9dCZGYfvqX1a/pawnQwSM64ZpC65OSUbCA6d8sCcH9THAtfQ1ZxycgoWJNPTj0qtmvHvlcJvxqR1cyL3FxwYSzAQytIGDaRg2iky6xkoM6Q5jNC8RmFEMxCXHWYR1jZ/L0=,iv:VRx7f0zG6WQIr57sMOgwUUoPvvA0cwU22/Riedn5C2U=,tag:F545ULCrvKWjftMgnsknUw==,type:str]
+    pgp: []
+    encrypted_regex: ^(token)$
+    version: 3.8.1

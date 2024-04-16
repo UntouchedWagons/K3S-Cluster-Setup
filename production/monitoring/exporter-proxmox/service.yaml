@@ -5,6 +5,8 @@ metadata:
   namespace: monitoring
   labels:
     app: exporter-proxmox
+  annotations:
+    enable.version-checker.io/exporter-proxmox: "true"
 spec:
   replicas: 1
   progressDeadlineSeconds: 600
