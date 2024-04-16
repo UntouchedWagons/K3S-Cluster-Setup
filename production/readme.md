@@ -48,13 +48,14 @@ helm upgrade --install --create-namespace --namespace rook-ceph rook-ceph-cluste
 # Version Checker
 
 ```
-helm upgrade --install version-checker --create-namespace --namespace version-checker jetstack/version-checker --version 0.5.4 --values ./production/version-checker/version-checker/values.yaml
+sops -d production/version-checker/version-checker/values.yaml | helm upgrade --install version-checker --create-namespace --namespace version-checker jetstack/version-checker --version 0.5.4 --values -
 ```
 
 # Node Feature Discovery
 
 ```
-helm upgrade --install node-feature-discovery node-feature-discovery/node-feature-discovery
+helm upgrade --install node-feature-discovery node-feature-discovery/node-feature-discovery --values production/default/node-feature-discovery/values.yaml
+kubectl apply -f production/default/node-feature-discovery/rules.yaml
 ```
 
 # Intel GPU Stuff
@@ -144,13 +145,13 @@ kubectl apply -f production/monitoring/exporter-flaresolverr/
 kubectl apply -f production/monitoring/exporter-linux/
 kubectl apply -f production/monitoring/exporter-opnsense/
 kubectl apply -f production/monitoring/exporter-proxmox/
-helm upgrade --install exporter-sonarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-sonarr/values.yaml
-helm upgrade --install exporter-radarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-radarr/values.yaml
+helm upgrade --install exporter-bazarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-bazarr/values.yaml
 helm upgrade --install exporter-lidarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-lidarr/values.yaml
 helm upgrade --install exporter-prowlarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-prowlarr/values.yaml
-helm upgrade --install exporter-bazarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-bazarr/values.yaml
-helm upgrade --install exporter-sabnzbd bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-sabnzbd/values.yaml
 helm upgrade --install exporter-qbittorrent bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-qbittorrent/values.yaml
+helm upgrade --install exporter-radarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-radarr/values.yaml
+helm upgrade --install exporter-sabnzbd bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-sabnzbd/values.yaml
+helm upgrade --install exporter-sonarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-sonarr/values.yaml
 kubectl apply -f production/monitoring/exporter-nut/
 kubectl apply -f production/monitoring/exporter-zfs/
 kubectl apply -f production/monitoring/exporter-technitium/
