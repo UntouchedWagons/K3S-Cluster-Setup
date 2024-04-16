@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
         - name: *app
-          image: quay.io/prometheus/blackbox-exporter:v0.24.0
+          image: quay.io/prometheus/blackbox-exporter:v0.25.0
           args:
             - --config.file=/config/blackbox.yml
           resources:

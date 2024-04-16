@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/esanchezm/prometheus-qbittorrent-exporter
-          tag: v1.4.0
+          tag: v1.5.1
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:

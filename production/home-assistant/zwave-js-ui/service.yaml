@@ -52,7 +52,7 @@ spec:
               name: zwave-dongle
 
         - name: backup
-          image: untouchedwagons/simple-backup:1.0.5
+          image: untouchedwagons/simple-backup:1.1.0
           volumeMounts:
             - mountPath: /data
               name: zwave-config

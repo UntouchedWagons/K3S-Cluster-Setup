@@ -18,7 +18,7 @@ controllers:
       main:
         image:
           repository: filebrowser/filebrowser
-          tag: v2.27.0-s6
+          tag: v2.28.0
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -29,7 +29,7 @@ controllers:
       backup:
         image:
           repository: untouchedwagons/simple-backup
-          tag: 1.0.6
+          tag: 1.1.0
         env:
           BACKUP_APPEND_DIRECTORY: "/kubernetes/production/file-browser"
           BACKUP_BASE_NAME: "file-browser"

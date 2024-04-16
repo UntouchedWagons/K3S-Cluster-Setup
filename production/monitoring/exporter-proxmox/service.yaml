@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: exporter-proxmox
-          image: prompve/prometheus-pve-exporter:3.0.2
+          image: prompve/prometheus-pve-exporter:3.2.4
           env:
             - name: PVE_USER
               value: "root@pam"
