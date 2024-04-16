@@ -51,6 +51,20 @@ helm upgrade --install --create-namespace --namespace rook-ceph rook-ceph-cluste
 sops -d production/version-checker/version-checker/values.yaml | helm upgrade --install version-checker --create-namespace --namespace version-checker jetstack/version-checker --version 0.5.4 --values -
 ```
 
+# Backsnap
+
+```
+kubectl create namespace backsnap
+kubectl apply -f https://raw.githubusercontent.com/skybitsnl/backsnap/main/config/crd/bases/backsnap.skyb.it_pvcbackups.yaml
+kubectl apply -f https://raw.githubusercontent.com/skybitsnl/backsnap/main/config/crd/bases/backsnap.skyb.it_pvcrestores.yaml
+kubectl apply -f https://raw.githubusercontent.com/skybitsnl/backsnap/main/config/rbac/role.yaml
+kubectl apply -f https://raw.githubusercontent.com/skybitsnl/backsnap/main/config/rbac/role_binding.yaml
+kubectl apply -f https://raw.githubusercontent.com/skybitsnl/backsnap/main/config/rbac/leader_election_role.yaml
+kubectl apply -f https://raw.githubusercontent.com/skybitsnl/backsnap/main/config/rbac/leader_election_role_binding.yaml
+kubectl apply -f https://raw.githubusercontent.com/skybitsnl/backsnap/main/config/rbac/service_account.yaml
+kubectl apply -f production/backsnap/manager.yaml
+```
+
 # Node Feature Discovery
 
 ```
