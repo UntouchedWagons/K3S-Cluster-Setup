@@ -10,6 +10,16 @@ spec:
       ttlSecondsAfterFinished: 30
       template:
         spec:
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                    - key: app.kubernetes.io/name
+                      operator: In
+                      values:
+                      - radarr
+                  topologyKey: "kubernetes.io/hostname"
           containers:
             - name: backup
               image: untouchedwagons/simple-backup:1.1.0
