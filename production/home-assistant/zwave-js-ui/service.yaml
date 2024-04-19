@@ -6,10 +6,6 @@ metadata:
   namespace: home-assistant
   labels:
     app: zwave-js-ui
-  annotations:
-    enable.version-checker.io/restore: "true"
-    enable.version-checker.io/zwave-js-ui: "true"
-    enable.version-checker.io/backup: "true"
 spec:
   replicas: 1
   progressDeadlineSeconds: 600

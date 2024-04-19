@@ -6,10 +6,6 @@ metadata:
   namespace: networking
   labels:
     app: ispyagentdvr
-  annotations:
-    enable.version-checker.io/restore: "true"
-    enable.version-checker.io/ispyagentdvr: "true"
-    enable.version-checker.io/backup: "true"
 spec:
   replicas: 1
   progressDeadlineSeconds: 600

@@ -45,12 +45,6 @@ helm install --create-namespace --namespace rook-ceph rook-ceph rook-release/roo
 helm upgrade --install --create-namespace --namespace rook-ceph rook-ceph-cluster rook-release/rook-ceph-cluster -f rook-ceph/rook-ceph-cluster/values.yaml -f production/rook-ceph/rook-ceph-cluster/values.yaml
 ```
 
-# Version Checker
-
-```
-sops -d production/version-checker/version-checker/values.yaml | helm upgrade --install version-checker --create-namespace --namespace version-checker jetstack/version-checker --version 0.5.4 --values -
-```
-
 # Node Feature Discovery
 
 ```
