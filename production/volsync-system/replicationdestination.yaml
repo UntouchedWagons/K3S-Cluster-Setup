@@ -1,0 +1,13 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: lidarr-config
+  namespace: servarr
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: lidarr-config
+    copyMethod: Direct
+    capacity: 10G

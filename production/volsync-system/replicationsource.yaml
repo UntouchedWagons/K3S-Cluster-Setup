@@ -1,0 +1,31 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: lidarr-config-backup
+  namespace: servarr
+spec:
+  # The PVC to be backed up
+  sourcePVC: lidarr-config
+  trigger:
+    # Take a backup every 8 hours
+    schedule: "0 */8 * * *"
+  restic:
+    # Prune the repository (repack to free space) every 2 weeks
+    pruneIntervalDays: 14
+    # Name of the Secret with the connection information
+    repository: lidarr-config
+    # Retention policy for backups
+    retain:
+      hourly: 4
+      daily: 14
+      weekly: 0
+      monthly: 0
+      yearly: 0
+    # Clone the source volume prior to taking a backup to ensure a
+    # point-in-time image.
+    copyMethod: Snapshot
+    # The StorageClass to use when creating the PiT copy (same as source PVC if omitted)
+    storageClassName: ceph-block
+    # The VSC to use if the copy method is Snapshot (default if omitted)
+    volumeSnapshotClassName: ceph-block

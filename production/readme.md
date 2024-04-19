@@ -15,6 +15,7 @@ helm repo add grafana https://grafana.github.io/helm-charts
 helm repo add bjw-s https://bjw-s.github.io/helm-charts
 helm repo add jameswynn https://jameswynn.github.io/helm-charts
 helm repo add piraeus-charts https://piraeus.io/helm-charts
+helm repo add backube https://backube.github.io/helm-charts/
 helm repo update
 ```
 
@@ -43,6 +44,15 @@ helm install snapshot-controller piraeus-charts/snapshot-controller
 ```
 helm install --create-namespace --namespace rook-ceph rook-ceph rook-release/rook-ceph
 helm upgrade --install --create-namespace --namespace rook-ceph rook-ceph-cluster rook-release/rook-ceph-cluster -f rook-ceph/rook-ceph-cluster/values.yaml -f production/rook-ceph/rook-ceph-cluster/values.yaml
+```
+
+# Volsync
+
+```
+helm install --create-namespace -n volsync-system volsync backube/volsync
+sops -d production/volsync-system/secrets.yaml | kubectl apply -f -
+kubectl apply -f production/volsync-system/replicationdestination.yaml
+kubectl apply -f production/volsync-system/replicationsource.yaml
 ```
 
 # Version Checker
