@@ -10,14 +10,6 @@ controllers:
     strategy: Recreate
 
     initContainers:
-      restore:
-        image:
-          repository: untouchedwagons/simple-restore
-          tag: 1.0.4
-        env:
-          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/radarr"
-          BACKUP_BASE_NAME: "radarr"
-      
       postgres-init:
         image:
           repository: ghcr.io/onedr0p/postgres-init
@@ -33,7 +25,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/onedr0p/radarr
-          tag: 5.3.6.8612
+          tag: 5.4.6.8723
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -42,7 +34,7 @@ controllers:
             add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
         env:
           RADARR__API_KEY: "0416a6d418be4cd7b9b64e3862aa436a"
-          RADARR__AUTHENTICATION_METHOD: "None"
+          RADARR__AUTHENTICATION_METHOD: "Forms"
           RADARR__AUTHENTICATION_REQUIRED: "DisabledForLocalAddresses"
           RADARR__POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
           RADARR__POSTGRES_MAIN_DB: "radarr-main"
@@ -95,15 +87,6 @@ persistence:
           - path: /config
         restore:
           - path: /data
-
-  nfs-backups:
-    type: "nfs"
-    server: "192.168.35.30"
-    path: "/mnt/tank/Media/Backups"
-    advancedMounts:
-      main:
-        restore:
-          - path: /backups
 
   nfs-videos:
     type: "nfs"

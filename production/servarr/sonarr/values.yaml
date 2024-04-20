@@ -10,14 +10,6 @@ controllers:
     strategy: Recreate
 
     initContainers:
-      restore:
-        image:
-          repository: untouchedwagons/simple-restore
-          tag: 1.0.4
-        env:
-          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/sonarr"
-          BACKUP_BASE_NAME: "sonarr"
-      
       postgres-init:
         image:
           repository: ghcr.io/onedr0p/postgres-init
@@ -33,7 +25,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/onedr0p/sonarr
-          tag: 4.0.3
+          tag: 4.0.4.1491
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -42,7 +34,7 @@ controllers:
             add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
         env:
           SONARR__API_KEY: "0fe183143c5745269ae3b9ea163c8f85"
-          SONARR__AUTHENTICATION_METHOD: "None"
+          SONARR__AUTHENTICATION_METHOD: "Forms"
           SONARR__AUTHENTICATION_REQUIRED: "DisabledForLocalAddresses"
           SONARR__POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
           SONARR__POSTGRES_MAIN_DB: "sonarr-main"
@@ -95,15 +87,6 @@ persistence:
           - path: /config
         restore:
           - path: /data
-
-  nfs-backups:
-    type: "nfs"
-    server: "192.168.35.30"
-    path: "/mnt/tank/Media/Backups"
-    advancedMounts:
-      main:
-        restore:
-          - path: /backups
 
   nfs-videos:
     type: "nfs"

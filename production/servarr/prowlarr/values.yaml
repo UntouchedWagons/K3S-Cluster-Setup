@@ -10,14 +10,6 @@ controllers:
     strategy: Recreate
 
     initContainers:
-      restore:
-        image:
-          repository: untouchedwagons/simple-restore
-          tag: 1.0.4
-        env:
-          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/prowlarr"
-          BACKUP_BASE_NAME: "prowlarr"
-      
       postgres-init:
         image:
           repository: ghcr.io/onedr0p/postgres-init
@@ -33,7 +25,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/onedr0p/prowlarr
-          tag: 1.15.0.4361
+          tag: 1.16.2.4435
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -42,7 +34,7 @@ controllers:
             add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
         env:
           PROWLARR__API_KEY: "fa88672ddbeb4b5683a009951076bf38"
-          PROWLARR__AUTHENTICATION_METHOD: "None"
+          PROWLARR__AUTHENTICATION_METHOD: "Forms"
           PROWLARR__AUTHENTICATION_REQUIRED: "DisabledForLocalAddresses"
           PROWLARR__POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
           PROWLARR__POSTGRES_MAIN_DB: "prowlarr-main"
@@ -95,12 +87,3 @@ persistence:
           - path: /config
         restore:
           - path: /data
-
-  nfs-backups:
-    type: "nfs"
-    server: "192.168.35.30"
-    path: "/mnt/tank/Media/Backups"
-    advancedMounts:
-      main:
-        restore:
-          - path: /backups

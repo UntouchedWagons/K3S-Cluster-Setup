@@ -10,14 +10,6 @@ controllers:
     strategy: Recreate
 
     initContainers:
-      restore:
-        image:
-          repository: untouchedwagons/simple-restore
-          tag: 1.0.4
-        env:
-          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/lidarr"
-          BACKUP_BASE_NAME: "lidarr"
-      
       postgres-init:
         image:
           repository: ghcr.io/onedr0p/postgres-init
@@ -33,7 +25,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/onedr0p/lidarr
-          tag: 2.1.7
+          tag: 2.2.5.4141
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -42,7 +34,7 @@ controllers:
             add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
         env:
           LIDARR__API_KEY: "1555da6d78404bffb22c90ace2b31b31"
-          LIDARR__AUTHENTICATION_METHOD: "None"
+          LIDARR__AUTHENTICATION_METHOD: "Forms"
           LIDARR__AUTHENTICATION_REQUIRED: "DisabledForLocalAddresses"
           LIDARR__POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
           LIDARR__POSTGRES_MAIN_DB: "lidarr-main"
@@ -95,15 +87,6 @@ persistence:
           - path: /config
         restore:
           - path: /data
-
-  nfs-backups:
-    type: "nfs"
-    server: "192.168.35.30"
-    path: "/mnt/tank/Media/Backups"
-    advancedMounts:
-      main:
-        restore:
-          - path: /backups
 
   nfs-music:
     type: "nfs"
