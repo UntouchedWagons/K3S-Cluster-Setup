@@ -5,15 +5,6 @@ controllers:
   main:
     strategy: Recreate
 
-    initContainers:
-      restore:
-        image:
-          repository: untouchedwagons/simple-restore
-          tag: 1.0.4
-        env:
-          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/jellyfin"
-          BACKUP_BASE_NAME: "jellyfin"
-
     containers:
       main:
         image:
@@ -28,16 +19,6 @@ controllers:
             memory: 1024Mi
             cpu: "10m"
             gpu.intel.com/i915: "1"
-
-      backup:
-        image:
-          repository: untouchedwagons/simple-backup
-          tag: 1.1.0
-        env:
-          BACKUP_APPEND_DIRECTORY: "/kubernetes/production/jellyfin"
-          BACKUP_BASE_NAME: "jellyfin"
-          BACKUP_RETENTION: "24"
-          BACKUP_FREQUENCY: "0 */8 * * *"
 
 defaultPodOptions:
   nodeSelector:
@@ -86,10 +67,6 @@ persistence:
       main: 
         main:
           - path: /config
-        backup:
-          - path: /data
-        restore:
-          - path: /data
 
   tmp:
     type: emptyDir
@@ -97,17 +74,6 @@ persistence:
       main: 
         main:
           - path: /config/transcodes
-
-  nfs-backups:
-    type: "nfs"
-    server: "192.168.35.30"
-    path: "/mnt/tank/Media/Backups"
-    advancedMounts:
-      main: 
-        backup:
-          - path: /backups
-        restore:
-          - path: /backups
 
   nfs-music:
     type: "nfs"

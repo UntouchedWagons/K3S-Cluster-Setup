@@ -22,19 +22,6 @@ spec:
     spec:
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
-      initContainers:
-        - name: restore
-          image: untouchedwagons/simple-restore:1.0.4
-          volumeMounts:
-            - mountPath: /data
-              name: ispyagentdvr-config
-            - mountPath: /backups
-              name: backups
-          env:
-            - name: BACKUP_APPEND_DIRECTORY
-              value: "/kubernetes/production/ispyagentdvr"
-            - name: BACKUP_BASE_NAME
-              value: "ispyagentdvr"
       containers:
         - name: ispyagentdvr
           image: doitandbedone/ispyagentdvr:5.4.2.0
@@ -55,37 +42,10 @@ spec:
           env:
             - name: TZ
               value: "America/Toronto"
-        - name: backup
-          image: untouchedwagons/simple-backup:1.1.0
-          resources:
-            limits:
-              memory: 256Mi
-              cpu: "1"
-            requests:
-              memory: 128Mi
-              cpu: "0.2"
-          volumeMounts:
-            - mountPath: /data
-              name: ispyagentdvr-config
-            - mountPath: /backups
-              name: backups
-          env:
-            - name: BACKUP_APPEND_DIRECTORY
-              value: "/kubernetes/production/ispyagentdvr"
-            - name: BACKUP_BASE_NAME
-              value: "ispyagentdvr"
-            - name: BACKUP_RETENTION
-              value: "24"
-            - name: BACKUP_FREQUENCY
-              value: "0 */8 * * *"
       volumes:
         - name: ispyagentdvr-config
           persistentVolumeClaim:
             claimName: ispyagentdvr-config
-        - name: backups
-          nfs:
-            server: 192.168.35.30
-            path: /mnt/tank/Media/Backups
         - name: ispyagentdvr-media
           nfs:
             server: 192.168.35.30

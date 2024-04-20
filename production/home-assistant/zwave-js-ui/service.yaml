@@ -24,19 +24,7 @@ spec:
         feature.node.kubernetes.io/usb-ff_10c4_ea60.present: "true"
       securityContext:
         fsGroup: 568
-      initContainers:
-        - name: restore
-          image: untouchedwagons/simple-restore:1.0.4
-          volumeMounts:
-            - mountPath: /data
-              name: zwave-config
-            - mountPath: /backups
-              name: backups
-          env:
-            - name: BACKUP_APPEND_DIRECTORY
-              value: "/kubernetes/production/zwave"
-            - name: BACKUP_BASE_NAME
-              value: "zwave"
+
       containers:
         - name: zwave-js-ui
           image: ghcr.io/zwave-js/zwave-js-ui:9.8.2
@@ -51,31 +39,11 @@ spec:
             - mountPath: /dev/zwave0
               name: zwave-dongle
 
-        - name: backup
-          image: untouchedwagons/simple-backup:1.1.0
-          volumeMounts:
-            - mountPath: /data
-              name: zwave-config
-            - mountPath: /backups
-              name: backups
-          env:
-            - name: BACKUP_APPEND_DIRECTORY
-              value: "/kubernetes/production/zwave"
-            - name: BACKUP_BASE_NAME
-              value: "zwave"
-            - name: BACKUP_RETENTION
-              value: "7"
-            - name: BACKUP_FREQUENCY
-              value: "0 0 * * *"
-
       volumes:
         - name: zwave-config
           persistentVolumeClaim:
             claimName: zwave-config
-        - name: backups
-          nfs:
-            server: 192.168.35.30
-            path: /mnt/tank/Media/Backups
+
         - name: zwave-dongle
           hostPath: # Good lord that's a long path
             path: /dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_72a3599c46bcea11ab8496e368aed703-if00-port0
