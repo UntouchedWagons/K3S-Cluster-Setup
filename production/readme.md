@@ -136,7 +136,7 @@ sops -d production/networking/msmtpd/service.yaml | kubectl apply -f -
 ```
 kubectl apply -f production/home-assistant/
 helm upgrade --install zwave-js-ui bjw-s/app-template --namespace home-assistant -f production/home-assistant/zwave-js-ui/values.yaml
-kubectl apply -f production/home-assistant/home-assistant
+helm upgrade --install home-assistant bjw-s/app-template --namespace home-assistant -f production/home-assistant/home-assistant/values.yaml
 ```
 
 # Monitoring

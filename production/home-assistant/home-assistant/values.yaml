@@ -1,0 +1,64 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
+
+controllers:
+  main:
+    strategy: Recreate
+
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/home-assistant
+          tag: 2024.4.3
+
+defaultPodOptions:
+  securityContext:
+    fsGroup: 568
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 8123
+
+ingress:
+  main:
+    annotations:
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Infrastructure
+      gethomepage.dev/icon: home-assistant.png
+      gethomepage.dev/name: Home Assistant
+    hosts:
+      - host: home-assistant.services.untouchedwagons.com
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts: 
+        - untouchedwagons.com
+        secretName: com-untouchedwagons-services
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 128Mi
+    dataSourceRef:
+      kind: ReplicationDestination
+      apiGroup: volsync.backube
+      name: ha-config
+    advancedMounts:
+      main: 
+        main:
+          - path: /config
+
+  tmp:
+    type: emptyDir
+    advancedMounts:
+      main: 
+        main:
+          - path: /tmp

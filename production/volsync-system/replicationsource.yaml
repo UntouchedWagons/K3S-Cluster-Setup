@@ -268,7 +268,7 @@ metadata:
   name: ha-config-backup
   namespace: home-assistant
 spec:
-  sourcePVC: ha-config
+  sourcePVC: home-assistant-config
   trigger:
     schedule: "0 0 * * *"
   restic:
