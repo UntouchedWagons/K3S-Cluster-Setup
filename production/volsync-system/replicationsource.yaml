@@ -122,3 +122,164 @@ spec:
     copyMethod: Snapshot
     storageClassName: ceph-block
     volumeSnapshotClassName: ceph-block
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: jellyfin-config-backup
+  namespace: default
+spec:
+  sourcePVC: jellyfin-config
+  trigger:
+    schedule: "0 */8 * * *"
+  restic:
+    pruneIntervalDays: 14
+    repository: jellyfin-config
+    retain:
+      hourly: 4
+      daily: 14
+      weekly: 0
+      monthly: 0
+      yearly: 0
+    copyMethod: Snapshot
+    storageClassName: ceph-block
+    volumeSnapshotClassName: ceph-block
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: qbittorent-config-backup
+  namespace: default
+spec:
+  sourcePVC: qbittorent-config
+  trigger:
+    schedule: "0 */8 * * *"
+  restic:
+    pruneIntervalDays: 14
+    repository: qbittorent-config
+    retain:
+      hourly: 4
+      daily: 14
+      weekly: 0
+      monthly: 0
+      yearly: 0
+    copyMethod: Snapshot
+    storageClassName: ceph-block
+    volumeSnapshotClassName: ceph-block
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: sabnzbd-config-backup
+  namespace: default
+spec:
+  sourcePVC: sabnzbd-config
+  trigger:
+    schedule: "0 0 * * *"
+  restic:
+    pruneIntervalDays: 14
+    repository: sabnzbd-config
+    retain:
+      hourly: 4
+      daily: 14
+      weekly: 0
+      monthly: 0
+      yearly: 0
+    copyMethod: Snapshot
+    storageClassName: ceph-block
+    volumeSnapshotClassName: ceph-block
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: file-browser-config-backup
+  namespace: default
+spec:
+  sourcePVC: file-browser-config
+  trigger:
+    schedule: "0 0 * * *"
+  restic:
+    pruneIntervalDays: 14
+    repository: file-browser-config
+    retain:
+      hourly: 4
+      daily: 14
+      weekly: 0
+      monthly: 0
+      yearly: 0
+    copyMethod: Snapshot
+    storageClassName: ceph-block
+    volumeSnapshotClassName: ceph-block
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: ispyagentdvr-config-backup
+  namespace: networking
+spec:
+  sourcePVC: ispyagentdvr-config
+  trigger:
+    schedule: "0 0 * * *"
+  restic:
+    pruneIntervalDays: 14
+    repository: ispyagentdvr-config
+    retain:
+      hourly: 4
+      daily: 14
+      weekly: 0
+      monthly: 0
+      yearly: 0
+    copyMethod: Snapshot
+    storageClassName: ceph-block
+    volumeSnapshotClassName: ceph-block
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: zwave-config-backup
+  namespace: home-assistant
+spec:
+  sourcePVC: zwave-config
+  trigger:
+    schedule: "0 0 * * *"
+  restic:
+    pruneIntervalDays: 14
+    repository: zwave-config
+    retain:
+      hourly: 4
+      daily: 14
+      weekly: 0
+      monthly: 0
+      yearly: 0
+    copyMethod: Snapshot
+    storageClassName: ceph-block
+    volumeSnapshotClassName: ceph-block
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: ha-config-backup
+  namespace: home-assistant
+spec:
+  sourcePVC: ha-config
+  trigger:
+    schedule: "0 0 * * *"
+  restic:
+    pruneIntervalDays: 14
+    repository: ha-config
+    retain:
+      hourly: 4
+      daily: 14
+      weekly: 0
+      monthly: 0
+      yearly: 0
+    copyMethod: Snapshot
+    storageClassName: ceph-block
+    volumeSnapshotClassName: ceph-block
