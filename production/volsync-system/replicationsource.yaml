@@ -245,7 +245,7 @@ metadata:
   name: zwave-config-backup
   namespace: home-assistant
 spec:
-  sourcePVC: zwave-config
+  sourcePVC: zwave-js-ui-config
   trigger:
     schedule: "0 0 * * *"
   restic:
