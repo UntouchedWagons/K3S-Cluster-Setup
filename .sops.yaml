@@ -35,11 +35,6 @@ creation_rules:
     key_groups:
       - age:
           - age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
-  - path_regex: production/version-checker/version-checker/values.yaml
-    encrypted_regex: "^(token)$"
-    key_groups:
-      - age:
-          - age1gdt6s73quvrlprl4mt9fssrp378rmxtjrmykwnmvtsrt8g20rd2qh8s5jn
   - path_regex: production/volsync-system/secrets.yaml
     encrypted_regex: "^(AWS_|RESTIC_)"
     key_groups:

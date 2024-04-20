@@ -6,10 +6,6 @@ defaultPodOptions:
     fsGroup: 5050
     runAsGroup: 5050
     runAsUser: 5050
-  annotations:
-    enable.version-checker.io/main: "true"
-    use-sha.version-checker.io/main: "false"
-    use-metadata.version-checker.io/main: "true"
 
 controllers:
   main:

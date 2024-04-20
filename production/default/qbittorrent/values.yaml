@@ -2,15 +2,6 @@
 defaultPodOptions:
     securityContext:
         fsGroup: 568
-    annotations:
-        enable.version-checker.io/restore: "true"
-        enable.version-checker.io/gluten: "false"
-        enable.version-checker.io/main: "true"
-        enable.version-checker.io/backup: "true"
-        # use-sha.version-checker.io/gluten: "false" # Don't check Glutun since VC gives wrong info
-        use-sha.version-checker.io/main: "false"
-        # use-metadata.version-checker.io/gluten: "true"
-        use-metadata.version-checker.io/main: "true"
 controllers:
     main:
         strategy: Recreate
@@ -153,8 +144,8 @@ sops:
             dWtTc1Z6VkNMLzJSVDJ6WHphejhnNzQKDtvNyDAkFY9ZKVdHOO2vfEdhi92KOtq3
             JLzc2LW0tJqpZyL3aQgNSHZBa1bIKB3TTmyfGbg0TP+BhPfui29pbw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-16T19:59:28Z"
-    mac: ENC[AES256_GCM,data:tA3w8khRSztwkTgMK7dIED5gtVXD8+u8bRffBNSJLYXC2+6dY6v4OSTfD41gRiNYQWP7tLy++nKieZOyHPclaT0L/9NLeKg/1RcBh0wUE7EFJeg1DgsoZ0zY75DK7vVvPa9zHdptaZxWbhIFZiMqJtSW88RA4mukLlXt7tX7R9c=,iv:yalOkFPc/e/D2T6SdYyL4swoxTxlz725ZBHCNF3yx70=,tag:QL72ZzZx7JY0pZ7SeDkgyw==,type:str]
+    lastmodified: "2024-04-19T23:14:28Z"
+    mac: ENC[AES256_GCM,data:g3+/aXYyPrjcY7W29HyXIlp0DiOTJsP7B97Cyc9dRhiKN3gA/vR98Km9gpz9a/g0esYerPvybM0UF9oeu/C2ez1llPDKrDY2jHBsG/okXsPxyJFxuxhWNBCzQSyWkYBQ1OH5KGAGe3wP6gHpAEffY5/zIgGDsgqGpYIHNHoKfKM=,iv:QFEw3oxSTInxPZlZYtSpggDz+I3Cbec3zcuZGUvYNFM=,tag:RukK1EAgJX+xmBZvpHoFKQ==,type:str]
     pgp: []
     encrypted_regex: ^(WIREGUARD_)
     version: 3.8.1
