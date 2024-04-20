@@ -2,3 +2,5 @@ kind: Namespace
 apiVersion: v1
 metadata:
   name: networking
+  annotations:
+    volsync.backube/privileged-movers: "true"

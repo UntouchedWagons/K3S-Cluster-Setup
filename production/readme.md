@@ -49,7 +49,7 @@ helm upgrade --install --create-namespace --namespace rook-ceph rook-ceph-cluste
 # Volsync
 
 ```
-helm install --create-namespace -n volsync-system volsync backube/volsync
+helm upgrade --install --create-namespace -n volsync-system volsync backube/volsync --values production/volsync-system/values.yaml
 sops -d production/volsync-system/secrets.yaml | kubectl apply -f -
 kubectl apply -f production/volsync-system/replicationdestination.yaml
 kubectl apply -f production/volsync-system/replicationsource.yaml
@@ -96,6 +96,7 @@ kubectl apply -f production/database/postgresql-restore/
 ## Default namespace
 
 ```
+kubectl apply -f production/default
 helm upgrade --install file-browser bjw-s/app-template -f production/default/file-browser/values.yaml
 helm upgrade --install homepage jameswynn/homepage -f production/default/homepage/values.yaml
 helm upgrade --install it-tools bjw-s/app-template -f production/default/it-tools/values.yaml
