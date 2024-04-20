@@ -10,3 +10,7 @@ spec:
   resources:
     requests:
       storage: 128Mi
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: ha-config

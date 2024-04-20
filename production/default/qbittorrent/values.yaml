@@ -103,6 +103,10 @@ persistence:
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         size: 10Gi
+        dataSourceRef:
+            kind: ReplicationDestination
+            apiGroup: volsync.backube
+            name: qbittorrent-config
         advancedMounts:
             main:
                 main:
@@ -144,8 +148,8 @@ sops:
             dWtTc1Z6VkNMLzJSVDJ6WHphejhnNzQKDtvNyDAkFY9ZKVdHOO2vfEdhi92KOtq3
             JLzc2LW0tJqpZyL3aQgNSHZBa1bIKB3TTmyfGbg0TP+BhPfui29pbw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-19T23:14:28Z"
-    mac: ENC[AES256_GCM,data:g3+/aXYyPrjcY7W29HyXIlp0DiOTJsP7B97Cyc9dRhiKN3gA/vR98Km9gpz9a/g0esYerPvybM0UF9oeu/C2ez1llPDKrDY2jHBsG/okXsPxyJFxuxhWNBCzQSyWkYBQ1OH5KGAGe3wP6gHpAEffY5/zIgGDsgqGpYIHNHoKfKM=,iv:QFEw3oxSTInxPZlZYtSpggDz+I3Cbec3zcuZGUvYNFM=,tag:RukK1EAgJX+xmBZvpHoFKQ==,type:str]
+    lastmodified: "2024-04-20T15:56:53Z"
+    mac: ENC[AES256_GCM,data:x6m04PGp3xk9DWKFma0kFVbV3Crq12AqCAEB41ZDe0X49iJfY2SkYchTFRs6Y4ANJOe6sNEGFMhaTPV4cjaZPzYcSRN7n4fE+GVLozoH25lFuburls1v80GTh3igABPAZ3zExzwmZqoV3vo01tSffWFxrkPbuGDq+HCOAlrstDo=,iv:6tzoycc3d4xLVFA9HskDMKiHnnWGTc+DFvtg8qKimI4=,tag:wyMsl4dahr/wPSuDRk05pA==,type:str]
     pgp: []
     encrypted_regex: ^(WIREGUARD_)
     version: 3.8.1

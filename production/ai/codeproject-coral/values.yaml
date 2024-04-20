@@ -29,6 +29,10 @@ persistence:
     type: persistentVolumeClaim
     accessMode: ReadWriteOnce
     size: 3Gi
+    dataSourceRef:
+      kind: ReplicationDestination
+      apiGroup: volsync.backube
+      name: cpas-coral-config
     advancedMounts:
       main: 
         main:

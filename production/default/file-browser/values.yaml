@@ -68,6 +68,10 @@ persistence:
     type: persistentVolumeClaim
     accessMode: ReadWriteOnce
     size: 5Gi
+    dataSourceRef:
+      kind: ReplicationDestination
+      apiGroup: volsync.backube
+      name: file-browser-config
     advancedMounts:
       main: 
         main:

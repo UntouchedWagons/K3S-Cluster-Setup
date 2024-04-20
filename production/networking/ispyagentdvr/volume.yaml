@@ -10,3 +10,7 @@ spec:
   resources:
     requests:
       storage: 256Mi
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: ispyagentdvr-config

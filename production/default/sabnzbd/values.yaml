@@ -65,6 +65,10 @@ persistence:
     type: persistentVolumeClaim
     accessMode: ReadWriteOnce
     size: 10Gi
+    dataSourceRef:
+      kind: ReplicationDestination
+      apiGroup: volsync.backube
+      name: sabnzbd-config
     advancedMounts:
       main: 
         main:

@@ -283,3 +283,26 @@ spec:
     copyMethod: Snapshot
     storageClassName: ceph-block
     volumeSnapshotClassName: ceph-block
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: cpas-coral-backup
+  namespace: ai
+spec:
+  sourcePVC: cpas-coral-config
+  trigger:
+    schedule: "0 0 * * 0"
+  restic:
+    pruneIntervalDays: 14
+    repository: cpas-coral-config
+    retain:
+      hourly: 0
+      daily: 0
+      weekly: 4
+      monthly: 0
+      yearly: 0
+    copyMethod: Snapshot
+    storageClassName: ceph-block
+    volumeSnapshotClassName: ceph-block

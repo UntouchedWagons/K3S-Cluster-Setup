@@ -78,6 +78,10 @@ persistence:
     type: persistentVolumeClaim
     accessMode: ReadWriteOnce
     size: 10Gi
+    dataSourceRef:
+      kind: ReplicationDestination
+      apiGroup: volsync.backube
+      name: jellyfin-config
     advancedMounts:
       main: 
         main:
