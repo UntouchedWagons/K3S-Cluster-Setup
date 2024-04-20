@@ -150,15 +150,15 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: qbittorent-config-backup
+  name: qbittorrent-config-backup
   namespace: default
 spec:
-  sourcePVC: qbittorent-config
+  sourcePVC: qbittorrent-config
   trigger:
     schedule: "0 */8 * * *"
   restic:
     pruneIntervalDays: 14
-    repository: qbittorent-config
+    repository: qbittorrent-config
     retain:
       hourly: 4
       daily: 14
