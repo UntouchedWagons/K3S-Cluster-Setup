@@ -2,3 +2,5 @@ kind: Namespace
 apiVersion: v1
 metadata:
   name: home-assistant
+  annotations:
+    volsync.backube/privileged-movers: "true"

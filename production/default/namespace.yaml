@@ -1,6 +1,7 @@
-kind: Namespace
+---
 apiVersion: v1
+kind: Namespace
 metadata:
-  name: servarr
+  name: default
   annotations:
     volsync.backube/privileged-movers: "true"

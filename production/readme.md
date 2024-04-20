@@ -15,6 +15,7 @@ helm repo add grafana https://grafana.github.io/helm-charts
 helm repo add bjw-s https://bjw-s.github.io/helm-charts
 helm repo add jameswynn https://jameswynn.github.io/helm-charts
 helm repo add piraeus-charts https://piraeus.io/helm-charts
+helm repo add backube https://backube.github.io/helm-charts/
 helm repo update
 ```
 
@@ -43,6 +44,15 @@ helm install snapshot-controller piraeus-charts/snapshot-controller
 ```
 helm install --create-namespace --namespace rook-ceph rook-ceph rook-release/rook-ceph
 helm upgrade --install --create-namespace --namespace rook-ceph rook-ceph-cluster rook-release/rook-ceph-cluster -f rook-ceph/rook-ceph-cluster/values.yaml -f production/rook-ceph/rook-ceph-cluster/values.yaml
+```
+
+# Volsync
+
+```
+helm upgrade --install --create-namespace -n volsync-system volsync backube/volsync --values production/volsync-system/values.yaml
+sops -d production/volsync-system/secrets.yaml | kubectl apply -f -
+kubectl apply -f production/volsync-system/replicationdestination.yaml
+kubectl apply -f production/volsync-system/replicationsource.yaml
 ```
 
 # Node Feature Discovery
@@ -80,6 +90,7 @@ kubectl apply -f production/database/postgresql-restore/
 ## Default namespace
 
 ```
+kubectl apply -f production/default
 helm upgrade --install file-browser bjw-s/app-template -f production/default/file-browser/values.yaml
 helm upgrade --install homepage jameswynn/homepage -f production/default/homepage/values.yaml
 helm upgrade --install it-tools bjw-s/app-template -f production/default/it-tools/values.yaml
