@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationdestination_v1alpha1.json
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
@@ -9,5 +10,30 @@ spec:
     manual: restore-once
   restic:
     repository: lidarr-config
-    copyMethod: Direct
-    capacity: 10G
+    copyMethod: Snapshot
+    storageClassName: ceph-block
+    cacheStorageClassName: ceph-block
+    volumeSnapshotClassName: ceph-block
+    cacheAccessModes:
+      - ReadWriteOnce
+    accessModes:
+      - ReadWriteOnce
+    cacheCapacity: 10Gi
+    capacity: 10Gi
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: lidarr-config-test
+#   namespace: servarr
+# spec:
+#   accessModes: 
+#     - ReadWriteOnce
+#   dataSourceRef:
+#     kind: ReplicationDestination
+#     apiGroup: volsync.backube
+#     name: lidarr-config
+#   resources:
+#     requests:
+#       storage: 10Gi
+#   storageClassName: ceph-block
