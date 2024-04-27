@@ -110,6 +110,8 @@ helm upgrade --install lidarr bjw-s/app-template --namespace servarr -f producti
 helm upgrade --install prowlarr bjw-s/app-template --namespace servarr -f production/servarr/prowlarr/values.yaml
 helm upgrade --install radarr bjw-s/app-template --namespace servarr -f production/servarr/radarr/values.yaml
 helm upgrade --install sonarr bjw-s/app-template --namespace servarr -f production/servarr/sonarr/values.yaml
+helm upgrade --install tdarr-server bjw-s/app-template --namespace servarr -f production/servarr/tdarr-server/values.yaml
+helm upgrade --install tdarr-worker bjw-s/app-template --namespace servarr -f production/servarr/tdarr-worker/values.yaml
 ```
 
 ## AI namespace

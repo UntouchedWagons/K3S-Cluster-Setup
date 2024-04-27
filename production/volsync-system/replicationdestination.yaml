@@ -113,6 +113,28 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
+  name: tdarr-config
+  namespace: servarr
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: tdarr-config
+    copyMethod: Snapshot
+    storageClassName: ceph-block
+    cacheStorageClassName: ceph-block
+    volumeSnapshotClassName: ceph-block
+    cacheAccessModes:
+      - ReadWriteOnce
+    accessModes:
+      - ReadWriteOnce
+    cacheCapacity: 10Gi
+    capacity: 10Gi
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
   name: jellyfin-config
   namespace: default
 spec:

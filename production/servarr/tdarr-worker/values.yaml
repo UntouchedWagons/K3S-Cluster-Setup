@@ -1,0 +1,105 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
+
+defaultPodOptions:
+  securityContext:
+    fsGroup: 1000
+  nodeSelector:
+    intel.feature.node.kubernetes.io/gpu: "true"
+
+controllers:
+  main:
+    strategy: Recreate
+    type: daemonset
+
+    initContainers:
+      init-config:
+        image:
+          repository: jetbrainsinfra/jq
+          tag: latest
+        command:
+          - /bin/sh
+          - -ec
+          - |
+            cat << EOF | jq ".nodeName = \"$NODE_NAME\"" > /app/configs/Tdarr_Node_Config.json
+            {
+              "nodeName": "",
+              "serverIP": "tdarr-server.servarr.svc.cluster.local",
+              "serverPort": "8266",
+              "handbrakePath": "",
+              "ffmpegPath": "",
+              "mkvpropeditPath": "",
+              "pathTranslators": [
+                {
+                  "server": "",
+                  "node": ""
+                }
+              ],
+              "logLevel": "INFO",
+              "priority": -1,
+              "cronPluginUpdate": ""
+            }
+            EOF
+        env:
+          - name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+
+    containers:
+      main:
+        image:
+          repository: ghcr.io/haveagitgat/tdarr_node
+          tag: 2.17.01
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: "0.5"
+            gpu.intel.com/i915: "1"
+          limits:
+            memory: 2048Mi
+            cpu: "6"
+            gpu.intel.com/i915: "1"
+        env:
+          - name: serverIP
+            value: "tdarr-server.servarr.svc.cluster.local"
+          - name: serverPort
+            value: "8266"
+          - name: inContainer
+            value: "true"
+          - name: ffmpegVersion
+            value: "6"
+          - name: TZ
+            value: "America/Toronto"
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+
+persistence:
+  config:
+    type: emptyDir
+    advancedMounts:
+      main: 
+        main:
+          - path: /app/configs
+        init-config:
+          - path: /app/configs
+
+  nfs-videos:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Media/Videos"
+    advancedMounts:
+      main: 
+        main:
+          - path: /mnt/data/Videos
+
+  nfs-scratch:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/Scratch"
+    advancedMounts:
+      main: 
+        main:
+          - path: /temp
