@@ -16,13 +16,6 @@ controllers:
           INIT_POSTGRES_PASS: "CrookScandalousLaurelMajestic"
           INIT_POSTGRES_DBNAME: "vaultwarden"
           INIT_POSTGRES_SUPER_PASS: "TrembleBulwarkBeautifulGossip"
-        resources:
-          limits:
-            memory: 256Mi
-            cpu: "500m"
-          requests:
-            memory: 64Mi
-            cpu: "1m"
 
     containers:
       main:
@@ -31,6 +24,13 @@ controllers:
           tag: 1.30.5
         env:
           DATABASE_URL: postgresql://vaultwarden:CrookScandalousLaurelMajestic@postgresql-cluster-rw.database.svc.cluster.local:5432/vaultwarden
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: "500m"
+          requests:
+            memory: 64Mi
+            cpu: "1m"
 
 service:
   main:
