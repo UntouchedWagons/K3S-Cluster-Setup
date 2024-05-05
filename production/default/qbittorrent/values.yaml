@@ -46,6 +46,13 @@ controllers:
                 env:
                     QBITTORRENT__PORT: "8080"
                     QBITTORRENT__BT_PORT: "41183"
+                resources:
+                    requests:
+                        memory: 512Mi
+                        cpu: 150m
+                    limits:
+                        memory: 1024Mi
+                        cpu: "1"
 service:
     main:
         controller: main
@@ -117,8 +124,8 @@ sops:
             dWtTc1Z6VkNMLzJSVDJ6WHphejhnNzQKDtvNyDAkFY9ZKVdHOO2vfEdhi92KOtq3
             JLzc2LW0tJqpZyL3aQgNSHZBa1bIKB3TTmyfGbg0TP+BhPfui29pbw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-20T18:06:16Z"
-    mac: ENC[AES256_GCM,data:Pik6YH8Y3uvnDHnMQNLqR4jNvfvVWu7jfG7Ti1BGJyzR5qytmNvaR468HZSTr9sM0aMc5vXTI32znf97CrMsFhsapFwWSeTC5SVQx1lpT+A6ef7Qtv1VwauNaGO7+Yw4L0GkD/LPe6rBqaYJPskW5GuJy1mj2yvt0QHlsSPIQlM=,iv:DevpSsgNOW63hY9044SBJjRjXW9xVyYQd0Ba7Ooe8RA=,tag:hguLvhjgGT75r2ncIaRA6g==,type:str]
+    lastmodified: "2024-05-04T22:36:15Z"
+    mac: ENC[AES256_GCM,data:GhRPGBhm1scyOec7n1wgFnImpR6Ehx92FKIXDveFlPjUfplrbuI7xkROvM+HgR7WdWVyYfxcFMgtXeJwkKX15rQ+nGleJWRMDWVPIeFS1JS3BxUomPZdjjSFAtjofgn5yEn3AQ+bhk1bEB1aQVMnEOjiKRWyDK/nXbUaMfW7Xqw=,iv:tELJf2A4yKIH9Y00jgTUSSqmhScwlwDfz1v/l9+rWpA=,tag:DjsNtNBsk8RY2CV261KW5A==,type:str]
     pgp: []
     encrypted_regex: ^(WIREGUARD_)
     version: 3.8.1

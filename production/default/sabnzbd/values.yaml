@@ -10,6 +10,13 @@ controllers:
         image:
           repository: ghcr.io/onedr0p/sabnzbd
           tag: 4.2.3
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: "500m"
+          requests:
+            memory: 128Mi
+            cpu: "1m"
 
 service:
   main:
