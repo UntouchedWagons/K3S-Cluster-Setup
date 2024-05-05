@@ -13,7 +13,14 @@ controllers:
         env:
           TZ: "America/Toronto"
         securityContext:
-            privileged: true
+          privileged: true
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: "5m"
+          limits:
+            memory: 256Mi
+            cpu: "500m"
 
 defaultPodOptions:
   nodeSelector:
