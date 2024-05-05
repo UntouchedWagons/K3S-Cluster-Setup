@@ -10,6 +10,13 @@ controllers:
         image:
           repository: corentinth/it-tools
           tag: 2023.12.21-5ed3693
+        resources:
+          requests:
+            memory: 16Mi
+            cpu: "1m"
+          limits:
+            memory: 32Mi
+            cpu: "50m"
 
 service:
   main:

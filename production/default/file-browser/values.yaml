@@ -16,6 +16,13 @@ controllers:
             drop:
             - all
             add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
+        resources:
+          requests:
+            memory: 16Mi
+            cpu: "1m"
+          limits:
+            memory: 256Mi
+            cpu: "500m"
 
 service:
   main:
