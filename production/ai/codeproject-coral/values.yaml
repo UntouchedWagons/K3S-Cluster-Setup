@@ -32,7 +32,7 @@ persistence:
     dataSourceRef:
       kind: ReplicationDestination
       apiGroup: volsync.backube
-      name: cpas-coral-config
+      name: cpas-coral
     advancedMounts:
       main: 
         main:
