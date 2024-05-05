@@ -12,6 +12,13 @@ controllers:
                     capabilities:
                         drop:
                             - all
+                resources:
+                    requests:
+                        memory: 32Mi
+                        cpu: 1m
+                    limits:
+                        memory: 48Mi
+                        cpu: 500m
 persistence:
     settings:
         type: configMap
@@ -41,8 +48,8 @@ sops:
             cnpwNFh4eEJJcUNLQ2tIYVU1MmdCUjAKSz96th82v7EkFRSqAJeLpsjwzaEsnopF
             0Z0FUPk5KXMg2y/tKimsUyjQGU03XlrsOhkXdnhuqfro2b1ljXxO7g==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-03T01:33:56Z"
-    mac: ENC[AES256_GCM,data:qm7hmmkNH8oG+9nqWBpWaOud4C43/VKIfqRLNPtBeCXm0rkcipWyzEls3Z/oC5TFZf5ZOQ6auBBXOmeVlxZShBYBNy0RsIXKRdH/G1YL768FrI/qaxwJy+/win8/UH2ykLgCeW5tAKAlU/QXhbToDQfSqT2Sp6GjPV4CGk4ommk=,iv:51WN2AGKqLpcLuXqLzA1Qbh7eNDXUxGnOWznnRpQM5c=,tag:mUs6mtXpDBo8w8YUP/ZUig==,type:str]
+    lastmodified: "2024-05-05T20:22:47Z"
+    mac: ENC[AES256_GCM,data:Wf+AkukxIwe+jjJ4dKVECI3F+2mUl1W50ZFW0jlolrrv2+Be1VFX4wPA5at8+M0h8Sj396NI5cvVOW8NA6p6k/+N2OmsDfnwsejuWN8ioPv+e+gC2fibbOz2lhX4naaJCx+JqURmi3ClhF1zEo4+sMtNFBRIfEVwqFvRocwGfvo=,iv:z9B/sZz33AWXxGgTlmabX2qXqhLhu9UFmlKhfNBNILs=,tag:0tsHm3S7c4eoac4CvKFJqQ==,type:str]
     pgp: []
     encrypted_regex: ^(data)$
     version: 3.8.1

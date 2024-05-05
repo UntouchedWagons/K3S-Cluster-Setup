@@ -41,6 +41,13 @@ controllers:
           SONARR__POSTGRES_LOG_DB: "sonarr-logs"
           SONARR__POSTGRES_USER: "sonarr"
           SONARR__POSTGRES_PASSWORD: "AuthorizeBrazenWakenVerify"
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: "10m"
+          limits:
+            memory: 1024Mi
+            cpu: "2"
 
 service:
   main:

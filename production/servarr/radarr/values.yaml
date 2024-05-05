@@ -41,6 +41,13 @@ controllers:
           RADARR__POSTGRES_LOG_DB: "radarr-logs"
           RADARR__POSTGRES_USER: "radarr"
           RADARR__POSTGRES_PASSWORD: "ReptileBubbleKissConversion"
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: "10m"
+          limits:
+            memory: 1024Mi
+            cpu: "2"
 
 service:
   main:
