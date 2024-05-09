@@ -118,7 +118,7 @@ helm upgrade --install tdarr-worker bjw-s/app-template --namespace servarr -f pr
 
 ```
 kubectl apply -f production/ai/
-helm upgrade --install cpas-coral bjw-s/app-template --namespace ai -f production/ai/codeproject-coral/values.yaml
+helm upgrade --install cpas bjw-s/app-template --namespace ai -f production/ai/codeproject/values.yaml
 ```
 
 ## Networking namespace

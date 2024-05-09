@@ -306,3 +306,25 @@ spec:
       - ReadWriteOnce
     cacheCapacity: 3Gi
     capacity: 3Gi
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: cpas-config
+  namespace: ai
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: cpas-config
+    copyMethod: Snapshot
+    storageClassName: ceph-block
+    cacheStorageClassName: ceph-block
+    volumeSnapshotClassName: ceph-block
+    cacheAccessModes:
+      - ReadWriteOnce
+    accessModes:
+      - ReadWriteOnce
+    cacheCapacity: 3Gi
+    capacity: 3Gi

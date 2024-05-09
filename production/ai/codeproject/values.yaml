@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: codeproject/ai-server
-          tag: cpu-2.5.3
+          tag: cpu-2.6.2
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -23,3 +23,23 @@ service:
     ports:
       http:
         port: 32168
+
+# ingress:
+#   main:
+#     annotations:
+#       gethomepage.dev/enabled: "true"
+#       gethomepage.dev/group: Services
+#       gethomepage.dev/icon: si-codeproject-#FF9900
+#       gethomepage.dev/name: Code Project AI
+#     hosts:
+#       - host: codeproject.services.untouchedwagons.com
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             service:
+#               identifier: main
+#               port: http
+#     tls:
+#       - hosts: 
+#         - untouchedwagons.com
+#         secretName: com-untouchedwagons-services
