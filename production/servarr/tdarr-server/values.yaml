@@ -15,6 +15,9 @@ controllers:
           repository: ghcr.io/haveagitgat/tdarr
           tag: 2.17.01
         resources:
+          requests:
+            memory: 2048Mi
+            cpu: "50m"
           limits:
             memory: 4096Mi
             cpu: "4"
