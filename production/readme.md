@@ -144,7 +144,7 @@ helm upgrade --install home-assistant bjw-s/app-template --namespace home-assist
 
 ```
 sops -d ./production/monitoring/prometheus/values.yaml | helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack --create-namespace --namespace monitoring --version 55.11.0 --values -
-helm upgrade --install grafana grafana/grafana --namespace monitoring --version 7.3.3 --values ./production/monitoring/grafana/values.yaml
+helm upgrade --install grafana grafana/grafana --namespace monitoring --version 7.3.11 --values ./production/monitoring/grafana/values.yaml
 kubectl apply -f production/monitoring/ceph/rule.yaml
 kubectl apply -f production/monitoring/cnpg/rule.yaml
 kubectl apply -f production/monitoring/exporter-idrac/

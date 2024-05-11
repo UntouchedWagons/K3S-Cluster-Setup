@@ -1,5 +1,9 @@
 persistence:
   enabled: true
+
+adminUser: admin
+adminPassword: UnfinishedRainbowRecedeInnumerable
+
 ingress:
   enabled: true
   ingressClassName: traefik
@@ -14,6 +18,7 @@ ingress:
     - secretName: com-untouchedwagons-services
       hosts:
         - grafana.services.untouchedwagons.com
+
 datasources:
   datasources.yaml:
     apiVersion: 1
@@ -23,3 +28,48 @@ datasources:
         url: http://prometheus-operated:9090
         access: proxy
         isDefault: true
+        uid: prometheus
+
+dashboards:
+  default:
+    k8s-nodes:
+      url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/K8S%20_%20Nodes.json
+    k8s-pods:
+      url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/K8s%20_%20Pod%20RAM%20Usage.json
+    k8s-resources:
+      url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/K8s%20_%20Resources.json
+    k8s-storage:
+      url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/K8s%20_%20Storage.json
+    flaresolverr:
+      url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/FlareSolverr.json
+    media:
+      url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/Media%20Dashboard.json
+    qbittorrent:
+      url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/Qbittorrent.json
+    blackbox:
+      url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/Blackbox%20Exporter.json
+    ceph:
+      url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/Ceph.json
+    cnpg:
+      url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/CNPG.json
+    linux:
+      url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/Linux%20Hosts.json
+    opnsense:
+      url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/OPNSense.json
+    technitium:
+      url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/Technitium.json
+    zfs:
+      url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/ZFS.json
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+    - name: 'default'
+      orgId: 1
+      folder: ''
+      type: file
+      disableDeletion: false
+      editable: true
+      options:
+        path: /var/lib/grafana/dashboards/default
