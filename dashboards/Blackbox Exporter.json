@@ -62,10 +62,7 @@
   "liveNow": false,
   "panels": [
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
+      "datasource": "prometheus",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -557,10 +554,7 @@
       "repeatDirection": "h",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
+          "datasource": "prometheus",
           "editorMode": "code",
           "expr": "probe_success{job=~\"$job\", module=\"http_2xx\"}",
           "format": "table",
@@ -570,10 +564,7 @@
           "refId": "A"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
+          "datasource": "prometheus",
           "editorMode": "code",
           "expr": "probe_http_ssl{job=~\"$job\", module=\"http_2xx\"}",
           "format": "table",
@@ -583,10 +574,7 @@
           "refId": "B"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
+          "datasource": "prometheus",
           "editorMode": "code",
           "expr": "(probe_ssl_earliest_cert_expiry{job=~\"$job\", module=\"http_2xx\"} - time()) / 3600 / 24",
           "format": "table",
@@ -596,10 +584,7 @@
           "refId": "C"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
+          "datasource": "prometheus",
           "editorMode": "code",
           "expr": "probe_http_status_code{job=~\"$job\", module=\"http_2xx\"} > 0",
           "format": "table",
@@ -609,10 +594,7 @@
           "refId": "D"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
+          "datasource": "prometheus",
           "editorMode": "code",
           "expr": "avg_over_time(probe_duration_seconds{job=~\"$job\", module=\"http_2xx\"}[1m])",
           "format": "table",
@@ -624,10 +606,7 @@
           "refId": "E"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
+          "datasource": "prometheus",
           "editorMode": "code",
           "expr": "probe_tls_version_info{job=~\"$job\", module=\"http_2xx\"}",
           "format": "table",
@@ -637,10 +616,7 @@
           "refId": "F"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
+          "datasource": "prometheus",
           "editorMode": "code",
           "expr": "avg_over_time(probe_dns_lookup_time_seconds{job=~\"$job\", module=\"http_2xx\"}[1m])",
           "format": "table",
@@ -760,10 +736,7 @@
       "type": "table"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
+      "datasource": "prometheus",
       "description": "Returns how long the probe took to complete in seconds",
       "fieldConfig": {
         "defaults": {
@@ -846,10 +819,7 @@
       "pluginVersion": "10.2.3",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
+          "datasource": "prometheus",
           "expr": "sum(probe_http_duration_seconds{job=~\"$job\", instance=~\"$instance\"}) by (instance)",
           "instant": false,
           "interval": "",
@@ -862,10 +832,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
+      "datasource": "prometheus",
       "description": "Duration of http request by phase, summed over all redirects",
       "fieldConfig": {
         "defaults": {
@@ -943,10 +910,7 @@
       "pluginVersion": "10.2.3",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
+          "datasource": "prometheus",
           "expr": "probe_http_duration_seconds{job=~\"$job\", instance=~\"$instance\"}",
           "interval": "",
           "intervalFactor": 2,
@@ -970,10 +934,7 @@
       {
         "allValue": ".+",
         "current": {},
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
-        },
+        "datasource": "prometheus",
         "definition": "label_values(probe_success, job)",
         "hide": 0,
         "includeAll": true,
@@ -994,10 +955,7 @@
       {
         "allValue": ".+",
         "current": {},
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
-        },
+        "datasource": "prometheus",
         "definition": "label_values(probe_success{job=~\"$job\", module=\"http_2xx\"},instance)",
         "hide": 0,
         "includeAll": false,

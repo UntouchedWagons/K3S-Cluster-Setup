@@ -76,7 +76,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -155,7 +155,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_cpu_temperature_celsius{job=\"scrapeConfig/monitoring/exporter-opnsense\",cpu=\"0\"}",
@@ -170,7 +170,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -236,7 +236,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_time_seconds{job=\"scrapeConfig/monitoring/exporter-opnsense\"} - node_boot_time_seconds{job=\"scrapeConfig/monitoring/exporter-opnsense\"}",
@@ -254,7 +254,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -319,7 +319,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "sum(rate(node_cpu_seconds_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",mode=\"idle\"}[1m])) * 100 / scalar(count(node_cpu_seconds_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",mode=\"user\"}))",
@@ -338,7 +338,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -403,7 +403,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_memory_free_bytes{job=\"scrapeConfig/monitoring/exporter-opnsense\"} + node_memory_inactive_bytes{job=\"scrapeConfig/monitoring/exporter-opnsense\"}",
@@ -422,7 +422,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -487,7 +487,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_memory_swap_size_bytes{job=\"scrapeConfig/monitoring/exporter-opnsense\"} - node_memory_swap_used_bytes{job=\"scrapeConfig/monitoring/exporter-opnsense\"}",
@@ -505,7 +505,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -570,7 +570,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "sum(node_filesystem_free_bytes{job=\"scrapeConfig/monitoring/exporter-opnsense\",fstype=\"zfs\",mountpoint=\"/\"})",
@@ -589,7 +589,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -718,7 +718,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_load1{job=\"scrapeConfig/monitoring/exporter-opnsense\"}",
@@ -732,7 +732,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_load5{job=\"scrapeConfig/monitoring/exporter-opnsense\"}",
@@ -747,7 +747,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_load15{job=\"opnsense-nodeexporter\"}",
@@ -766,7 +766,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -821,7 +821,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_exec_forks_total{job=\"scrapeConfig/monitoring/exporter-opnsense\"}",
@@ -836,7 +836,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_exec_system_calls_total{job=\"scrapeConfig/monitoring/exporter-opnsense\"}",
@@ -851,7 +851,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_exec_traps_total{job=\"scrapeConfig/monitoring/exporter-opnsense\"}",
@@ -871,7 +871,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -969,7 +969,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": " irate(node_exec_device_interrupts_total{job=\"scrapeConfig/monitoring/exporter-opnsense\"}[5m])",
@@ -988,7 +988,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1068,7 +1068,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_exec_context_switches_total{job=\"scrapeConfig/monitoring/exporter-opnsense\"}[$__rate_interval])",
@@ -1083,7 +1083,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1171,7 +1171,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "sum(rate(node_cpu_seconds_total{job=\"scrapeConfig/monitoring/exporter-opnsense\"}[1m])) by (mode) * 100 / scalar(count(node_cpu_seconds_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",mode=\"user\"}))",
@@ -1189,7 +1189,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1271,7 +1271,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_receive_bytes_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge1\"}[1m])",
@@ -1285,7 +1285,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "-irate(node_network_transmit_bytes_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge1\"}[1m])",
@@ -1304,7 +1304,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1386,7 +1386,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_receive_bytes_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge0\"}[1m])",
@@ -1400,7 +1400,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "-irate(node_network_transmit_bytes_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge0\"}[1m])",
@@ -1419,7 +1419,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1537,7 +1537,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_memory_active_bytes{job=\"scrapeConfig/monitoring/exporter-opnsense\"}",
@@ -1551,7 +1551,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_memory_buffer_bytes{job=\"scrapeConfig/monitoring/exporter-opnsense\"}",
@@ -1565,7 +1565,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_memory_cache_bytes{job=\"scrapeConfig/monitoring/exporter-opnsense\"}",
@@ -1580,7 +1580,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_memory_free_bytes{job=\"scrapeConfig/monitoring/exporter-opnsense\"}",
@@ -1595,7 +1595,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_memory_inactive_bytes{job=\"scrapeConfig/monitoring/exporter-opnsense\"}",
@@ -1610,7 +1610,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_memory_laundry_bytes{job=\"scrapeConfig/monitoring/exporter-opnsense\"}",
@@ -1629,7 +1629,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1710,7 +1710,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_receive_packets_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge1\"}[1m])",
@@ -1724,7 +1724,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_receive_multicast_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge1\"}[1m])",
@@ -1739,7 +1739,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_receive_drop_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge1\"}[1m])",
@@ -1754,7 +1754,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_receive_errs_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge1\"}[1m])",
@@ -1773,7 +1773,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1854,7 +1854,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_receive_packets_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge0\"}[1m])",
@@ -1868,7 +1868,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_receive_multicast_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge0\"}[1m])",
@@ -1883,7 +1883,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_receive_drop_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge0\"}[1m])",
@@ -1898,7 +1898,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_receive_errs_total{job=\"opnsense-nodeexporter\",device=\"bge0\"}[1m])",
@@ -1917,7 +1917,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2035,7 +2035,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_memory_swap_in_bytes_total{job=\"scrapeConfig/monitoring/exporter-opnsense\"}",
@@ -2049,7 +2049,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "node_memory_swap_size_bytes{job=\"scrapeConfig/monitoring/exporter-opnsense\"} - node_memory_swap_in_bytes_total{job=\"scrapeConfig/monitoring/exporter-opnsense\"}",
@@ -2067,7 +2067,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2148,7 +2148,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_transmit_packets_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge1\"}[1m])",
@@ -2162,7 +2162,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_transmit_multicast_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge1\"}[1m])",
@@ -2177,7 +2177,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_transmit_drop_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge1\"}[1m])",
@@ -2192,7 +2192,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_transmit_errs_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge1\"}[1m])",
@@ -2211,7 +2211,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2292,7 +2292,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_transmit_packets_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge0\"}[1m])",
@@ -2306,7 +2306,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_transmit_multicast_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge0\"}[1m])",
@@ -2321,7 +2321,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_transmit_drop_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge0\"}[1m])",
@@ -2336,7 +2336,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_transmit_errs_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"bge0\"}[1m])",
@@ -2355,7 +2355,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2436,7 +2436,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_receive_bytes_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"vlan03\"}[1m])",
@@ -2450,7 +2450,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "-irate(node_network_transmit_bytes_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"vlan03\"}[1m])",
@@ -2469,7 +2469,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2550,7 +2550,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "irate(node_network_receive_bytes_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"vlan04\"}[1m])",
@@ -2564,7 +2564,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "-irate(node_network_transmit_bytes_total{job=\"scrapeConfig/monitoring/exporter-opnsense\",device=\"vlan04\"}[1m])",
