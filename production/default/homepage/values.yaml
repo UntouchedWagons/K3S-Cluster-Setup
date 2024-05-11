@@ -99,6 +99,9 @@ config:
         - OPNSense:
             icon: opnsense.png
             href: http://opnsense.internal.untouchedwagons.com
+        - PiKVM:
+            icon: pikvm.png
+            href: https://pikvm.internal.untouchedwagons.com/
         - Unifi:
             icon: unifi.png
             href: https://unifi.internal.untouchedwagons.com:8443
@@ -190,4 +193,4 @@ resources:
     cpu: 10m
   limits:
     memory: 256Mi
-    cpu: 500m
+    cpu: 1
