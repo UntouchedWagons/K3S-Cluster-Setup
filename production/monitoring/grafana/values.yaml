@@ -1,5 +1,6 @@
 persistence:
   enabled: true
+  size: 128Mi
 
 adminUser: admin
 adminPassword: UnfinishedRainbowRecedeInnumerable
