@@ -22,15 +22,15 @@ helm repo update
 # Cert-manager
 
 ```
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.3/cert-manager.crds.yaml
-helm upgrade --install cert-manager jetstack/cert-manager --create-namespace --namespace cert-manager --version v1.14.3 --values production/cert-manager/values.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.5/cert-manager.crds.yaml
+helm upgrade --install cert-manager jetstack/cert-manager --create-namespace --namespace cert-manager --version v1.14.5 --values production/cert-manager/values.yaml
 sops -d ./production/cert-manager/02-cert-manager.yaml | kubectl apply -f -
 ```
 
 # Traefik
 
 ```
-helm upgrade --install traefik traefik/traefik --create-namespace --namespace traefik --values production/traefik/values.yaml --version 27.0.2
+helm upgrade --install traefik traefik/traefik --create-namespace --namespace traefik --values production/traefik/values.yaml --version 28.0.0
 ```
 
 # Volume snapshots
