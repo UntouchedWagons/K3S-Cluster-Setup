@@ -195,6 +195,7 @@ spec:
       - vault.internal.untouchedwagons.com:22
       - storage.internal.untouchedwagons.com:22
       - proxmox.internal.untouchedwagons.com:22
+      - pikvm.internal.untouchedwagons.com:22
   relabelings:
     - action: replace
       sourceLabels: [__address__]

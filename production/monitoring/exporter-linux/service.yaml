@@ -17,3 +17,4 @@ spec:
       - technitium.internal.untouchedwagons.com:9100
       - proxmox.internal.untouchedwagons.com:9100
       - storage.internal.untouchedwagons.com:9100
+      - pikvm.internal.untouchedwagons.com:9100
