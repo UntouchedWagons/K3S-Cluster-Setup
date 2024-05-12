@@ -108,9 +108,6 @@ config:
         - UPS Remote Management Card:
             icon: mdi-car-battery
             href: http://rmcard205.internal.untouchedwagons.com
-        - Dell R220 iDRAC:
-            icon: idrac.png
-            href: https://idrac-cjtyp22.internal.untouchedwagons.com
         - Dell R420 iDRAC:
             icon: idrac.png
             href: https://idrac-7p57cz1.internal.untouchedwagons.com
