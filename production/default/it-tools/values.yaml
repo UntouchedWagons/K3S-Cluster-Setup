@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: corentinth/it-tools
-          tag: 2023.12.21-5ed3693
+          tag: 2024.5.13-a0bc346
         resources:
           requests:
             memory: 16Mi
