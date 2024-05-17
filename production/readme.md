@@ -58,8 +58,7 @@ kubectl apply -f production/volsync-system/replicationsource.yaml
 # Node Feature Discovery
 
 ```
-helm upgrade --install node-feature-discovery node-feature-discovery/node-feature-discovery --values production/default/node-feature-discovery/values.yaml
-kubectl apply -f production/default/node-feature-discovery/rules.yaml
+helm upgrade --install --create-namespace -n node-feature-discovery node-feature-discovery node-feature-discovery/node-feature-discovery --values production/node-feature-discovery/node-feature-discovery/values.yaml
 ```
 
 # Intel GPU Stuff
