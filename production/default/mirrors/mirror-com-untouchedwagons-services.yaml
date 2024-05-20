@@ -1,0 +1,15 @@
+apiVersion: mirrors.kts.studio/v1alpha2
+kind: SecretMirror
+metadata:
+  name: com-untouchedwagons-services
+spec:
+  source:
+    name: com-untouchedwagons-services
+  destination:
+    namespaces:
+      - database
+      - home-assistant
+      - monitoring
+      - rook-ceph
+      - servarr
+      - traefik

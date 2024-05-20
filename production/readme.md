@@ -16,6 +16,7 @@ helm repo add bjw-s https://bjw-s.github.io/helm-charts
 helm repo add jameswynn https://jameswynn.github.io/helm-charts
 helm repo add piraeus-charts https://piraeus.io/helm-charts
 helm repo add backube https://backube.github.io/helm-charts/
+helm repo add kts https://charts.kts.studio
 helm repo update
 ```
 
@@ -25,6 +26,13 @@ helm repo update
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.5/cert-manager.crds.yaml
 helm upgrade --install cert-manager jetstack/cert-manager --create-namespace --namespace cert-manager --version v1.14.5 --values production/cert-manager/values.yaml
 sops -d ./production/cert-manager/02-cert-manager.yaml | kubectl apply -f -
+```
+
+# Secret mirroring
+
+```
+helm upgrade --install mirrors kts/mirrors
+kubectl apply -f production/default/mirrors/mirror-com-untouchedwagons-services.yaml
 ```
 
 # Traefik
