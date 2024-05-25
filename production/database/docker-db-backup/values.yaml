@@ -16,6 +16,7 @@ controllers:
           USER_DBBACKUP: "1000"
           GROUP_DBBACKUP: "1000"
           CONTAINER_ENABLE_MONITORING: "FALSE"
+          DEFAULT_CLEANUP_TIME: "43200"
           DB01_TYPE: "postgres"
           DB01_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
           DB01_NAME: "ALL"
