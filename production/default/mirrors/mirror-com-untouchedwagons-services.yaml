@@ -7,6 +7,7 @@ spec:
     name: com-untouchedwagons-services
   destination:
     namespaces:
+      - ai
       - database
       - home-assistant
       - monitoring
