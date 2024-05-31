@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/flaresolverr/flaresolverr
-          tag: v3.3.17
+          tag: v3.3.19
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
