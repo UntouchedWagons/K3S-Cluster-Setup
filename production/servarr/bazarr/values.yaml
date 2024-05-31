@@ -5,18 +5,6 @@ controllers:
   main:
     strategy: Recreate
 
-    initContainers:
-      postgres-init:
-        image:
-          repository: ghcr.io/onedr0p/postgres-init
-          tag: 15.5
-        env:
-          INIT_POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
-          INIT_POSTGRES_USER: "bazarr"
-          INIT_POSTGRES_PASS: "GrouseStampAbnormalSpurious"
-          INIT_POSTGRES_DBNAME: "bazarr-main"
-          INIT_POSTGRES_SUPER_PASS: "TrembleBulwarkBeautifulGossip"
-
     containers:
       main:
         image:
@@ -29,13 +17,9 @@ controllers:
             - all
             add: ['CHOWN', 'FOWNER', 'SETGID', 'SETUID']
         env:
-          BAZARR__API_KEY: "b9f8668f49e13b76f2c872e5bcaf2048"
+          BAZARR__API_KEY: "c513687743ee61e9da0a8bf2f0d649dd"
           BAZARR__AUTHENTICATION_METHOD: "Forms"
           BAZARR__AUTHENTICATION_REQUIRED: "DisabledForLocalAddresses"
-          BAZARR__POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
-          BAZARR__POSTGRES_MAIN_DB: "bazarr-main"
-          BAZARR__POSTGRES_USER: "bazarr"
-          BAZARR__POSTGRES_PASSWORD: "GrouseStampAbnormalSpurious"
         resources:
           requests:
             memory: 256Mi
@@ -60,7 +44,7 @@ ingress:
       gethomepage.dev/name: Bazarr
       gethomepage.dev/widget.type: "bazarr"
       gethomepage.dev/widget.url: "https://bazarr.services.untouchedwagons.com"
-      gethomepage.dev/widget.key: "b9f8668f49e13b76f2c872e5bcaf2048"
+      gethomepage.dev/widget.key: "c513687743ee61e9da0a8bf2f0d649dd"
     hosts:
       - host: bazarr.services.untouchedwagons.com
         paths:

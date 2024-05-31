@@ -21,7 +21,7 @@ controllers:
         env:
           PORT: "9707"
           URL: "http://bazarr.servarr.svc.cluster.local:6767"
-          APIKEY: "b9f8668f49e13b76f2c872e5bcaf2048"
+          APIKEY: "c513687743ee61e9da0a8bf2f0d649dd"
 
 service:
   main:
