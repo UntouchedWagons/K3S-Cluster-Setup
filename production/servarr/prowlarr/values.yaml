@@ -9,18 +9,6 @@ controllers:
   main:
     strategy: Recreate
 
-    initContainers:
-      postgres-init:
-        image:
-          repository: ghcr.io/onedr0p/postgres-init
-          tag: 15.5
-        env:
-          INIT_POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
-          INIT_POSTGRES_USER: "prowlarr"
-          INIT_POSTGRES_PASS: "CulpableRadianceCavityDespotic"
-          INIT_POSTGRES_DBNAME: "prowlarr-main prowlarr-logs"
-          INIT_POSTGRES_SUPER_PASS: "TrembleBulwarkBeautifulGossip"
-
     containers:
       main:
         image:
@@ -36,11 +24,6 @@ controllers:
           PROWLARR__API_KEY: "fa88672ddbeb4b5683a009951076bf38"
           PROWLARR__AUTHENTICATION_METHOD: "Forms"
           PROWLARR__AUTHENTICATION_REQUIRED: "DisabledForLocalAddresses"
-          PROWLARR__POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
-          PROWLARR__POSTGRES_MAIN_DB: "prowlarr-main"
-          PROWLARR__POSTGRES_LOG_DB: "prowlarr-logs"
-          PROWLARR__POSTGRES_USER: "prowlarr"
-          PROWLARR__POSTGRES_PASSWORD: "CulpableRadianceCavityDespotic"
         resources:
           requests:
             memory: 256Mi
