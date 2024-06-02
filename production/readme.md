@@ -86,12 +86,6 @@ helm upgrade --install pgadmin4 bjw-s/app-template --namespace database -f produ
 helm upgrade --install docker-db-backup bjw-s/app-template --namespace database -f production/database/docker-db-backup/values.yaml
 ```
 
-# Restore PostgreSQL databases
-
-```
-kubectl apply -f production/database/postgresql-restore/
-```
-
 # Services
 
 ## Default namespace

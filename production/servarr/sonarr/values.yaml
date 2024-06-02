@@ -9,18 +9,6 @@ controllers:
   main:
     strategy: Recreate
 
-    initContainers:
-      postgres-init:
-        image:
-          repository: ghcr.io/onedr0p/postgres-init
-          tag: 15.5
-        env:
-          INIT_POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
-          INIT_POSTGRES_USER: "sonarr"
-          INIT_POSTGRES_PASS: "AuthorizeBrazenWakenVerify"
-          INIT_POSTGRES_DBNAME: "sonarr-main sonarr-logs"
-          INIT_POSTGRES_SUPER_PASS: "TrembleBulwarkBeautifulGossip"
-
     containers:
       main:
         image:
@@ -36,11 +24,6 @@ controllers:
           SONARR__API_KEY: "0fe183143c5745269ae3b9ea163c8f85"
           SONARR__AUTHENTICATION_METHOD: "Forms"
           SONARR__AUTHENTICATION_REQUIRED: "DisabledForLocalAddresses"
-          SONARR__POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
-          SONARR__POSTGRES_MAIN_DB: "sonarr-main"
-          SONARR__POSTGRES_LOG_DB: "sonarr-logs"
-          SONARR__POSTGRES_USER: "sonarr"
-          SONARR__POSTGRES_PASSWORD: "AuthorizeBrazenWakenVerify"
         resources:
           requests:
             memory: 128Mi
