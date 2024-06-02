@@ -8,7 +8,6 @@ helm repo add traefik https://helm.traefik.io/traefik
 helm repo add jetstack https://charts.jetstack.io
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo add rook-release https://charts.rook.io/release
-helm repo add cloudnative-pg https://cloudnative-pg.io/charts
 helm repo add intel https://intel.github.io/helm-charts
 helm repo add node-feature-discovery https://kubernetes-sigs.github.io/node-feature-discovery/charts
 helm repo add grafana https://grafana.github.io/helm-charts
@@ -76,16 +75,6 @@ helm upgrade --install device-plugin-operator intel/intel-device-plugins-operato
 helm upgrade --install gpu-device-plugin intel/intel-device-plugins-gpu --values k3s-intel/values.yaml
 ```
 
-# PostgreSQL
-
-```
-helm upgrade --install cnpg --create-namespace --namespace cnpg-system cloudnative-pg/cloudnative-pg
-kubectl create namespace database
-kubectl apply -f production/database/postgresql
-helm upgrade --install pgadmin4 bjw-s/app-template --namespace database -f production/database/pgadmin4/values.yaml
-helm upgrade --install docker-db-backup bjw-s/app-template --namespace database -f production/database/docker-db-backup/values.yaml
-```
-
 # Services
 
 ## Default namespace
@@ -147,7 +136,6 @@ helm upgrade --install home-assistant bjw-s/app-template --namespace home-assist
 sops -d ./production/monitoring/prometheus/values.yaml | helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack --create-namespace --namespace monitoring --version 55.11.0 --values -
 helm upgrade --install grafana grafana/grafana --namespace monitoring --version 7.3.11 --values ./production/monitoring/grafana/values.yaml
 kubectl apply -f production/monitoring/ceph/rule.yaml
-kubectl apply -f production/monitoring/cnpg/rule.yaml
 kubectl apply -f production/monitoring/exporter-idrac/
 kubectl apply -f production/monitoring/exporter-flaresolverr/
 kubectl apply -f production/monitoring/exporter-linux/

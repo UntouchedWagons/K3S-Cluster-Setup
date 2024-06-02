@@ -51,8 +51,6 @@ dashboards:
       url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/Blackbox%20Exporter.json
     ceph:
       url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/Ceph.json
-    cnpg:
-      url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/CNPG.json
     linux:
       url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/Linux%20Hosts.json
     opnsense:
