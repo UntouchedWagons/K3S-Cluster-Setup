@@ -5,25 +5,11 @@ controllers:
   main:
     strategy: Recreate
 
-    initContainers:
-      postgres-init:
-        image:
-          repository: ghcr.io/onedr0p/postgres-init
-          tag: 15.5
-        env:
-          INIT_POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
-          INIT_POSTGRES_USER: "vaultwarden"
-          INIT_POSTGRES_PASS: "CrookScandalousLaurelMajestic"
-          INIT_POSTGRES_DBNAME: "vaultwarden"
-          INIT_POSTGRES_SUPER_PASS: "TrembleBulwarkBeautifulGossip"
-
     containers:
       main:
         image:
           repository: vaultwarden/server
           tag: 1.30.5
-        env:
-          DATABASE_URL: postgresql://vaultwarden:CrookScandalousLaurelMajestic@postgresql-cluster-rw.database.svc.cluster.local:5432/vaultwarden
         resources:
           limits:
             memory: 256Mi
