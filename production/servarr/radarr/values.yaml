@@ -9,18 +9,6 @@ controllers:
   main:
     strategy: Recreate
 
-    initContainers:
-      postgres-init:
-        image:
-          repository: ghcr.io/onedr0p/postgres-init
-          tag: 15.5
-        env:
-          INIT_POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
-          INIT_POSTGRES_USER: "radarr"
-          INIT_POSTGRES_PASS: "ReptileBubbleKissConversion"
-          INIT_POSTGRES_DBNAME: "radarr-main radarr-logs"
-          INIT_POSTGRES_SUPER_PASS: "TrembleBulwarkBeautifulGossip"
-
     containers:
       main:
         image:
@@ -36,11 +24,6 @@ controllers:
           RADARR__API_KEY: "0416a6d418be4cd7b9b64e3862aa436a"
           RADARR__AUTHENTICATION_METHOD: "Forms"
           RADARR__AUTHENTICATION_REQUIRED: "DisabledForLocalAddresses"
-          RADARR__POSTGRES_HOST: "postgresql-cluster-rw.database.svc.cluster.local"
-          RADARR__POSTGRES_MAIN_DB: "radarr-main"
-          RADARR__POSTGRES_LOG_DB: "radarr-logs"
-          RADARR__POSTGRES_USER: "radarr"
-          RADARR__POSTGRES_PASSWORD: "ReptileBubbleKissConversion"
         resources:
           requests:
             memory: 128Mi
