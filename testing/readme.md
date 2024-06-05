@@ -17,10 +17,14 @@ helm install cert-manager jetstack/cert-manager --namespace cert-manager --value
 sops -d ./testing/cert-manager/02-cert-manager.yaml | kubectl apply -f -
 ```
 
-# Traefik
+# Nginx Ingress
 
 ```
-helm repo add traefik https://helm.traefik.io/traefik
-helm repo update
-helm install traefik traefik/traefik --create-namespace --namespace traefik --values testing/traefik/values.yaml --version 28.0.0
+helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx --create-namespace --namespace nginx --version 4.10.1
+```
+
+# Nginx
+
+```
+helm upgrade --install nginx bjw-s/app-template -f testing/default/nginx/values.yaml
 ```

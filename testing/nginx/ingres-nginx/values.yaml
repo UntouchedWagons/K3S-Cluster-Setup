@@ -1,0 +1,7 @@
+
+controller:
+  replicaCount: 3
+  watchIngressWithoutClass: true
+
+  metrics:
+    enabled: true
