@@ -1,5 +1,5 @@
 image:
-    tag: 2024.2.1
+    tag: 2024.6.0
 managed:
     token: ENC[AES256_GCM,data:QzVfbKqRv3UTtGCvpplafJmV5uFVXTshNKHLQdn+O94Qswz/kpY7hL978iYgX83+uV/Ui3BmG7J+EKgxBSFjThFz7PU66OW7JX4VXjwnfLzgGJyRx/BoYLj8Oz+c+x0j3+QAsHPOgfopbaixupBdVr0pKDprYuBJkl4sijiePYMB6kgmjZ5LpmPrRtzb54XMiTFXRn92JDFfk3kZkusgO9ZtEj15RyIgpHxoWpeVkCQhOqTRZUWZRg==,iv:38FWdm9YKslbMWWYsrI2iKpP6q/mJYgA0lxgSwCsSoI=,tag:Ztd7BakbLVBA7S4qcHf1Zg==,type:str]
 sops:
@@ -17,8 +17,8 @@ sops:
             SXF4Ym52MVpmOEk3eFBheFFITk1pRlEK5m6uOQO+pvsTHjyRKS405cB+8d3lkv+j
             kqZsiwBjOm20XZat9r0IIe5V9MegxKXKnfBaDQBEaLBMEf6mG4IOAQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-03-04T19:06:02Z"
-    mac: ENC[AES256_GCM,data:cARvh+2bOAE1fWja7JucladbS7pGugOXaRLOWLsB9Np+pXYp3lFkj5LNNnV0vVTpH3wR0h2BQgSX+PN/N6IyzsKCidsa8UQlLkZA15uMR7yWl+cJ5xHTREyiPaR+c1pjktwR/yIyYbU9O+cOz3FG6h00q+1DuV8d1D9fB0ruWZY=,iv:52ZWmWXtahGpWjqcF8AC7n2jAT3ThfQka0bFhPrXk7s=,tag:fsIAqB1CHpBnA1OQ0ucaRg==,type:str]
+    lastmodified: "2024-06-05T15:41:52Z"
+    mac: ENC[AES256_GCM,data:uhC/AuZn2KYP4Gil7Y8B3QUKGgAt5rjtIOHk3Z39pbFq9vfTXfdvEFMhYBG7dy+IWmJ8c/vr8jQqHlW5JC5xuURFaDVdpmtJ4oNiK/Jo2tdMIEnljGy9CJaUboI6ZQ7aTKqfZfhqEx08ynopLQro0LE2LZWf7LGih7dr/U6fX30=,iv:ktzHHpn1TUL5H5MkPo/rNIHEsh3mOCnOoNVGZuXFIxw=,tag:CHpmqoz7rNe56ux/N4lrHQ==,type:str]
     pgp: []
     encrypted_regex: ^(token)$
     version: 3.8.1
