@@ -45,7 +45,7 @@ spec:
     spec:
       containers:
         - name: exporter-idrac
-          image: mrlhansen/idrac_exporter:1.2.1
+          image: mrlhansen/idrac_exporter:1.3.0
           volumeMounts:
             - mountPath: /etc/prometheus/
               name: idrac-config
@@ -98,22 +98,6 @@ spec:
   params:
     target:
       - idrac-cjtyp22.internal.untouchedwagons.com
----
-apiVersion: monitoring.coreos.com/v1alpha1
-kind: ScrapeConfig
-metadata:
-  name: exporter-idrac-7p57cz1
-  namespace: monitoring
-spec:
-  scrapeTimeout: 1m
-  scrapeInterval: 2m
-  staticConfigs:
-    - targets:
-        - exporter-idrac.monitoring.svc.cluster.local:9348
-  metricsPath: /metrics
-  params:
-    target:
-      - idrac-7p57cz1.internal.untouchedwagons.com
 ---
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
