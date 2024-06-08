@@ -62,6 +62,12 @@ kubectl apply -f production/volsync-system/replicationdestination.yaml
 kubectl apply -f production/volsync-system/replicationsource.yaml
 ```
 
+# Version Checker
+
+```
+sops -d production/version-checker/version-checker/values.yaml | helm upgrade --install version-checker --create-namespace --namespace version-checker jetstack/version-checker --version 0.5.5 --values -
+```
+
 # Node Feature Discovery
 
 ```
