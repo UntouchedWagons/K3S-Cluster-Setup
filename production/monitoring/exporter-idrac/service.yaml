@@ -86,7 +86,7 @@ spec:
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: exporter-idrac-cjtyp22
+  name: exporter-idrac-7p57cz1
   namespace: monitoring
 spec:
   scrapeTimeout: 1m
@@ -97,7 +97,7 @@ spec:
   metricsPath: /metrics
   params:
     target:
-      - idrac-cjtyp22.internal.untouchedwagons.com
+      - idrac-7p57cz1.internal.untouchedwagons.com
 ---
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
