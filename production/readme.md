@@ -43,7 +43,7 @@ helm upgrade --install traefik traefik/traefik --create-namespace --namespace tr
 # Volume snapshots
 
 ```
-helm install snapshot-controller piraeus-charts/snapshot-controller
+helm upgrade --install snapshot-controller piraeus-charts/snapshot-controller
 ```
 
 # Ceph
