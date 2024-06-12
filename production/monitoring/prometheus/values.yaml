@@ -22,6 +22,7 @@ alertmanager:
             gethomepage.dev/group: Monitoring
             gethomepage.dev/icon: alertmanager.png
             gethomepage.dev/name: Alert Manager
+            gethomepage.dev/pod-selector: app.kubernetes.io/name=alertmanager
         hosts:
             - alertmanager.services.untouchedwagons.com
         tls:
@@ -129,6 +130,7 @@ prometheus:
             gethomepage.dev/name: Prometheus
             gethomepage.dev/widget.type: prometheus
             gethomepage.dev/widget.url: https://prometheus.services.untouchedwagons.com
+            gethomepage.dev/pod-selector: app.kubernetes.io/name=prometheus
         hosts:
             - prometheus.services.untouchedwagons.com
         tls:
@@ -186,8 +188,8 @@ sops:
             M211eCsrcWtaNEp3d0x1eXdHaG53d0EKtfbifPxrHnzz2C1hVDs8n3dH2SbxefZo
             vSSzdlHrGIF/e+FsC7LYj6qZX0T//F9mhbd8IFaNi1T+JCH0zojc1A==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-03T23:17:31Z"
-    mac: ENC[AES256_GCM,data:DZ57AmCFQyGhsjn+ROaDHHgJ/Sq2UtZcfnZEiUty6haOJlQlotkRLdGgnbvshAUCwyq3g5o3AuwHv6THypLA4EeMta3asJldvUpBy4BXMT7TDmwjq5upiJbknL1maYc7dEWDl9n72ML2uC1RWEjgaIbjkuFew+mDJyHNyQ8Y5yA=,iv:8OnOlZTt9oikayf0BfPPPmMZLUBzrRcZ5mO17iF+fms=,tag:W7wBqIixwYlHJvuoisCVsA==,type:str]
+    lastmodified: "2024-06-12T20:39:31Z"
+    mac: ENC[AES256_GCM,data:oq6qJPRsNz1Z0hf/fpQzvzs5sb+QkjqjvKe6LbV4IE2Lc0PGfkWexkIchUZssHU+QPGE0nJ5C9A2UigWLV5Z0XDb9BBoltzWk9k1gJtojBSDnU+WGUa83GyF7CWKFE4COJuWutphcDKP8dw3/wd00YL0UZoeba87C4S82snJ8jk=,iv:/814EFtK4/m3HuFinRhGi9fuySV/CnNE/0cy7GH3hHs=,tag:3q8aPsL0NuO1zbZVy2Eyug==,type:str]
     pgp: []
     encrypted_regex: ^(pushover_configs)$
     version: 3.8.1
