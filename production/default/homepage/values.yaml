@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/gethomepage/homepage
-  tag: v0.9.1
+  tag: v0.9.2
 
 enableRbac: true
 
@@ -119,6 +119,9 @@ config:
             href: https://idrac-jnky182.internal.untouchedwagons.com
 
     - Security:
+        - Driveway camera:
+            icon: mdi-cctv
+            href: https://driveway.internal.untouchedwagons.com
         - Front door camera:
             icon: mdi-cctv
             href: https://Camera-Front-Door.internal.untouchedwagons.com
