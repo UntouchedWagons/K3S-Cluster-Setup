@@ -20,7 +20,7 @@ sops -d ./testing/cert-manager/02-cert-manager.yaml | kubectl apply -f -
 # Nginx Ingress
 
 ```
-helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx --create-namespace --namespace nginx --version 4.10.1
+helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx --create-namespace --namespace nginx --version 4.10.1 --values testing/nginx/ingres-nginx/values.yaml
 ```
 
 # Nginx
