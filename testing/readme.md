@@ -12,8 +12,7 @@ chmod 700 get_helm.sh
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
 kubectl create namespace cert-manager
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.5/cert-manager.crds.yaml
-helm install cert-manager jetstack/cert-manager --namespace cert-manager --values testing/cert-manager/01-values.yaml --version v1.14.5
+helm upgrade --install cert-manager jetstack/cert-manager --namespace cert-manager --values testing/cert-manager/values.yaml --version v1.14.5
 sops -d ./testing/cert-manager/02-cert-manager.yaml | kubectl apply -f -
 ```
 
@@ -39,7 +38,7 @@ helm upgrade --install nginx bjw-s/app-template -f testing/default/nginx/values.
 # Longhorn
 
 ```
-helm install longhorn longhorn/longhorn --namespace longhorn-system --create-namespace --version 1.6.2 --values testing/longhorn-system/values.yaml
+helm upgrade --install longhorn longhorn/longhorn --namespace longhorn-system --create-namespace --version 1.6.2 --values testing/longhorn-system/values.yaml
 ```
 
 # Volsync System
