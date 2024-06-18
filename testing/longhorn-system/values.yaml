@@ -1,0 +1,9 @@
+
+persistence:
+  defaultDataLocality: "best-effort"
+
+ingress:
+  enabled: true
+  host: longhorn.testing.untouchedwagons.com
+  tls: true
+  tlsSecret: testing-certificate

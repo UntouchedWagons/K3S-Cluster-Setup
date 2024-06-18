@@ -17,6 +17,13 @@ helm install cert-manager jetstack/cert-manager --namespace cert-manager --value
 sops -d ./testing/cert-manager/02-cert-manager.yaml | kubectl apply -f -
 ```
 
+# Secret mirroring
+
+```
+helm upgrade --install mirrors kts/mirrors
+kubectl apply -f testing/default/mirrors/mirror-tls-secret.yaml
+```
+
 # Nginx Ingress
 
 ```
@@ -27,4 +34,18 @@ helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx --create-namesp
 
 ```
 helm upgrade --install nginx bjw-s/app-template -f testing/default/nginx/values.yaml
+```
+
+# Longhorn
+
+```
+helm install longhorn longhorn/longhorn --namespace longhorn-system --create-namespace --version 1.6.2 --values testing/longhorn-system/values.yaml
+```
+
+# Volsync System
+
+```
+helm upgrade --install --create-namespace -n volsync-system volsync backube/volsync
+kubectl apply -f testing/namespace.yaml
+kubectl apply -f testing/default/volsync-system/volumesnapshotclass.yaml
 ```
