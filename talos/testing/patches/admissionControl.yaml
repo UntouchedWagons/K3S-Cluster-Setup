@@ -1,0 +1,10 @@
+cluster:
+  apiServer:
+    admissionControl:
+      - name: PodSecurity # Name is the name of the admission controller.
+        # Configuration is an embedded configuration object to be used as the plugin's
+        configuration:
+          apiVersion: pod-security.admission.config.k8s.io/v1alpha1
+          defaults:
+            warn: privileged
+            enforce: privileged

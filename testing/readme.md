@@ -6,6 +6,12 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 ```
 
+# MetalLB
+
+```
+kubectl apply -f testing/metallb-system/ip-address-pool.yaml
+```
+
 # Cert-manager
 
 ```

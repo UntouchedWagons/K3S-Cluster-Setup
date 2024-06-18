@@ -1,1 +1,2 @@
-inventory/dev-cluster
+talos/testing/secrets.yaml
+talos/testing/rendered
