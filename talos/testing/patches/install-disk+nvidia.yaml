@@ -1,0 +1,5 @@
+---
+machine:
+  install:
+    disk: /dev/vda
+    image: factory.talos.dev/installer/8fcc60a4248fbdaf4819399f07634f66d0f84435b0f62e7b2a0353edbd027f14:v1.7.4

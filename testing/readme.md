@@ -54,3 +54,16 @@ helm upgrade --install --create-namespace -n volsync-system volsync backube/vols
 kubectl apply -f testing/namespace.yaml
 kubectl apply -f testing/default/volsync-system/volumesnapshotclass.yaml
 ```
+
+# Node Feature Discovery
+```
+helm upgrade --install --create-namespace -n node-feature-discovery node-feature-discovery node-feature-discovery/node-feature-discovery
+```
+
+# NVidia stuff
+
+```
+kubectl apply -f testing/nvidia/nvidia-runtime.yaml
+helm install nvidia-device-plugin nvdp/nvidia-device-plugin --version=0.13.0 --create-namespace --namespace nvidia --values testing/nvidia/nvidia-device-plugin/values.yaml
+kubectl apply -f testing/nvidia/nvidia-smi.yaml
+```
