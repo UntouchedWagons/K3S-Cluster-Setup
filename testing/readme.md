@@ -17,8 +17,8 @@ kubectl apply -f testing/metallb-system/ip-address-pool.yaml
 ```
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
-kubectl create namespace cert-manager
-helm upgrade --install cert-manager jetstack/cert-manager --namespace cert-manager --values testing/cert-manager/values.yaml --version v1.14.5
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.5/cert-manager.crds.yaml
+helm upgrade --install cert-manager jetstack/cert-manager --create-namespace --namespace cert-manager --values testing/cert-manager/values.yaml --version v1.14.5
 sops -d ./testing/cert-manager/02-cert-manager.yaml | kubectl apply -f -
 ```
 
