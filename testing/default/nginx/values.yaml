@@ -32,4 +32,4 @@ ingress:
     tls:
       - hosts: 
         - untouchedwagons.com
-        secretName: testing-certificate
+        secretName: com-untouchedwagons-testing

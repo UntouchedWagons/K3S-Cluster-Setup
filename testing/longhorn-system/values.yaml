@@ -6,4 +6,4 @@ ingress:
   enabled: true
   host: longhorn.testing.untouchedwagons.com
   tls: true
-  tlsSecret: testing-certificate
+  tlsSecret: com-untouchedwagons-testing
