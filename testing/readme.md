@@ -51,7 +51,7 @@ helm upgrade --install longhorn longhorn/longhorn --namespace longhorn-system --
 
 ```
 helm upgrade --install --create-namespace -n volsync-system volsync backube/volsync
-kubectl apply -f testing/namespace.yaml
+kubectl apply -f testing/default/namespace.yaml
 kubectl apply -f testing/default/volsync-system/volumesnapshotclass.yaml
 ```
 
