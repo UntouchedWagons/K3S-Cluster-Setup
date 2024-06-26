@@ -1,0 +1,105 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
+
+controllers:
+  main:
+    strategy: Recreate
+
+    containers:
+      main:
+        image:
+          repository: doitandbedone/ispyagentdvr
+          tag: 5.5.4.0
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "4"
+            gpu.intel.com/i915: "1"
+          requests:
+            memory: 256Mi
+            cpu: "250m"
+            gpu.intel.com/i915: "1"
+
+defaultPodOptions:
+  nodeSelector:
+    intel.feature.node.kubernetes.io/gpu: "true"
+
+service:
+  main:
+    type: LoadBalancer
+    controller: main
+    ports:
+      http:
+        targetPort: 8090
+        port: 80
+      turn:
+        protocol: UDP
+        targetPort: 3478
+        port: 3478
+      webrtc-00:
+        protocol: UDP
+        targetPort: 50000
+        port: 50000
+      webrtc-01:
+        protocol: UDP
+        targetPort: 50001
+        port: 50001
+      webrtc-02:
+        protocol: UDP
+        targetPort: 50002
+        port: 50002
+      webrtc-03:
+        protocol: UDP
+        targetPort: 50003
+        port: 50003
+      webrtc-04:
+        protocol: UDP
+        targetPort: 50004
+        port: 50004
+      webrtc-05:
+        protocol: UDP
+        targetPort: 50005
+        port: 50005
+      webrtc-06:
+        protocol: UDP
+        targetPort: 50006
+        port: 50006
+      webrtc-07:
+        protocol: UDP
+        targetPort: 50007
+        port: 50007
+      webrtc-08:
+        protocol: UDP
+        targetPort: 50008
+        port: 50008
+      webrtc-09:
+        protocol: UDP
+        targetPort: 50009
+        port: 50009
+      webrtc-10:
+        protocol: UDP
+        targetPort: 50010
+        port: 50010
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 256Mi
+    dataSourceRef:
+      kind: ReplicationDestination
+      apiGroup: volsync.backube
+      name: ispyagentdvr-config
+    advancedMounts:
+      main: 
+        main:
+          - path: /agent/Media/XML/
+
+  media:
+    type: "nfs"
+    server: "192.168.35.30"
+    path: "/mnt/tank/ISpyAgentDVR"
+    advancedMounts:
+      main: 
+        main:
+          - path: /agent/Media/WebServerRoot/Media/
