@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/zwave-js/zwave-js-ui
-          tag: 9.13.4
+          tag: 9.14.4
         env:
           TZ: "America/Toronto"
         securityContext:
