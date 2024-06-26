@@ -127,15 +127,15 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: tdarr-config-backup
+  name: tdarr-server-config-backup
   namespace: servarr
 spec:
-  sourcePVC: tdarr-config
+  sourcePVC: tdarr-server-config
   trigger:
     schedule: "0 0 * * *"
   restic:
     pruneIntervalDays: 14
-    repository: tdarr-config
+    repository: tdarr-server-config
     retain:
       hourly: 4
       daily: 14
@@ -301,52 +301,6 @@ spec:
       hourly: 4
       daily: 14
       weekly: 0
-      monthly: 0
-      yearly: 0
-    copyMethod: Snapshot
-    storageClassName: ceph-block
-    volumeSnapshotClassName: ceph-block
----
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationSource
-metadata:
-  name: cpas-coral-backup
-  namespace: ai
-spec:
-  sourcePVC: cpas-coral-config
-  trigger:
-    schedule: "0 0 * * 0"
-  restic:
-    pruneIntervalDays: 14
-    repository: cpas-coral-config
-    retain:
-      hourly: 0
-      daily: 0
-      weekly: 4
-      monthly: 0
-      yearly: 0
-    copyMethod: Snapshot
-    storageClassName: ceph-block
-    volumeSnapshotClassName: ceph-block
----
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationSource
-metadata:
-  name: cpas-config-backup
-  namespace: ai
-spec:
-  sourcePVC: cpas-config
-  trigger:
-    schedule: "0 0 * * 0"
-  restic:
-    pruneIntervalDays: 14
-    repository: cpas-config
-    retain:
-      hourly: 0
-      daily: 0
-      weekly: 4
       monthly: 0
       yearly: 0
     copyMethod: Snapshot
