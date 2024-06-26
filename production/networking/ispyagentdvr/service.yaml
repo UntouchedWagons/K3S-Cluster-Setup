@@ -24,7 +24,7 @@ spec:
         intel.feature.node.kubernetes.io/gpu: "true"
       containers:
         - name: ispyagentdvr
-          image: doitandbedone/ispyagentdvr:5.4.2.0
+          image: doitandbedone/ispyagentdvr:5.5.4.0
           resources:
             requests:
               memory: 256Mi
