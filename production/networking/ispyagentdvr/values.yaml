@@ -19,6 +19,8 @@ controllers:
             memory: 256Mi
             cpu: "250m"
             gpu.intel.com/i915: "1"
+        env:
+          TZ: "America/Toronto"
 
 defaultPodOptions:
   nodeSelector:
