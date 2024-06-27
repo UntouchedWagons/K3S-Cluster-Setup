@@ -57,6 +57,8 @@ dashboards:
       url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/OPNSense.json
     technitium:
       url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/Technitium.json
+    volsync:
+      url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/volsync.json
     zfs:
       url: https://raw.githubusercontent.com/UntouchedWagons/K3S-Cluster-Setup/main/dashboards/ZFS.json
 
