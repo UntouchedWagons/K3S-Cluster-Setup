@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: volsync
+  namespace: monitoring
+spec:
+  groups:
+    - name: volsync
+      rules:
+        - alert: VolsyncVolumeOutOfSync
+          annotations:
+            description: 'Backup job for PVC {{ $labels.obj_name }} in namespace {{ $labels.obj_namespace }} has failed.'
+            summary: PVC backup failed.
+          expr: |-
+            volsync_volume_out_of_sync == 1
+          labels:
+            severity: critical

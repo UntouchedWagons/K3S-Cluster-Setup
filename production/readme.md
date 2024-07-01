@@ -141,6 +141,7 @@ kubectl apply -f production/monitoring/exporter-flaresolverr/
 kubectl apply -f production/monitoring/exporter-linux/
 kubectl apply -f production/monitoring/exporter-opnsense/
 kubectl apply -f production/monitoring/exporter-proxmox/
+kubectl apply -f production/monitoring/volsync
 helm upgrade --install exporter-bazarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-bazarr/values.yaml
 helm upgrade --install exporter-lidarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-lidarr/values.yaml
 helm upgrade --install exporter-prowlarr bjw-s/app-template --namespace monitoring -f production/monitoring/exporter-prowlarr/values.yaml
