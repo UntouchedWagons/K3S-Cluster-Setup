@@ -10,7 +10,6 @@ helm repo add prometheus-community https://prometheus-community.github.io/helm-c
 helm repo add rook-release https://charts.rook.io/release
 helm repo add intel https://intel.github.io/helm-charts
 helm repo add node-feature-discovery https://kubernetes-sigs.github.io/node-feature-discovery/charts
-helm repo add grafana https://grafana.github.io/helm-charts
 helm repo add bjw-s https://bjw-s.github.io/helm-charts
 helm repo add jameswynn https://jameswynn.github.io/helm-charts
 helm repo add piraeus-charts https://piraeus.io/helm-charts
@@ -133,8 +132,9 @@ helm upgrade --install home-assistant bjw-s/app-template --namespace home-assist
 # Monitoring
 
 ```
-sops -d ./production/monitoring/prometheus/values.yaml | helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack --create-namespace --namespace monitoring --version 60.1.0 --values -
-helm upgrade --install grafana grafana/grafana --namespace monitoring --version 7.3.11 --values ./production/monitoring/grafana/values.yaml
+kubectl apply -f production/monitoring/namespace.yaml
+sops -d ./production/monitoring/prometheus/values.yaml | helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack --namespace monitoring --version 60.1.0 --values -
+helm upgrade --install grafana bjw-s/app-template --namespace monitoring -f production/monitoring/grafana/values.yaml
 kubectl apply -f production/monitoring/ceph/rule.yaml
 kubectl apply -f production/monitoring/exporter-idrac/
 kubectl apply -f production/monitoring/exporter-flaresolverr/

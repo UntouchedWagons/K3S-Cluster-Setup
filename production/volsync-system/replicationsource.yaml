@@ -306,3 +306,26 @@ spec:
     copyMethod: Snapshot
     storageClassName: ceph-block
     volumeSnapshotClassName: ceph-block
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: grafana-config-backup
+  namespace: monitoring
+spec:
+  sourcePVC: grafana-config
+  trigger:
+    schedule: "0 0 * * *"
+  restic:
+    pruneIntervalDays: 14
+    repository: grafana-config
+    retain:
+      hourly: 0
+      daily: 14
+      weekly: 0
+      monthly: 0
+      yearly: 0
+    copyMethod: Snapshot
+    storageClassName: ceph-block
+    volumeSnapshotClassName: ceph-block
