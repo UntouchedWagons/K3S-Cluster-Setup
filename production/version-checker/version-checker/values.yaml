@@ -14,6 +14,8 @@ ghcr:
 additionalLabels:
     use-sha.version-checker.io/version-checker: "false"
     use-metadata.version-checker.io/version-checker: "true"
+versionChecker:
+    testAllContainers: false
 sops:
     kms: []
     gcp_kms: []
@@ -29,8 +31,8 @@ sops:
             TWhodDRScHBlaENoNDBWMDRyczF4aFEKAiS9bnUgDg+f73m5ZDAhLZqjvOF7mkKQ
             HMVTiaWarxLi8WcwFd/N/LNKvAVSJVnbWVMjncjFBHiqchr5MjJzeQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-05T15:01:05Z"
-    mac: ENC[AES256_GCM,data:SFNal8os+ezb5/pt941I+ZlmxXgFAmk2VHrK1qM/tPrwllyXgxZk7kiFDv9P3wSWBl+GESSLk39Rk+D0uTOw14B0iYLl6r28elJPGZHDa8VrDSr7E3NRVMwuMnoVT+8dE1xyJt/9fGJ4plluptY994zu81CJNixW8x6tPBSZcQ4=,iv:7RHY03rAhg+Joln8JWBirBW7ejg4M3frAT+X96na7nM=,tag:SlgEoVk+yc2od1gYJlwK4A==,type:str]
+    lastmodified: "2024-07-04T23:00:03Z"
+    mac: ENC[AES256_GCM,data:P6YKCzO/AC4c+5Lc73pxooP2qPah2A3LPMoC9Ta9x48Ehu7ATzS+xPemd9dhwo5IrYAPJh3Q/XyRdCwONF7psBQaVNtNtxwcWerKzFQy0eIH7b2AoGFv2yDNtN8dGiDDf3QaslPHiGvwJYIkYqxgIjXaYsiEV5Ec0FuYkVvcTyU=,iv:vYnezTcU+9hKc6IOfUnbCj2ucA8jEow0AlHSLniopjc=,tag:RlDez69vVanh/M1j0vxQhQ==,type:str]
     pgp: []
     encrypted_regex: ^(token)$
-    version: 3.8.1
+    version: 3.9.0
