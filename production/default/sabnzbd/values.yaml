@@ -5,6 +5,9 @@ defaultPodOptions:
   securityContext:
     runAsUser: 568
     fsGroup: 568
+  annotations:
+    enable.version-checker.io/main: "true"
+    use-sha.version-checker.io/main: "false"
 
 controllers:
   main:

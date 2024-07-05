@@ -41,6 +41,9 @@ spec:
     metadata:
       labels:
         app: *app
+      annotations:
+        enable.version-checker.io/main: "true"
+        match-regex.version-checker.io/main: ^v\d+\.\d+\.\d+$
     spec:
       containers:
         - name: *app
@@ -90,7 +93,7 @@ spec:
     - targets:
       - brother_hl-2270dw.internal.untouchedwagons.com
       - camera-front-door.internal.untouchedwagons.com
-      - camera-side-door.internal.untouchedwagons.com
+      # - camera-side-door.internal.untouchedwagons.com
       - driveway.internal.untouchedwagons.com
       - netboot.internal.untouchedwagons.com
       - opnsense.internal.untouchedwagons.com

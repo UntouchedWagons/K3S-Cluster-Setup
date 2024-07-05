@@ -23,6 +23,10 @@ controllers:
 defaultPodOptions:
   nodeSelector:
     intel.feature.node.kubernetes.io/gpu: "true"
+  annotations:
+    enable.version-checker.io/main: "true"
+    # use-sha.version-checker.io/main: "false"
+    match-regex.version-checker.io/main: ^\d+\.\d+\.\d+$
 
 service:
   main:

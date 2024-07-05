@@ -18,6 +18,9 @@ spec:
     metadata:
       labels:
         app: exporter-proxmox
+      annotations:
+        enable.version-checker.io/main: "true"
+        match-regex.version-checker.io/main: ^\d+\.\d+\.\d+$
     spec:
       containers:
         - name: exporter-proxmox

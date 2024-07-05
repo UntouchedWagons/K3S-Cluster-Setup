@@ -4,6 +4,9 @@
 defaultPodOptions:
   securityContext:
     fsGroup: 472
+  annotations:
+    enable.version-checker.io/main: 'true'
+    match-regex.version-checker.io/main: ^v\d+\.\d+\.\d+$
 
 controllers:
   main:

@@ -2,6 +2,11 @@
 defaultPodOptions:
     securityContext:
         fsGroup: 568
+    annotations:
+        enable.version-checker.io/gluten: "true"
+        match-regex.version-checker.io/gluten: ^v\d+\.\d+\.\d+$
+        enable.version-checker.io/main: "true"
+        use-sha.version-checker.io/main: "false"
 controllers:
     main:
         strategy: Recreate
@@ -124,8 +129,8 @@ sops:
             dWtTc1Z6VkNMLzJSVDJ6WHphejhnNzQKDtvNyDAkFY9ZKVdHOO2vfEdhi92KOtq3
             JLzc2LW0tJqpZyL3aQgNSHZBa1bIKB3TTmyfGbg0TP+BhPfui29pbw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-09T23:02:33Z"
-    mac: ENC[AES256_GCM,data:CiWjbmoj3SFF73G5zYF+kof/dU6N5J0LH7SE4Pyl/XFWBHqZRdY/hFWbCqoSFWxN+WG08qCqUlhlobvAz09aMRBNcCZcZ6oyAnY41GtLUa4Fv5/uA46ttFTZxrxnHHUBx5YjcdW4QL9M3kOuu3rt3cgFLR5SKgvHpFyNiH/5wYQ=,iv:EP9m8h22uTxb0oBhdR60DpjvTLDQfReDz3u6XnO1ob0=,tag:FLJR8NylLhe4R507bZpzKA==,type:str]
+    lastmodified: "2024-07-05T01:04:28Z"
+    mac: ENC[AES256_GCM,data:sITJRX3lKD2XPTj4O2PfRIV7UUfT6YX0ZQARNh6h02Fsoc1zMknPn1vqGVOhwiuEoi9z2oAysZ/dOoVCbGIPRT3GrUigxo+tt/iWDYpdR1Cyc7kGzWt1QgQLIfD8QD+YZPiLRjEQe+kI5q3gR6gR6XPd8cjd1+qcrx2HEywKwCQ=,iv:eXHSroxz9Q3FlhVyB6icKYQ2G/mG88QXcb5DCqThgOk=,tag:jOcd0na98DJS7SUrHAVIng==,type:str]
     pgp: []
     encrypted_regex: ^(WIREGUARD_)
-    version: 3.8.1
+    version: 3.9.0

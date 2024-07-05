@@ -19,6 +19,9 @@ spec:
     metadata:
       labels:
         app: *app
+      annotations:
+        enable.version-checker.io/main: "true"
+        match-regex.version-checker.io/main: ^\d+\.\d+\.\d+$
     spec:
       containers:
         - name: *app

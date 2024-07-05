@@ -4,6 +4,9 @@
 defaultPodOptions:
   securityContext:
     fsGroup: 1000
+  annotations:
+    enable.version-checker.io/main: "true"
+    use-sha.version-checker.io/main: "false"
 
 controllers:
   main:

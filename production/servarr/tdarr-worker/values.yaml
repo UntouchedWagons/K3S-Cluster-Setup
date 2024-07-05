@@ -6,6 +6,9 @@ defaultPodOptions:
     fsGroup: 1000
   nodeSelector:
     intel.feature.node.kubernetes.io/gpu: "true"
+  annotations:
+    enable.version-checker.io/main: "true"
+    use-sha.version-checker.io/main: "false"
 
 controllers:
   main:
