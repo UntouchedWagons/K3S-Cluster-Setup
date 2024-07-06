@@ -3,15 +3,16 @@ defaultPodOptions:
     securityContext:
         fsGroup: 568
     annotations:
-        enable.version-checker.io/gluten: "true"
-        match-regex.version-checker.io/gluten: ^v\d+\.\d+\.\d+$
+        enable.version-checker.io/gluetun: "true"
+        match-regex.version-checker.io/gluetun: ^v\d+\.\d+\.\d+$
+        use-sha.version-checker.io/gluetun: "false"
         enable.version-checker.io/main: "true"
         use-sha.version-checker.io/main: "false"
 controllers:
     main:
         strategy: Recreate
         containers:
-            gluten:
+            gluetun:
                 image:
                     repository: qmcgaw/gluetun
                     tag: v3.38.0
@@ -23,11 +24,11 @@ controllers:
                 env:
                     VPN_SERVICE_PROVIDER: airvpn
                     VPN_TYPE: wireguard
-                    WIREGUARD_PRIVATE_KEY: ENC[AES256_GCM,data:gGwbu+1e82/Mc/3pY9oY695ZJNMm/AFyIq6ohrTfx9S1XiL9VMjgqH3KX4o=,iv:cZls55y0qKopTzgqArCLSxNUixybPtti2CqjTZdxqNQ=,tag:j4uLmjCsyVz3uwDTqG4few==,type:str]
-                    WIREGUARD_PRESHARED_KEY: ENC[AES256_GCM,data:jl5AvA95hpiDyb8TCxpgBkbF/J2+6G/II/gAAWMMDNKSBN9E9YdNFY7YZOQ=,iv:/0sWfJzQhpU44JTcOAM17Vs2Eie6q5tXexOpxRLuYEQ=,tag:bErMHJY89DqBQLH1oz7SIQ==,type:str]
-                    WIREGUARD_ADDRESSES: ENC[AES256_GCM,data:Ex7e6zJ3xWG/0QNrd57eoA==,iv:KBGpUZQRph+sRwgpOzVHeNmuG+UoMHvfcpmYKKw2jvI=,tag:AIoVeMTzg9rKrzdauOIitQ==,type:str]
+                    WIREGUARD_PRIVATE_KEY: ENC[AES256_GCM,data:z/g7hL5RZGso0T1pfCEhyG2UVzFkoTqe1puKTZrUhQJMM6beblrZ5StwiJM=,iv:mlUhV+gFkxfxGrMiiYnrnE+fYUE4ZBB0VwCV/AOWYsc=,tag:Cv8mgLQHD/fMxqy9OHbAhg==,type:str]
+                    WIREGUARD_PRESHARED_KEY: ENC[AES256_GCM,data:Wqb+wJBdElb8yfKLMXqBYYzV1YTPYxzz69dgRKlkhlxWoESQmh5atfv+g00=,iv:/BrKRaewNJaXAoxq74CEdGSjZWIxlLrvcjDhLBtnHMU=,tag:BGFUETmp5mN69DlCWVIg7Q==,type:str]
+                    WIREGUARD_ADDRESSES: ENC[AES256_GCM,data:wQh1pCmlP9BlrwgM5OIIxQ==,iv:1qNXIArRJJnX+3ILraptruvhSMj/pLu04DM5d+PAV0Q=,tag:B5NmmpBjdJcEfZL3rgbRdg==,type:str]
                     SERVER_COUNTRIES: Canada
-                    WIREGUARD_MTU: ENC[AES256_GCM,data:0wr4yw==,iv:it3BoVmK2gN9UwiL8VtLtURs6qf+bQyZAAOYlj2KxU0=,tag:ltQHOGe3eBz2OV5trKGowg==,type:str]
+                    WIREGUARD_MTU: ENC[AES256_GCM,data:bvUojA==,iv:V7B88ciEj8M4mcTuF/TK/j9XoDtCzK3ajiN7n+3LaQ4=,tag:xw142pP2Lfz8A2Ia6LCOUQ==,type:str]
                     FIREWALL_VPN_INPUT_PORTS: "41183"
                     FIREWALL_INPUT_PORTS: 8080,8888
                     FIREWALL_OUTBOUND_SUBNETS: 192.168.0.0/16
@@ -129,8 +130,8 @@ sops:
             dWtTc1Z6VkNMLzJSVDJ6WHphejhnNzQKDtvNyDAkFY9ZKVdHOO2vfEdhi92KOtq3
             JLzc2LW0tJqpZyL3aQgNSHZBa1bIKB3TTmyfGbg0TP+BhPfui29pbw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-07-05T01:04:28Z"
-    mac: ENC[AES256_GCM,data:sITJRX3lKD2XPTj4O2PfRIV7UUfT6YX0ZQARNh6h02Fsoc1zMknPn1vqGVOhwiuEoi9z2oAysZ/dOoVCbGIPRT3GrUigxo+tt/iWDYpdR1Cyc7kGzWt1QgQLIfD8QD+YZPiLRjEQe+kI5q3gR6gR6XPd8cjd1+qcrx2HEywKwCQ=,iv:eXHSroxz9Q3FlhVyB6icKYQ2G/mG88QXcb5DCqThgOk=,tag:jOcd0na98DJS7SUrHAVIng==,type:str]
+    lastmodified: "2024-07-05T17:14:49Z"
+    mac: ENC[AES256_GCM,data:7+/am3zcWzjKDqP9kzIIWVYa+hsmuUjp/QOFaQwJpJ4cFqEyBox6uBS6cNZJjL5alICsqC2fuL3r0HJGCiKY97wa2ZyQ+DuoTLqCM2eaJEsM8jlrnVPCXNE6jkvjfDe6jSeLIZlxpBjni//sAk+x+0I6dJEbDoLEYxpuK0q8W00=,iv:fzbzYFNRUKN5tSmFLcNRQXzpI7e85J1T31JFTiAYapg=,tag:UmdAIJW/KUrtZa8VhRSBIw==,type:str]
     pgp: []
     encrypted_regex: ^(WIREGUARD_)
     version: 3.9.0
