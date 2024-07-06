@@ -92,9 +92,9 @@ spec:
   staticConfigs:
     - targets:
       - brother_hl-2270dw.internal.untouchedwagons.com
-      - camera-front-door.internal.untouchedwagons.com
-      # - camera-side-door.internal.untouchedwagons.com
-      - driveway.internal.untouchedwagons.com
+      - camera-front-door.security.untouchedwagons.com
+      # - camera-side-door.security.untouchedwagons.com
+      - driveway.security.untouchedwagons.com
       - netboot.internal.untouchedwagons.com
       - opnsense.internal.untouchedwagons.com
       - rmcard205.internal.untouchedwagons.com

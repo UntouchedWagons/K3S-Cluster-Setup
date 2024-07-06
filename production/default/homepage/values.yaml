@@ -121,13 +121,13 @@ config:
     - Security:
         - Driveway camera:
             icon: mdi-cctv
-            href: https://driveway.internal.untouchedwagons.com
+            href: https://driveway.security.untouchedwagons.com
         - Front door camera:
             icon: mdi-cctv
-            href: https://Camera-Front-Door.internal.untouchedwagons.com
+            href: https://Camera-Front-Door.security.untouchedwagons.com
         - Side door camera:
             icon: mdi-cctv
-            href: https://Camera-Side-Door.internal.untouchedwagons.com
+            href: https://Camera-Side-Door.security.untouchedwagons.com
         - ISpyAgent DVR:
             icon: ispy.png
             href: http://192.168.35.53
