@@ -2,9 +2,12 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
 
 defaultPodOptions:
+  securityContext:
+    fsGroup: 0
   annotations:
     enable.version-checker.io/main: "true"
     match-regex.version-checker.io/main: ^\d+\.\d+\.\d+$
+    use-sha.version-checker.io/main: "false"
 
 controllers:
   main:
@@ -49,3 +52,17 @@ ingress:
       - hosts: 
         - untouchedwagons.com
         secretName: com-untouchedwagons-services
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 512Mi
+    dataSourceRef:
+      kind: ReplicationDestination
+      apiGroup: volsync.backube
+      name: vaultwarden-config
+    advancedMounts:
+      main: 
+        main:
+          - path: /data

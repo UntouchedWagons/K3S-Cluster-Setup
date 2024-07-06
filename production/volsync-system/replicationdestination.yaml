@@ -157,6 +157,28 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
+  name: vaultwarden-config
+  namespace: default
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: vaultwarden-config
+    copyMethod: Snapshot
+    storageClassName: ceph-block
+    cacheStorageClassName: ceph-block
+    volumeSnapshotClassName: ceph-block
+    cacheAccessModes:
+      - ReadWriteOnce
+    accessModes:
+      - ReadWriteOnce
+    cacheCapacity: 512Mi
+    capacity: 512Mi
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
   name: qbittorrent-config
   namespace: default
 spec:
