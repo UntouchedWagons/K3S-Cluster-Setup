@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: jellyfin/jellyfin
-          tag: 10.9.7
+          tag: 10.9.7-amd64.20240625-002012
         resources:
           limits:
             memory: 2048Mi
@@ -25,8 +25,7 @@ defaultPodOptions:
     intel.feature.node.kubernetes.io/gpu: "true"
   annotations:
     enable.version-checker.io/main: "true"
-    # use-sha.version-checker.io/main: "false"
-    match-regex.version-checker.io/main: ^\d+\.\d+\.\d+$
+    match-regex.version-checker.io/main: ^\d+\.\d+\.\d+-amd64
 
 service:
   main:
