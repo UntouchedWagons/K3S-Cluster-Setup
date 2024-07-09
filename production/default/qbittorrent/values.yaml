@@ -1,13 +1,11 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.1/charts/other/app-template/values.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.2.1/charts/other/app-template/values.schema.json
 defaultPodOptions:
     securityContext:
         fsGroup: 568
     annotations:
         enable.version-checker.io/gluetun: "true"
         match-regex.version-checker.io/gluetun: ^v\d+\.\d+\.\d+$
-        use-sha.version-checker.io/gluetun: "false"
         enable.version-checker.io/main: "true"
-        use-sha.version-checker.io/main: "false"
 controllers:
     main:
         strategy: Recreate
@@ -16,6 +14,7 @@ controllers:
                 image:
                     repository: qmcgaw/gluetun
                     tag: v3.38.0
+                    pullPolicy: Always
                 securityContext:
                     privileged: true
                     capabilities:
@@ -49,6 +48,7 @@ controllers:
                 image:
                     repository: ghcr.io/onedr0p/qbittorrent
                     tag: 4.6.4
+                    pullPolicy: Always
                 env:
                     QBITTORRENT__PORT: "8080"
                     QBITTORRENT__BT_PORT: "41183"
@@ -130,8 +130,8 @@ sops:
             dWtTc1Z6VkNMLzJSVDJ6WHphejhnNzQKDtvNyDAkFY9ZKVdHOO2vfEdhi92KOtq3
             JLzc2LW0tJqpZyL3aQgNSHZBa1bIKB3TTmyfGbg0TP+BhPfui29pbw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-07-05T17:14:49Z"
-    mac: ENC[AES256_GCM,data:7+/am3zcWzjKDqP9kzIIWVYa+hsmuUjp/QOFaQwJpJ4cFqEyBox6uBS6cNZJjL5alICsqC2fuL3r0HJGCiKY97wa2ZyQ+DuoTLqCM2eaJEsM8jlrnVPCXNE6jkvjfDe6jSeLIZlxpBjni//sAk+x+0I6dJEbDoLEYxpuK0q8W00=,iv:fzbzYFNRUKN5tSmFLcNRQXzpI7e85J1T31JFTiAYapg=,tag:UmdAIJW/KUrtZa8VhRSBIw==,type:str]
+    lastmodified: "2024-07-09T20:31:06Z"
+    mac: ENC[AES256_GCM,data:Kij+9/Eu2hXuZroa5UOgIXVLG/zrj1BCRxLGKvhEdwp5wG4Z+DtYBUqvpTYgrjF25bop9/ow82p8Vb7HQu0TfLaxJ0TTUcCcjiuubSh7hgUHg9SsG6C7TXhPZwarx0i+zVx9/nXFYMl5IdHIzJyxsSUJ5hYTZupSaGZiEjRH06w=,iv:DaQz9RrdAI/2wfuacaDy0S7Ko8vMALXvVXSxuypAsu8=,tag:p209U89iYlYkZK3aiY3vvg==,type:str]
     pgp: []
     encrypted_regex: ^(WIREGUARD_)
     version: 3.9.0
