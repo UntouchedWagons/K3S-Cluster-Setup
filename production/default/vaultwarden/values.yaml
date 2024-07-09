@@ -7,7 +7,6 @@ defaultPodOptions:
   annotations:
     enable.version-checker.io/main: "true"
     match-regex.version-checker.io/main: ^\d+\.\d+\.\d+$
-    use-sha.version-checker.io/main: "false"
 
 controllers:
   main:
@@ -17,7 +16,7 @@ controllers:
       main:
         image:
           repository: vaultwarden/server
-          tag: 1.30.5
+          tag: 1.31.0
         resources:
           limits:
             memory: 256Mi
