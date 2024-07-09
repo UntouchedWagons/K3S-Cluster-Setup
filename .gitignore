@@ -1,3 +1,4 @@
 talos/testing/secrets.yaml
 talos/testing/rendered
 talos/testing/rendered+nvidia
+production/*/*/.decrypted~values.yaml
