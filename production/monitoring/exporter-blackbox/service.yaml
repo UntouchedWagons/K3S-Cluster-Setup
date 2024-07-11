@@ -188,7 +188,6 @@ spec:
   staticConfigs:
     - targets:
       - netboot.internal.untouchedwagons.com:22
-      - pivpn.internal.untouchedwagons.com:22
       - k3s-prod-node-01.internal.untouchedwagons.com:22
       - k3s-prod-node-02.internal.untouchedwagons.com:22
       - k3s-prod-node-03.internal.untouchedwagons.com:22
