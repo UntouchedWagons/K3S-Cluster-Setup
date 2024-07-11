@@ -12,7 +12,6 @@ docker:
 ghcr:
     token: ENC[AES256_GCM,data:7TdxQ12c6fPOr+YxVUn9LsCRJyCFlBI3WAiKMT/doxcsp/xZSZb39g==,iv:Phdf0YTuvT1SxarkETrvuaPn4x5MD0UnhgjgczJ6mvQ=,tag:aYHx/3cYhPWwYZ/0lIOcMg==,type:str]
 additionalAnnotations:
-    use-sha.version-checker.io/version-checker: "false"
     use-metadata.version-checker.io/version-checker: "true"
 versionChecker:
     testAllContainers: false
@@ -31,8 +30,8 @@ sops:
             TWhodDRScHBlaENoNDBWMDRyczF4aFEKAiS9bnUgDg+f73m5ZDAhLZqjvOF7mkKQ
             HMVTiaWarxLi8WcwFd/N/LNKvAVSJVnbWVMjncjFBHiqchr5MjJzeQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-07-05T01:59:57Z"
-    mac: ENC[AES256_GCM,data:FOHIGsprSxs0oVlBNZ2o04Vc78Z4LvIlEowJjaDg4C3p0lKqbKB/NyiHNyH9sJf6OSekXhBROL5RZbLtX+fx3iB3ip7K1Svnolu3RQEPeaffyB0I9aQvWYlnZQtofTUxYuS3bGEvP7G8/LJyCsrgXLvVlSwBj5h/b3qsyhSB7Sk=,iv:4+P1fKmcMQbdgGwLvCgL8wTo6jGTsG0BENpWMeX/TZs=,tag:AA0QiwSppjD9zHUVjDQSIA==,type:str]
+    lastmodified: "2024-07-09T20:35:04Z"
+    mac: ENC[AES256_GCM,data:/wM2iIBlTbssUuTbxAoSl9Bk7kMC06gAipWbbPRURu/Tb7kLqwUd0ls94XiDKwT+4WDEH6MZECqBvmdh2XPXg+do+IB9eqvlsiOLC5faRwlzwi9MyEXl2zU1WdG0Yy/mIqDE/H6BvVPdeGXc9K7vaRoc9RkCEgQgcQreKS2Ckz4=,iv:5wxgqoBCo1+u2fq8e1+lE6azpPJUIqaerVlw07lpCMU=,tag:hX7Uwa9IDSxI/RD2gkzJUg==,type:str]
     pgp: []
     encrypted_regex: ^(token)$
     version: 3.9.0
