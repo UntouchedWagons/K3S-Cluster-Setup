@@ -1,0 +1,10 @@
+---
+machine:
+  install:
+    disk: /dev/vda
+    image: factory.talos.dev/installer/70fb923343260bfe3e419cfb7bfeb66719b973df0149da9f49ab7637971b1aef:v1.7.5
+
+  kernel:
+    modules:
+      - name: gasket
+      - name: apex
