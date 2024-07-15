@@ -96,8 +96,7 @@ networkpolicies:
     policyTypes:
       - Egress
     rules:
-      egress:
-        - {}
+      egress: []
 
 configMaps:
   file-browser:
