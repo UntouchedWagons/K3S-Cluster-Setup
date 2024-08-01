@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: backup-sabnzbd
+  namespace: default
+spec:
+  schedule: 0 20 * * *
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 30
+      template:
+        spec:
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                    - key: app.kubernetes.io/name
+                      operator: In
+                      values:
+                      - sabnzbd
+                  topologyKey: "kubernetes.io/hostname"
+          containers:
+            - name: backup
+              image: untouchedwagons/simple-backup:1.1.0
+              volumeMounts:
+                - mountPath: /data
+                  readOnly: true
+                  name: container-data
+                - mountPath: /backups
+                  name: backups
+              env:
+                - name: BACKUP_APPEND_DIRECTORY
+                  value: "/kubernetes/production/sabnzbd"
+                - name: BACKUP_BASE_NAME
+                  value: "sabnzbd"
+                - name: BACKUP_RETENTION
+                  value: "24"
+                - name: USE_CRON
+                  value: "false"
+          volumes:
+            - name: container-data
+              persistentVolumeClaim:
+                claimName: sabnzbd-config
+            - name: backups
+              nfs:
+                server: 192.168.35.30
+                path: /mnt/tank/Media/Backups
+          restartPolicy: Never
