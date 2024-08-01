@@ -14,7 +14,6 @@ spec:
     - targets:
       - vault.internal.untouchedwagons.com:9134
       - storage.internal.untouchedwagons.com:9134
-      - proxmox.internal.untouchedwagons.com:9134
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
