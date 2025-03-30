@@ -15,10 +15,7 @@ kubectl apply -f testing/metallb-system/ip-address-pool.yaml
 # Cert-manager
 
 ```
-helm repo add jetstack https://charts.jetstack.io
-helm repo update
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.5/cert-manager.crds.yaml
-helm upgrade --install cert-manager jetstack/cert-manager --create-namespace --namespace cert-manager --values testing/cert-manager/values.yaml --version v1.14.5
+helm upgrade --install cert-manager jetstack/cert-manager --create-namespace --namespace cert-manager --values testing/cert-manager/values.yaml --version v1.17.1
 sops -d ./testing/cert-manager/02-cert-manager.yaml | kubectl apply -f -
 ```
 
@@ -32,7 +29,7 @@ kubectl apply -f testing/default/mirrors/mirror-tls-secret.yaml
 # Nginx Ingress
 
 ```
-helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx --create-namespace --namespace nginx --version 4.10.1 --values testing/nginx/ingres-nginx/values.yaml
+helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx --create-namespace --namespace nginx --version 4.12.1 --values testing/nginx/ingres-nginx/values.yaml
 ```
 
 # Nginx
@@ -44,7 +41,7 @@ helm upgrade --install nginx bjw-s/app-template -f testing/default/nginx/values.
 # Longhorn
 
 ```
-helm upgrade --install longhorn longhorn/longhorn --namespace longhorn-system --create-namespace --version 1.6.2 --values testing/longhorn-system/values.yaml
+helm upgrade --install longhorn longhorn/longhorn --namespace longhorn-system --create-namespace --version 1.8.1 --values testing/longhorn-system/values.yaml
 ```
 
 # Volsync System

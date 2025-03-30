@@ -5,7 +5,7 @@ metadata:
     namespace: cert-manager
 type: Opaque
 stringData:
-    cloudflare-token: ENC[AES256_GCM,data:q6RcGW9YN+k565QTsV4ZUzE4tPOWEzyyJLiDlG1OxAPXt75WSiC05w==,iv:ne/I6UQRqPVROBXmcxiw+R3a9t71eBOrXRJpL9KihZI=,tag:s81zqdZuwWsK657CFiKCNw==,type:str]
+    cloudflare-token: ENC[AES256_GCM,data:vBZaHGuJDy9IB4gstKJTkceKkkp6X84dKma6hbKwgP79SliBUd6Spg==,iv:iQ5FU8eiePPpvJvYGZe/BYrusn9zmOJrLH+Fm4mEObE=,tag:p9sjPDtjRA0SXwQJE+gZjQ==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -21,11 +21,11 @@ sops:
             dFZScE1mUkFPVHFmbE5Sb2JDTVM0NlUKSKRN0EnHA4dnghkcCqi7ijxhownfE2PS
             yVjVfQk7MpGeXRlo9Pc8atyhWuKIP9AcxqVhQ5YcMmIoCOhxCC6OxA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-18T19:42:51Z"
-    mac: ENC[AES256_GCM,data:9c486pEsWF+1Dr0eYVoLPEyON4ZpugejzPPR8+DqADzp3Op/bayCSLykUY9whfH+mrrGxNkv13cY5nVXLuI4TFgFssCu20nQnIxfJgdTpFiwbA3p+4TIUakf7iSRHiEB6MTTjw0ODBH1dwjHIYBHX0YE4Ez2a7ZMJIZtZtR72F4=,iv:Rq2FUokT5PowH5B8H+HzUNuX0V4GewM0K9Xd+ZOQRnI=,tag:BAJni7gMsJ8g0cenkHbNBg==,type:str]
+    lastmodified: "2025-03-26T21:51:19Z"
+    mac: ENC[AES256_GCM,data:0XH3ea2QBwdMPvB2ghautKjzQYG7KRKr0dJPz3LNo8aIQCfKwxM4wyQg+XogLGTZxJyyn88S1v/6gC29oAu9A5dYKTI0e0y+KghSmgBNY6G/TFjXPaP3jtY51V1J2PxvvQD/unQV0MJ/xjfO42WnXEEEZV1kWhCQ4RpxuHfwzSY=,iv:n/ZQR4USwEmcKK9WAgbnUlP/Lk2/XHhNNDx/8o5e+4U=,tag:zCtU4W6QC0Y7IDV3Rk4K7g==,type:str]
     pgp: []
     encrypted_regex: ^(stringData|email)$
-    version: 3.8.1
+    version: 3.9.0
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -62,11 +62,11 @@ sops:
             dFZScE1mUkFPVHFmbE5Sb2JDTVM0NlUKSKRN0EnHA4dnghkcCqi7ijxhownfE2PS
             yVjVfQk7MpGeXRlo9Pc8atyhWuKIP9AcxqVhQ5YcMmIoCOhxCC6OxA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-18T19:42:51Z"
-    mac: ENC[AES256_GCM,data:9c486pEsWF+1Dr0eYVoLPEyON4ZpugejzPPR8+DqADzp3Op/bayCSLykUY9whfH+mrrGxNkv13cY5nVXLuI4TFgFssCu20nQnIxfJgdTpFiwbA3p+4TIUakf7iSRHiEB6MTTjw0ODBH1dwjHIYBHX0YE4Ez2a7ZMJIZtZtR72F4=,iv:Rq2FUokT5PowH5B8H+HzUNuX0V4GewM0K9Xd+ZOQRnI=,tag:BAJni7gMsJ8g0cenkHbNBg==,type:str]
+    lastmodified: "2025-03-26T21:51:19Z"
+    mac: ENC[AES256_GCM,data:0XH3ea2QBwdMPvB2ghautKjzQYG7KRKr0dJPz3LNo8aIQCfKwxM4wyQg+XogLGTZxJyyn88S1v/6gC29oAu9A5dYKTI0e0y+KghSmgBNY6G/TFjXPaP3jtY51V1J2PxvvQD/unQV0MJ/xjfO42WnXEEEZV1kWhCQ4RpxuHfwzSY=,iv:n/ZQR4USwEmcKK9WAgbnUlP/Lk2/XHhNNDx/8o5e+4U=,tag:zCtU4W6QC0Y7IDV3Rk4K7g==,type:str]
     pgp: []
     encrypted_regex: ^(stringData|email)$
-    version: 3.8.1
+    version: 3.9.0
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -97,8 +97,8 @@ sops:
             dFZScE1mUkFPVHFmbE5Sb2JDTVM0NlUKSKRN0EnHA4dnghkcCqi7ijxhownfE2PS
             yVjVfQk7MpGeXRlo9Pc8atyhWuKIP9AcxqVhQ5YcMmIoCOhxCC6OxA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-18T19:42:51Z"
-    mac: ENC[AES256_GCM,data:9c486pEsWF+1Dr0eYVoLPEyON4ZpugejzPPR8+DqADzp3Op/bayCSLykUY9whfH+mrrGxNkv13cY5nVXLuI4TFgFssCu20nQnIxfJgdTpFiwbA3p+4TIUakf7iSRHiEB6MTTjw0ODBH1dwjHIYBHX0YE4Ez2a7ZMJIZtZtR72F4=,iv:Rq2FUokT5PowH5B8H+HzUNuX0V4GewM0K9Xd+ZOQRnI=,tag:BAJni7gMsJ8g0cenkHbNBg==,type:str]
+    lastmodified: "2025-03-26T21:51:19Z"
+    mac: ENC[AES256_GCM,data:0XH3ea2QBwdMPvB2ghautKjzQYG7KRKr0dJPz3LNo8aIQCfKwxM4wyQg+XogLGTZxJyyn88S1v/6gC29oAu9A5dYKTI0e0y+KghSmgBNY6G/TFjXPaP3jtY51V1J2PxvvQD/unQV0MJ/xjfO42WnXEEEZV1kWhCQ4RpxuHfwzSY=,iv:n/ZQR4USwEmcKK9WAgbnUlP/Lk2/XHhNNDx/8o5e+4U=,tag:zCtU4W6QC0Y7IDV3Rk4K7g==,type:str]
     pgp: []
     encrypted_regex: ^(stringData|email)$
-    version: 3.8.1
+    version: 3.9.0
